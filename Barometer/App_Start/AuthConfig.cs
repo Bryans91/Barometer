@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Web.WebPages.OAuth;
 using Barometer.Models;
+using Barometer.OAuth;
 
 namespace Barometer
 {
@@ -27,6 +28,8 @@ namespace Barometer
             //    appSecret: "");
 
             //OAuthWebSecurity.RegisterGoogleClient();
+
+            OAuthWebSecurity.RegisterClient(new AvansOAuthClient("8eb6897018d2720f25a0ae5205c34619c35cedb3", "88599bb2917e737bca33c9daffe728a1f06783b0"), "Avans", null);
         }
     }
 }
