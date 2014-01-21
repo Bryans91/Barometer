@@ -1,0 +1,62 @@
+﻿<!--
+Requirements:
+Stap 5: Projectdocent opent nieuwe vragenlijst
+1.5.1 De gebruiker kan nieuwe vragenlijst aanmaken
+ 1.5.1.1 De gebruiker moet rechten hebben voor het maken van een nieuwe vragenlijst
+1.5.2 Het systeem kan standaard (opgeslagen) vragenlijst openen
+ 1.5.2.1 De gebruiker kan een standaard vragenlijst invoeren
+Stap 6: Projectdocent vult de buiten de standaard beoordelingscriteria de lijst in , gezien elk project 
+verschillende opdrachten heeft
+1.6.1 De gebruiker kan de beoordelingscriteria van de genereerde lijst aanpassen
+1.6.2 Het systeem registreert de nieuwe vragenlijst bij het huidige project
+ 1.6.2.1 Het systeem onthoudt de beoordelingscriteria van de vragenlijst
+-->
+
+@{
+    ViewBag.Title = "Maak vragenlijst";
+    ViewBag.Tag = "makequestionlist";
+}
+
+@section Styles {
+    <link href="@Url.Content("~/Content/pages/makequestionlist.css")" rel="stylesheet" type="text/css" />
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="@ViewBag.Tag">
+
+    <form name="@ViewBag.Tag" action="#" method="post">
+
+        <div class="loadquestionlist">
+            Laad bestaande vragenlijst 
+            <select name="tutor">
+                <option value="0">Geen vragenlijst</option>
+                <option value="1">Vragenlijst normaal</option>
+                <option value="2">Vragenlijst extra pittig</option>
+            </select>
+        </div>
+
+        <b>Onderwerp A</b> <span class="remove">(<a href="#">verwijder onderwerp</a>)</span><br />
+        <b>Vraag 1:</b> Welke vraag is dit? <span class="remove">(<a href="#">verwijder vraag</a>)</span><br />
+        <b>Vraag 2:</b> Hoeveel is 2+2? <span class="remove">(<a href="#">verwijder vraag</a>)</span><br />
+        <b>Vraag 3:</b> Welk vraagnummer is de volgende vraag? <span class="remove">(<a href="#">verwijder vraag</a>)</span><br />
+        <b>Vraag 4:</b> Op een schaal van 1 tot 10, hoe slecht is deze vragenlijst? <span class="remove">(<a href="#">verwijder vraag</a>)</span><br />
+        (<a href="#">Nieuw vraag toevoegen aan dit onderwerp</a>)<br />
+
+        <br /><b>Onderwerp B</b> <span class="remove">(<a href="#">verwijder onderwerp</a>)</span><br />
+        <b>Vraag 5:</b> Welke vraag is dit? <span class="remove">(<a href="#">verwijder vraag</a>)</span><br />
+        <b>Vraag 6:</b> Hoeveel is 2+2? <span class="remove">(<a href="#">verwijder vraag</a>)</span><br />
+        <b>Vraag 7:</b> Welk vraagnummer is de volgende vraag? <span class="remove">(<a href="#">verwijder vraag</a>)</span><br />
+        <b>Vraag 8:</b> Op een schaal van 1 tot 10, hoe slecht is deze vragenlijst? <span class="remove">(<a href="#">verwijder vraag</a>)</span><br />
+        (<a href="#">Nieuw vraag toevoegen aan dit onderwerp</a>)<br />
+
+        <br />(<a href="#">Nieuw onderwerp toevoegen</a>)<br /><br />
+
+        <div class="buttons">
+            <button type="submit">Accepteer</button>
+            <button type="submit">Ga terug</button>
+        </div>
+
+   </form>
+
+</div>

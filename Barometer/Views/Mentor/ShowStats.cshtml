@@ -1,0 +1,85 @@
+﻿<!--
+Requiments:
+Stap 4: Projectdocent geeft elke projectgroep een Tutor. Door bij elke projectgroep de naam van hun 
+tutor te selecteren.
+1.4.1 Het systeem weet welke docenten ook als tutor voorkomen
+1.4.2 De gebruiker kan nieuwe tutor toevoegen
+1.4.3 De gebruiker kan elk projectgroep een tutor toewijzen
+ 1.4.3.1 Het systeem geeft een lijst van tutors waar de gebruiker uit kan kiezen
+1.4.4 Het systeem registreert het nieuwe project
+ 1.4.4.1 Het systeem onthoudt de projectgroepen in het nieuwe project
+ 1.4.4.2 Het systeem onthoudt de link tussen tutor en projectgroep
+1.4.5 Het systeem meldt als een projectgroep nog geen tutor heeft
+-->
+
+@{
+    ViewBag.Title = "Laat voortgang student zien";
+    ViewBag.Tag = "showstats";
+}
+
+@section Styles {
+    <link href="@Url.Content("~/Content/pages/showstats.css")" rel="stylesheet" type="text/css" />
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="@ViewBag.Tag">
+
+    Zoek <input type="text" /> in 
+    <select>
+        <option>Studentnaam</option>
+        <option>Studentnummer</option>
+    </select>
+    <button value="zoek..">zoek..</button>
+
+    <div class="statsbox">
+        <div class="grade1">
+            <abbr title="Project WordFeud">6</abbr>
+        </div>
+        <div class="grade2">
+            <abbr title="Project Alpha">7</abbr>
+        </div>
+        <div class="grade3">
+            <abbr title="Project Barometer">7</abbr>
+        </div>
+        <div class="grade4">
+            <abbr title="Project Random">8</abbr>
+        </div>
+        <div class="grade5">
+            <abbr title="Project Beta">7</abbr>
+        </div>
+        <div class="grade6">
+            <abbr title="Project Charlie">6</abbr>
+        </div>
+        <div class="grade7">
+            <abbr title="Project Delta">5</abbr>
+        </div>
+        <div class="grade8">
+            <abbr title="Project Echo">6</abbr>
+        </div>
+    </div>
+
+    <div class="studentinfo">
+        <table>
+            <tr>
+                <td class="title">Naam:</td><td>Benny Bijl</td>
+            </tr>
+            <tr>
+                <td class="title">Studentnummer:</td><td>2052712</td>
+            </tr>
+            <tr>
+                <td class="title">Klas:</td><td>42in06SOg</td>
+            </tr>
+        </table>
+    </div>
+
+
+    <div class="clear">&nbsp;</div>
+    <div class="buttons">
+        <form name="@ViewBag.Tag" action="#" method="post">
+            <button type="submit">Accepteer</button>
+            <button type="submit">Ga terug</button>
+        </form>
+    </div>
+
+</div>

@@ -1,0 +1,19 @@
+﻿.groups
+{
+    float: left;
+    padding-left: 20px;
+    padding-right: 30px;
+}
+.groupmembers
+{
+    float: left;
+    padding-right: 10px;
+}
+.groupmembersid
+{
+    float: left;
+}
+.buttons
+{
+    text-align: center;
+}

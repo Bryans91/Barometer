@@ -1,0 +1,59 @@
+﻿<!--
+Stap 7: Projectdocent stelt de beoordelingsmomenten in
+1.7.1 De gebruiker kan de beoordelingsmomenten instellen
+ 1.7.1.1 De gebruiker kan het aantal beoordelingsmomenten instellen
+ 1.7.1.2 De gebruiker kan voor elke beoordelingsmoment een weeknummer invullen
+1.7.2 Het systeem weet voor elke beoordelingsmoment wat de begindatum is vanwege de weeknummer
+1.7.3 Het systeem onthoudt de beoordelingsmomenten
+ 1.7.3.1 Het systeem koppelt de beoordelingsmomenten aan het huidige project
+-->
+
+@{
+    ViewBag.Title = "Bepaal invulmomenten";
+    ViewBag.Tag = "determinefilldates";
+}
+
+@section Styles {
+    <link href="@Url.Content("~/Content/pages/determinefilldates.css")" rel="stylesheet" type="text/css" />
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="@ViewBag.Tag">
+
+    <form name="@ViewBag.Tag" action="#" method="post">
+
+        Project startdatum <input type="text" id="datepicker" /><br />
+        Aantal invulmomenten <input type="text" value="2" /><br />
+        Aantal projectweken <input type="text" value="4" /><br />
+        Invul momenten
+        <select>
+            <option>Week 1</option>
+            <option>Week 2</option>
+            <option>Week 3</option>
+            <option>Week 4</option>
+        </select>
+
+        <select>
+            <option>Week 1</option>
+            <option>Week 2</option>
+            <option>Week 3</option>
+            <option>Week 4</option>
+        </select>
+
+        <div class="buttons">
+            <button type="submit">Accepteer</button>
+            <button type="submit">Ga terug</button>
+        </div>
+
+   </form>
+
+</div>
+
+@section Scripts{
+ <script>
+     $(function () {
+         $("#datepicker").datepicker();
+     });
+</script>
+}

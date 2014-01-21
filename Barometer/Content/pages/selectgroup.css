@@ -1,0 +1,44 @@
+﻿a:hover
+{
+    text-decoration: underline;
+}
+.selectgroup
+{
+    padding-left: 20px;
+}
+.loadquestionlist
+{
+    padding-bottom: 10px;
+}
+.buttons
+{
+    text-align: center;
+}
+.remove
+{
+    font-size: 11px;
+}
+.projects
+{
+    float: left;
+    padding-left: 20px;
+    padding-right: 30px;
+}
+.groups
+{
+    float: left;
+    padding-right: 30px;
+}
+.groupmembers
+{
+    float: left;
+    padding-right: 10px;
+}
+.groupmembersid
+{
+    float: left;
+}
+.buttons
+{
+    text-align: center;
+}
