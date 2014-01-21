@@ -1,0 +1,322 @@
+﻿html, body, div, h1, h2, h3, h4, h5, h6, ul, ol, dl, li, dt, dd, p, blockquote,
+pre, form, fieldset, table, th, td, img { margin: 0px; padding: 0px; border: none; }
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+html {
+    margin-left: 1px;
+  }
+}
+body
+{
+  font-family: Verdana, Arial, Calibri, Helvetica, sans-serif;
+  font-size: 12pt;
+  background-color: #e4dcd1;
+  color: #000;
+}
+
+header, footer, nav, section {
+  display: block;
+}
+
+a
+{
+  text-decoration: none;
+  color: #777;
+}
+
+.content h2
+{
+    padding-bottom: 10px;
+}
+
+.clear
+{
+    clear: both;
+}
+
+.wrapper {
+  min-width: 980px;
+  max-width: 1200px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 0px auto;
+}
+
+.banner {
+    height: 100px;
+    padding: 5px;
+    background-color: #112;
+}
+
+.bannertable {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.logo {
+    text-align: right;
+    padding-right: 10px;
+}
+
+.barometer {
+    text-transform: uppercase;
+    text-align: left;
+    font-size: 32pt;
+    line-height: 70px;
+    color: #FFF;
+    font-weight: bold;
+}
+
+.infobar {
+  background-color: #112;
+  color: #FFF;
+  text-align: left;
+  font-size: 10pt;
+  padding-bottom: 10px;
+  padding-left: 6px;
+}
+
+.brownbar {
+  height: 5px;
+  background-color: #9c896f;
+  clear: both;
+}
+
+.navigation {
+  background-color: #e4dcd1;
+  height: 30px;
+}
+.navigation li {float: left;}
+.navigation ul
+{
+  list-style: none;
+  line-height: 30px;
+}
+.navigation ul A
+{
+  height: 30px;
+  padding: 5px;
+  display: block;
+  font-size: 18px;
+  font-family: BebasNeueRegular, Verdana, Arial, Helvetica, sans-serif;   
+  text-align: center;
+}
+.navigation A:hover{color: #333;}
+
+.content
+{
+  background-color: #FFF;
+  padding: 5px;
+}
+
+.addproject .content button {
+    font-weight: bold;
+    margin: 3px;
+    padding: 5px;
+    color: #333;
+    font-size: 13pt;
+    background-color: #9c896f;
+    border: none;
+    border-radius: 3px;
+}
+.content button:hover
+{
+    color: #000;
+    cursor: pointer;
+}
+.content button:active
+{
+    color: #777;
+}
+
+.buttons
+{
+    text-align: center;
+}
+
+.copyright
+{
+  font-family: BebasNeueRegular, Arial, Verdana, Calibri, Helvetica, sans-serif;
+  padding-top: 10px;
+  color: #777;
+  text-align: center;
+  font-size: 10pt;
+  text-shadow: 0px 1px 0px #FFF;
+  background-color: #FFF;
+}
+
+.avans
+{
+  color: #E21350;
+}
+
+/* ShowStats */
+.studentinfo
+{
+}
+.studentinfo .title
+{
+    text-align: right;
+    font-weight: bold;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.statsbox
+{
+  width: 501px; /* +1 for borders */
+  height: 201px;
+  margin: 10px;
+  background-color: #e4dcd1;
+  font-weight: bold;
+  border-left: 1px solid #000;
+  border-bottom: 1px solid #000;
+  position: relative;
+}
+.grade1
+{
+  width: 24px;
+  height: 120px;
+  bottom: 0px;
+  left: 0px;
+  background-color: #F0A309;
+  text-align: center;
+  position: absolute;
+  float: left;
+}
+.grade2
+{
+  width: 24px;
+  height: 140px;
+  bottom: 0px;
+  left: 25px;
+  background-color: #0F0;
+  text-align: center;
+  position: absolute;
+  float: left;
+}
+.grade3
+{
+  width: 24px;
+  height: 140px;
+  bottom: 0px;
+  left: 50px;
+  background-color: #0F0;
+  text-align: center;
+  position: absolute;
+  float: left;         
+}
+.grade4
+{
+  width: 24px;
+  height: 160px;
+  bottom: 0px;
+  left: 75px;
+  background-color: #0F0;
+  text-align: center;
+  position: absolute;
+  float: left;        
+}
+.grade5
+{
+  width: 24px;
+  height: 140px;
+  bottom: 0px;
+  left: 100px;
+  background-color: #0F0;
+  text-align: center;
+  position: absolute;
+  float: left;      
+}
+.grade6
+{
+  width: 24px;
+  height: 120px;
+  bottom: 0px;
+  left: 125px;
+  background-color: #F0A309;
+  text-align: center;
+  position: absolute;
+  float: left;      
+}
+.grade7
+{
+  width: 24px;
+  height: 100px;
+  bottom: 0px;
+  left: 150px;
+  background-color: #F00;
+  text-align: center;
+  position: absolute;
+  float: left;        
+}
+.grade8
+{
+  width: 24px;
+  height: 120px;
+  bottom: 0px;
+  left: 175px;
+  background-color: #F0A309;
+  text-align: center;
+  position: absolute;
+  float: left;        
+}
+
+@font-face {
+  font-family: 'BebasNeueRegular';
+  src: url('fonts/BebasNeue-webfont.eot');
+  src: url('fonts/BebasNeue-webfont.eot?#iefix') format('embedded-opentype'),
+       url('fonts/BebasNeue-webfont.woff') format('woff'),
+       url('fonts/BebasNeue-webfont.ttf') format('truetype'),
+       url('fonts/BebasNeue-webfont.svg#BebasNeueRegular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Styles for basic forms
+-----------------------------------------------------------*/
+fieldset {
+    border: 1px solid #ddd;
+    padding: 0 1.4em 1.4em 1.4em;
+    margin: 0 0 1.5em 0;
+}
+
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+textarea {
+    min-height: 75px;
+}
+
+.editor-label {
+    margin: 1em 0 0 0;
+}
+
+.editor-field {
+    margin: 0.5em 0 0 0;
+}
+
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error {
+    color: #f00;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #f00;
+    background-color: #fee;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #f00;
+}
+
+.validation-summary-valid {
+    display: none;
+}

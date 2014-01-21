@@ -1,0 +1,63 @@
+﻿<!--
+Requirements:
+Stap 3: Projectdocent accepteert de weergegeven informatie van het aantal groepen.
+1.3.1 De gebruiker kan een melding accepteren
+1.3.2 De gebruiker kan er voor kiezen om opnieuw te importeren
+1.3.3 Het systeem kan het aantal projectgroep met hun bijbehorende studenten weergeven
+ 1.3.3.1 Het systeem kan het per projectgroep apart weergeven
+-->
+
+@{
+    ViewBag.Title = "Lijst met toegevoegde groepen";
+    ViewBag.Tag = "checkprojectgroups";
+}
+
+@section Styles {
+    <link href="@Url.Content("~/Content/pages/checkprojectgroups.css")" rel="stylesheet" type="text/css" />
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="@ViewBag.Tag">
+
+    <div class="groups">
+        &raquo; <a href="#">Group A</a><br />
+        &raquo; <a href="#">Groep B</a><br />
+        &raquo; <a href="#">Groep C</a><br />
+        &raquo; <a href="#">Groep D</a><br />
+        &raquo; <a href="#">Groep E</a><br />
+        &raquo; <a href="#">Groep F</a><br />
+        &raquo; <a href="#"><b>Groep G</b></a><br />
+        &raquo; <a href="#">Groep H</a><br />
+    </div>
+    <div class="groupmembers">
+        Rawa Abdullah<br />
+        Benny Bijl<br />
+        Jeroen Broekhuizen<br />
+        Joep van den Broek<br />
+        Luuk de Bruin<br />
+        Alexander van Doorn<br />
+        Thomas Voogt<br />
+        Bryan Schreuder<br />
+        Solo Schekermans
+    </div>
+    <div class="groupmembersid">
+        (2065367)<br />
+        (2052712)<br />
+        (2036785)<br />
+        (2022613)<br />
+        (2055682)<br />
+        (2073675)<br />
+        (2036755)<br />
+        (2056754)<br />
+        (2051577)
+    </div>
+    <div class="clear"></div>
+    <div class="buttons">
+        <form name="@ViewBag.Tag" action="#" method="post">
+            <button type="submit">Accepteer</button>
+            <button type="submit">Ga terug</button>
+        </form>
+    </div>
+
+</div>

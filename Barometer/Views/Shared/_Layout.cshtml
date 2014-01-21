@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Barometer - @ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/jqueryui.css")
+    @RenderSection("Styles", false)
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @RenderSection("scripts", required: false)
+</head>
+<body>
+
+
+      <div class="wrapper">
+          <div class="banner">
+            <table class="bannertable">
+                <tr>
+                    <td rowspan="2" class="logo"><a href="~/Main/Index"><img src="~/Content/images/logobanner.png" /></a></td>
+                    <td class="barometer"><h2>Barometer</h2></td>
+                </tr>
+                <tr>
+                    <td class="infobar">
+                        <span class="notifications">
+                            Er zijn géén nieuwe meldingen
+                        </span>
+                        -
+                        <span class="userinfo">
+                            Ingelogt als <span class="username">Benny Bijl</span> (<span class="usertitle">@Html.ActionLink("Uitloggen", "Index", "Main")</span>)
+                        </span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    <div class="brownbar"></div>
+
+    <div class="navigation">
+      <ul>
+        <li>@Html.ActionLink("Home", "Index", "Main")</li>
+        <li>@Html.ActionLink("Vragenlijst invullen(Student)","FillList","Student")</li>
+        <li>@Html.ActionLink("Project aanmaken(ProjectDocent)","MakeProject","ProjectDocent")</li>
+        <li>@Html.ActionLink("Beoordeling invullen(Tutor)","SelectGroup","Tutor")</li>
+        <li>@Html.ActionLink("Beoordeling bekijken(Mentor)","SelectClass","Mentor")</li>
+        <li>@Html.ActionLink("About", "About", "Main")</li>
+        <li>@Html.ActionLink("Contact", "Contact", "Main")</li>
+      </ul>
+    </div>
+    
+    <div class="brownbar"></div>
+    
+    <div class="content">    
+
+        @RenderBody()
+         
+    </div>
+    
+    <div class="copyright">
+      Web application made for <a href="http://www.avans.nl"><span class="avans">Avans Hogeschool</span></a> &copy;
+    </div>
+    <div class="brownbar">
+    </div>
+  </div>
+
+</body>
+</html>
