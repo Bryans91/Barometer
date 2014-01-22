@@ -7,34 +7,34 @@ namespace Barometer.Models
 {
     public class Teacher
     {
-        public int Id { get; set; }
-        private int docentNumber;
-        private string firstName;
-        private string lastName;
+        public int _id { get; set; }
+        private int _teacherNumber;
+        private string _firstName;
+        private string _lastName;
 
-        public Teacher(int docentN, string fn, string ln)
+        public Teacher(int teacherNumber, string firstName, string lastName)
         {
-            docentNumber = docentN;
-            firstName = fn;
-            lastName = ln;
+            _teacherNumber = teacherNumber;
+            _firstName = firstName;
+            _lastName = lastName;
         }
         public string LastName
         {
-            get { return lastName; }
-            set { lastName = value; }
+            get { return _lastName; }
+            set { _lastName = value; }
         }
         
 
         public string FirstName
         {
-            get { return firstName; }
-            set { firstName = value; }
+            get { return _firstName; }
+            set { _firstName = value; }
         }
         
         public int DocentNumber
         {
-            get { return docentNumber; }
-            set { docentNumber = value; }
+            get { return _teacherNumber; }
+            set { _teacherNumber = value; }
         }
         
     }

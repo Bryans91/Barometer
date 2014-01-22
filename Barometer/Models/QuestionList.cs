@@ -7,24 +7,24 @@ namespace Barometer.Models
 {
     public class QuestionList
     {
-        private int id;
-        private List<SubjectQuestions> subjects;
+        private int _id;
+        private List<SubjectQuestions> _subjects;
 
         public QuestionList()
         {
-            subjects = new List<SubjectQuestions>();
+            _subjects = new List<SubjectQuestions>();
         }
 
         public int Id
         {
-            get { return id; }
-            set { id = value; }
+            get { return _id; }
+            set { _id = value; }
         }
         
         public List<SubjectQuestions> Subjects
         {
-            get { return subjects; }
-            set { subjects = value; }
+            get { return _subjects; }
+            set { _subjects = value; }
         }
         
        

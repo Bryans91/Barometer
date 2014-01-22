@@ -8,59 +8,59 @@ namespace Barometer.Models
 {
     public class Project
     {
-        private int id;
-        private string name;
-        private Teacher projectTeacher;
+        private int _id;
+        private string _name;
+        private Teacher _projectTeacher;
         [DataType(DataType.Date)]
-        private DateTime startDate;
+        private DateTime _startDate;
         [DataType(DataType.Date)]
-        private DateTime endDate;
-        private QuestionList qlist;
+        private DateTime _endDate;
+        private QuestionList _questionList;
 
         
-        public Project(string n, Teacher pt, DateTime sd, DateTime ed, QuestionList ql)
+        public Project(string name, Teacher projectTeacher, DateTime startDate, DateTime endDate, QuestionList questionList)
         {
-            name = n;
-            projectTeacher = pt;
-            startDate = sd;
-            endDate = ed;
-            qlist = ql;
+            _name = name;
+            _projectTeacher = projectTeacher;
+            _startDate = startDate;
+            _endDate = endDate;
+            _questionList = questionList;
         }
 
         public QuestionList Questionlist
         {
-            get { return qlist; }
-            set { qlist = value; }
+            get { return _questionList; }
+            set { _questionList = value; }
         }
 
         public int Id
         {
-            get { return id; }
-            set { id = value; }
+            get { return _id; }
+            set { _id = value; }
         }
         
         public string Name
         {
-            get { return name; }
-            set { name = value; }
+            get { return _name; }
+            set { _name = value; }
         }
 
         public Teacher ProjectTeacher
         {
-            get { return projectTeacher; }
-            set { projectTeacher = value; }
+            get { return _projectTeacher; }
+            set { _projectTeacher = value; }
         }
         
         public DateTime StartDate
         {
-            get { return startDate; }
-            set { startDate = value; }
+            get { return _startDate; }
+            set { _startDate = value; }
         }
           
         public DateTime EndDate
         {
-            get { return endDate; }
-            set { endDate = value; }
+            get { return _endDate; }
+            set { _endDate = value; }
         }
         
     }

@@ -7,32 +7,32 @@ namespace Barometer.Models
 {
     public class Question
     {
-        private int id;
-        private string name;
-        private string description;
+        private int _id;
+        private string _name;
+        private string _description;
 
-        public Question(string n, string d)
+        public Question(string name, string description)
         {
-            name = n;
-            description = d;
+            _name = name;
+            _description = description;
         }
 
         public int Id
         {
-            get { return id; }
-            set { id = value; }
+            get { return _id; }
+            set { _id = value; }
         }
 
         public string Name
         {
-            get { return name; }
-            set { name = value; }
+            get { return _name; }
+            set { _name = value; }
         }
 
         public string Description
         {
-            get { return description; }
-            set { description = value; }
+            get { return _description; }
+            set { _description = value; }
         }
         
     }

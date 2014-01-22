@@ -7,47 +7,47 @@ namespace Barometer.Models
 {
     public class ProjectGroup
     {
-        public int Id { get; set; }
-        private Project project;
-        private List<Student> projectStudents;
-        private Teacher tutor;
-        private string classCode;
+        public int _id { get; set; }
+        private Project _project;
+        private List<Student> _projectStudents;
+        private Teacher _tutor;
+        private string _classCode;
 
 
-        public ProjectGroup(Project baro, string klas, Teacher tut, List<Student> st)
+        public ProjectGroup(Project project, string group, Teacher tutor, List<Student> students)
         {
-            project = baro;
-            classCode = klas;
-            tutor = tut;
-            projectStudents = st;
+            _project = project;
+            _classCode = group;
+            _tutor = tutor;
+            _projectStudents = students;
         }
 
         public string ClassCode
         {
-            get { return classCode; }
-            set { classCode = value; }
+            get { return _classCode; }
+            set { _classCode = value; }
         }
         
 
 
         public Teacher Tutor
         {
-            get { return tutor; }
-            set { tutor = value; }
+            get { return _tutor; }
+            set { _tutor = value; }
         }
         
 
         public List<Student> ProjectStudents
         {
-            get { return projectStudents; }
-            set { projectStudents = value; }
+            get { return _projectStudents; }
+            set { _projectStudents = value; }
         }
         
 
         public Project Project
         {
-            get { return project; }
-            set { project = value; }
+            get { return _project; }
+            set { _project = value; }
         }
         
     }

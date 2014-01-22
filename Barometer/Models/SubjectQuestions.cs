@@ -7,35 +7,35 @@ namespace Barometer.Models
 {
     public class SubjectQuestions
     {
-        public int Id { get; set; }
-        private string subject;
-        private List<Question> questions;
-        private bool enabled;
+        public int _id { get; set; }
+        private string _subject;
+        private List<Question> _questions;
+        private bool _enabled;
 
-        public SubjectQuestions(string s, bool ena)
+        public SubjectQuestions(string subject, bool enabled)
         {
-            subject = s;
-            enabled = ena;
-            questions = new List<Question>();
+            _subject = subject;
+            _enabled = enabled;
+            _questions = new List<Question>();
         }
 
         public string Subject
         {
-            get { return subject; }
-            set { subject = value; }
+            get { return _subject; }
+            set { _subject = value; }
         }
         
         public bool Enabled
 	{
-		get { return enabled;}
-		set { enabled = value;}
+		get { return _enabled;}
+		set { _enabled = value;}
 	}
        
 
         public List<Question> Questions
         {
-            get { return questions; }
-            set { questions = value; }
+            get { return _questions; }
+            set { _questions = value; }
         }
         
     }
