@@ -5,14 +5,14 @@ namespace Barometer.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Barometer.Models.BaroDB>
+    internal sealed class Configuration : DbMigrationsConfiguration<Models.BaroDB>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(Barometer.Models.BaroDB context)
+        protected override void Seed(Models.BaroDB context)
         {
             //  This method will be called after migrating to the latest version.
 
