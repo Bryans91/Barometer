@@ -1,11 +1,10 @@
 ﻿@{
     ViewBag.Title = "About";
+    ViewBag.Message = "Dit project is gemaakt in opdracht van Avans Hogeschool. De opdrachtgever binnen Avans was Jos van Weert.";
 }
-
 @section Styles {
     <link href="@Url.Content("~/Content/pages/about.css")" rel="stylesheet" type="text/css" />
 }
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
 
-<h2>About</h2>
-
-<p>Hoi</p>
