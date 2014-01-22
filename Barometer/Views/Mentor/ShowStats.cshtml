@@ -20,6 +20,9 @@ tutor te selecteren.
 @section Styles {
     <link href="@Url.Content("~/Content/pages/showstats.css")" rel="stylesheet" type="text/css" />
 }
+@section Scripts {
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jqBarGraph.js")"></script>
+}
 
 <h2>@ViewBag.Title</h2>
 
@@ -32,32 +35,35 @@ tutor te selecteren.
     </select>
     <button value="zoek..">zoek..</button>
 
-    <div class="statsbox">
-        <div class="grade1">
-            <abbr title="Project WordFeud">6</abbr>
-        </div>
-        <div class="grade2">
-            <abbr title="Project Alpha">7</abbr>
-        </div>
-        <div class="grade3">
-            <abbr title="Project Barometer">7</abbr>
-        </div>
-        <div class="grade4">
-            <abbr title="Project Random">8</abbr>
-        </div>
-        <div class="grade5">
-            <abbr title="Project Beta">7</abbr>
-        </div>
-        <div class="grade6">
-            <abbr title="Project Charlie">6</abbr>
-        </div>
-        <div class="grade7">
-            <abbr title="Project Delta">5</abbr>
-        </div>
-        <div class="grade8">
-            <abbr title="Project Echo">6</abbr>
-        </div>
-    </div>
+ <div id="multiGraph"></div>
+
+	
+
+	<div id="stackedGraph"></div>
+
+<script>
+studentGrades = new Array(
+		[[7,4,5,3,5,6,6],'Project A'],
+		[[5,6,7,4,5,6,5],'Project Barometer'],
+		[[7,4,5,8,6,8,7],'Project C#'],
+        [[8,6,7,5,6,7,8],'Project Delphi'],
+		[[5,6,7,8,6,7,8],'Project E'],
+		[[6,9,6,8,7,7,6],'Project F']
+	);
+
+
+
+$("#multiGraph").jqBarGraph({
+	data: studentGrades,
+	colors: ['#3D0017','#6B0E1D','#AB2522','#3D0017','#6B0E1D','#AB2522','#AB2522'],
+	legends: ['Kennis van/over vaardigheden','Inzet/motivatie','Inzicht eigen functioneren',
+            'Samenwerken','Schriftelijk communiceren','Mondeling communiceren','Projectmatig werken'],
+	title: 'Cijfers'
+});
+
+</script>
+
+<br clear="all" />
 
     <div class="studentinfo">
         <table>
