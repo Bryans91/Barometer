@@ -47,7 +47,7 @@ namespace Barometer.OAuth
 
         protected override AuthenticationResult VerifyAuthenticationCore(AuthorizedTokenResponse response)
         {
-            var profileEndpoint = new MessageReceivingEndpoint("https://publicapi.avans.nl/oauth/api/user/?format=json", HttpDeliveryMethods.GetRequest);
+            var profileEndpoint = new MessageReceivingEndpoint("https://publicapi.avans.nl/oauth/api/studentnummer/?format=json", HttpDeliveryMethods.GetRequest);
             string accessToken = response.AccessToken;
 
             InMemoryOAuthTokenManager tokenManager = new InMemoryOAuthTokenManager(consumerKey, consumerSecret);
@@ -69,8 +69,8 @@ namespace Barometer.OAuth
                             var user = JsonConvert.DeserializeObject<List<OAuthUser>>(jsonText);
 
                             Dictionary<string, string> extraData = new Dictionary<string, string>();
-                            extraData.Add("Id", user[0].Id ?? "Onbekend");
-                            extraData.Add("Login", user[0].Login ?? "Onbekend");
+                            extraData.Add("Id", user[0].studentnummer ?? "Onbekend");
+                            extraData.Add("Login", user[0].inlognaam ?? "Onbekend");
                             return new DotNetOpenAuth.AspNet.AuthenticationResult(true, ProviderName, extraData["Id"], extraData["Login"], extraData);
                         }
                     }
