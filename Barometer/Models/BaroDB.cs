@@ -8,9 +8,9 @@ using System.Web.Mvc;
 
 namespace Barometer.Models
 {
-    public class Database:DbContext{
+    public class BaroDB:DbContext{
 
-        public Database()
+        public BaroDB()
             : base("DefaultConnection")
         {
         }
@@ -21,6 +21,7 @@ namespace Barometer.Models
         public DbSet<QuestionList> QuestionLists { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
+        public DbSet<SubjectQuestions> SubjectQuestions { get; set; }
 
 
 

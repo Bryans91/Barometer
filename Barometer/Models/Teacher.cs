@@ -11,8 +11,13 @@ namespace Barometer.Models
         private int docentNumber;
         private string firstName;
         private string lastName;
-        
 
+        public Teacher(int docentN, string fn, string ln)
+        {
+            docentNumber = docentN;
+            firstName = fn;
+            lastName = ln;
+        }
         public string LastName
         {
             get { return lastName; }

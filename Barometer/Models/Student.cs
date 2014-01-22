@@ -7,12 +7,34 @@ namespace Barometer.Models
 {
     public class Student
     {
+        public int Id { get; set; }
         private int studentnr;
-        private String firstName;
-        private String lastName;
-        private int projectId;
-        private int groepId;
+        private string firstName;
+        private string lastName;
+        private List<Project> projects;
+        private List<ProjectGroup> projectGroups;
         private int year;
+        private Teacher mentor;
+
+        
+        
+
+        public Student(int snr, string fn, string ln, int y, Teacher men)
+        {
+            studentnr = snr;
+            firstName = fn;
+            lastName = ln;
+            projects = new List<Models.Project>();
+            projectGroups = new List<Models.ProjectGroup>();
+            year = y;
+            mentor = men;
+
+        }
+        public Teacher Mentor
+        {
+            get { return mentor; }
+            set { mentor = value; }
+        }
         
 
         public int Year
@@ -21,16 +43,16 @@ namespace Barometer.Models
             set { year = value; }
         }
 
-        public int ProjectId
+        public List<Project> Project
         {
-            get { return projectId; }
-            set { projectId = value; }
+            get { return projects; }
+            set { projects = value; }
         }
 
-        public int GroupId
+        public List<ProjectGroup> ProjectGroup
         {
-            get { return groepId; }
-            set { groepId = value; }
+            get { return projectGroups; }
+            set { projectGroups = value; }
         }
 
         public int Studentnr
@@ -39,13 +61,13 @@ namespace Barometer.Models
             set { studentnr = value; }
         }
 
-        public String FirstName
+        public string FirstName
         {
             get { return firstName; }
             set { firstName = value; }
         }
 
-        public String LastName
+        public string LastName
         {
             get { return lastName; }
             set { lastName = value; }

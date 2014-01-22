@@ -8,9 +8,12 @@ namespace Barometer.Models
     public class QuestionList
     {
         private int id;
-        private int projectId;
-        private List<Question> questions;
-        
+        private List<SubjectQuestions> subjects;
+
+        public QuestionList()
+        {
+            subjects = new List<SubjectQuestions>();
+        }
 
         public int Id
         {
@@ -18,17 +21,13 @@ namespace Barometer.Models
             set { id = value; }
         }
         
-        public List<Question> Questions
+        public List<SubjectQuestions> Subjects
         {
-            get { return questions; }
-            set { questions = value; }
+            get { return subjects; }
+            set { subjects = value; }
         }
         
-        public int ProjectId
-        {
-            get { return projectId; }
-            set { projectId = value; }
-        }
+       
         
     }
 }

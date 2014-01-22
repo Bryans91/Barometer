@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Barometer.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,7 @@ namespace Barometer.Controllers
 {
     public class HomeController : Controller
     {
+        BaroDB db = new BaroDB();
         public ActionResult Index()
         {
             return View();

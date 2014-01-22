@@ -8,8 +8,14 @@ namespace Barometer.Models
     public class Question
     {
         private int id;
-        private String name;
-        private String description;
+        private string name;
+        private string description;
+
+        public Question(string n, string d)
+        {
+            name = n;
+            description = d;
+        }
 
         public int Id
         {
@@ -17,13 +23,13 @@ namespace Barometer.Models
             set { id = value; }
         }
 
-        public String Name
+        public string Name
         {
             get { return name; }
             set { name = value; }
         }
 
-        public String Description
+        public string Description
         {
             get { return description; }
             set { description = value; }
