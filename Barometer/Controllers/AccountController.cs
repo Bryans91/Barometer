@@ -13,10 +13,12 @@ using Microsoft.Web.WebPages.OAuth;
 using System.Web.Security;
 using DotNetOpenAuth.AspNet;
 using Barometer.OAuth;
+using Barometer.Filters;
 
 namespace Barometer.Controllers
 {
     [Authorize]
+    [InitializeSimpleMembership]
     public class AccountController : Controller
     {
 
