@@ -106,7 +106,7 @@
 		postfix = arr.postfix;
 		space = arr.barSpace; //space between bars
 		legendWidth = arr.legend ? arr.legendWidth : 0; //width of legend box
-		fieldWidth = ($(el).width()-legendWidth)/data.length; //width of bar
+		fieldWidth = ($(el).width()) / data.length; //fieldWidth = ($(el).width()-legendWidth)/data.length; //width of bar
 		totalHeight =  $(el).height(); //total height of graph box
 		var leg = new Array(); //legends array
 		
@@ -215,7 +215,7 @@
  		//position of legend
  		if(arr.legend){
 			$(el).append("<div id='legendHolder"+unique+"'></div>");
-	 		$('#legendHolder'+unique).css({ 'width': legendWidth, 'padding-top': '330px', 'clear': 'both', 'float': 'left', 'text-align' : 'left'});
+	 		$('#legendHolder'+unique).css({ 'width': legendWidth, 'padding-top': '340px', 'clear': 'both', 'float': 'left', 'text-align' : 'left'});
 	 		$('#legendHolder'+unique).append(legend);
 	 		$('.legendBar'+el.id).css({ 'float':'left', 'margin': 3, 'height': 12, 'width': 20, 'font-size': 0});
  		}
@@ -262,13 +262,13 @@
 		postfix: '',
 		animate: true,
 		speed: 1.5,
-		legendWidth: 250,
-		legend: false,
+		legendWidth: 500,
+		legend: true,
 		legends: false,
 		type: 'multi', // or 'multi'
 		showValues: true,
 		showValuesColor: '#fff',
-		title: true
+		title: false
 	};
 	
 	
