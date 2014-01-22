@@ -7,70 +7,70 @@ namespace Barometer.Models
 {
     public class Student
     {
-        public int Id { get; set; }
-        private int studentnr;
-        private string firstName;
-        private string lastName;
-        private List<Project> projects;
-        private List<ProjectGroup> projectGroups;
-        private int year;
-        private Teacher mentor;
+        public int _id { get; set; }
+        private int _studentnr;
+        private string _firstName;
+        private string _lastName;
+        private List<Project> _projects;
+        private List<ProjectGroup> _projectGroups;
+        private int _year;
+        private Teacher _mentor;
 
         
         
 
-        public Student(int snr, string fn, string ln, int y, Teacher men)
+        public Student(int studentNr, string firstName, string lastName, int year, Teacher mentor)
         {
-            studentnr = snr;
-            firstName = fn;
-            lastName = ln;
-            projects = new List<Models.Project>();
-            projectGroups = new List<Models.ProjectGroup>();
-            year = y;
-            mentor = men;
+            _studentnr = studentNr;
+            _firstName = firstName;
+            _lastName = lastName;
+            _projects = new List<Models.Project>();
+            _projectGroups = new List<Models.ProjectGroup>();
+            _year = year;
+            _mentor = mentor;
 
         }
         public Teacher Mentor
         {
-            get { return mentor; }
-            set { mentor = value; }
+            get { return _mentor; }
+            set { _mentor = value; }
         }
         
 
         public int Year
         {
-            get { return year; }
-            set { year = value; }
+            get { return _year; }
+            set { _year = value; }
         }
 
         public List<Project> Project
         {
-            get { return projects; }
-            set { projects = value; }
+            get { return _projects; }
+            set { _projects = value; }
         }
 
         public List<ProjectGroup> ProjectGroup
         {
-            get { return projectGroups; }
-            set { projectGroups = value; }
+            get { return _projectGroups; }
+            set { _projectGroups = value; }
         }
 
         public int Studentnr
         {
-            get { return studentnr; }
-            set { studentnr = value; }
+            get { return _studentnr; }
+            set { _studentnr = value; }
         }
 
         public string FirstName
         {
-            get { return firstName; }
-            set { firstName = value; }
+            get { return _firstName; }
+            set { _firstName = value; }
         }
 
         public string LastName
         {
-            get { return lastName; }
-            set { lastName = value; }
+            get { return _lastName; }
+            set { _lastName = value; }
         }
 
     }
