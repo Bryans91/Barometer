@@ -7,7 +7,7 @@ namespace Barometer.OAuth
 {
     public class OAuthUser
     {
-        public string Id { get; set; }
-        public string Login { get; set; }
+        public string studentnummer { get; set; }
+        public string inlognaam { get; set; }
     }
 }
