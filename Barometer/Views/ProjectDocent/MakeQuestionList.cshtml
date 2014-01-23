@@ -15,6 +15,7 @@ verschillende opdrachten heeft
 @{
     ViewBag.Title = "Maak vragenlijst";
     ViewBag.Tag = "makequestionlist";
+    ViewBag.DeleteQuestion = "(<a href=\"#\"><img src=\"@Url.Content(\"~/Content/images/min.gif\")\" /></a>)";
 }
 
 @section Styles {
@@ -36,11 +37,11 @@ verschillende opdrachten heeft
             </select>
         </div>
 
-        <b>Onderwerp A</b> <span class="remove">(<a href="#">verwijder onderwerp</a>)</span><br />
-        <b>Vraag 1:</b> Welke vraag is dit? <span class="remove">(<a href="#">verwijder vraag</a>)</span><br />
-        <b>Vraag 2:</b> Hoeveel is 2+2? <span class="remove">(<a href="#">verwijder vraag</a>)</span><br />
-        <b>Vraag 3:</b> Welk vraagnummer is de volgende vraag? <span class="remove">(<a href="#">verwijder vraag</a>)</span><br />
-        <b>Vraag 4:</b> Op een schaal van 1 tot 10, hoe slecht is deze vragenlijst? <span class="remove">(<a href="#">verwijder vraag</a>)</span><br />
+        <b>Onderwerp A</b> <span class="remove">(<a href="#"><img src="@Url.Content("~/Content/images/min.gif")" /></a>)</span><br />
+        <b>Vraag 1:</b> Welke vraag is dit? <span class="remove">(<a href="#"><img src="@Url.Content("~/Content/images/min.gif")" /></a>)</span><br />
+        <b>Vraag 2:</b> Hoeveel is 2+2? <span class="remove">(<a href="#"><img src="@Url.Content("~/Content/images/min.gif")" /></a>)</span><br />
+        <b>Vraag 3:</b> Welk vraagnummer is de volgende vraag? <span class="remove">(<a href="#"><img src="@Url.Content("~/Content/images/min.gif")" /></a>)</span><br />
+        <b>Vraag 4:</b> Op een schaal van 1 tot 10, hoe slecht is deze vragenlijst? <span class="remove">(<a href="#"><img src="@Url.Content("~/Content/images/min.gif")" /></a>)</span><br />
         (<a href="#">Nieuw vraag toevoegen aan dit onderwerp</a>)<br />
 
         <br /><b>Onderwerp B</b> <span class="remove">(<a href="#">verwijder onderwerp</a>)</span><br />
