@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
@@ -7,6 +8,7 @@ namespace Barometer.Models
 {
     public class Teacher
     {
+        [Key]
         public int _id { get; set; }
         private int _teacherNumber;
         private string _firstName;
