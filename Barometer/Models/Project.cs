@@ -8,6 +8,7 @@ namespace Barometer.Models
 {
     public class Project
     {
+        [Key]
         private int _id;
         private string _name;
         private Teacher _projectTeacher;
