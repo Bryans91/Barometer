@@ -8,8 +8,7 @@ namespace Barometer.Models
 {
     public class Student
     {
-        [Key]
-        public int _id { get; set; }
+        private int _id;
         private int _studentnr;
         private string _firstName;
         private string _lastName;
@@ -18,9 +17,6 @@ namespace Barometer.Models
         private int _year;
         private Teacher _mentor;
 
-        
-        
-        
         public Student(int studentNr, string firstName, string lastName, int year)//,Mentor mentor
         {
             _studentnr = studentNr;
@@ -32,6 +28,13 @@ namespace Barometer.Models
             //_mentor = mentor;
 
         }
+
+        public int Id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+
         public Teacher Mentor
         {
             get { return _mentor; }

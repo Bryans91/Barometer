@@ -8,8 +8,7 @@ namespace Barometer.Models
 {
     public class ProjectGroup
     {
-        [Key]
-        public int _id { get; set; }
+        private int _id;
         private Project _project;
         private List<Student> _projectStudents;
         private Teacher _tutor;
@@ -22,6 +21,12 @@ namespace Barometer.Models
             _classCode = group;
             _tutor = tutor;
             _projectStudents = students;
+        }
+
+        public int Id
+        {
+            get { return _id; }
+            set { _id = value; }
         }
 
         public string ClassCode

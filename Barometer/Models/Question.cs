@@ -8,7 +8,6 @@ namespace Barometer.Models
 {
     public class Question
     {
-        [Key]
         private int _id;
         private string _name;
         private string _description;
