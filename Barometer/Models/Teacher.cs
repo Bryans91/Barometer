@@ -20,6 +20,10 @@ namespace Barometer.Models
             _lastName = lastName;
         }
 
+        public Teacher()
+        {
+        }
+
         public int Id
         {
             get { return _id; }
