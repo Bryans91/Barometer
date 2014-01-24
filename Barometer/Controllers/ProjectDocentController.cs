@@ -68,7 +68,8 @@ namespace Barometer.Controllers
                         int.Parse(item.Field<String>("StudentNr")),
                         item.Field<String>("FirstName"),
                         item.Field<String>("LastName"),
-                        int.Parse(item.Field<String>("Year")));
+                        int.Parse(item.Field<String>("Year")), 
+                        null); // mentor
 
                     //Student stud = new Student();
                     //stud.Id = int.Parse(item.Field<String>("Id"));
@@ -78,13 +79,29 @@ namespace Barometer.Controllers
 
                     students.Add(stud);
                 }
-
+                List<Student> studentsToAdd = students;
                 foreach (Student stud in students)
                 {
-                    _db.Students.Add(stud);
+                    var model = from r in _db.Students
+                                where r.Studentnr == stud.Studentnr
+                                select r;
+                    studentsToAdd.Remove(model.FirstOrDefault());
+
+
                 }
 
-                // Insert in database from List  
+                // Insert non-existing students into database
+                foreach (Student s in studentsToAdd)
+                {
+                    _db.Students.Add(s);
+                }
+
+                foreach (Student st in students)
+                {
+
+                }
+
+                //
 
                 _db.SaveChanges();
                 //return RedirectToAction("ShowStudents", students);
