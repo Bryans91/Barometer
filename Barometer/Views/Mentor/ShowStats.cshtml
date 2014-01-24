@@ -17,16 +17,63 @@ tutor te selecteren.
     ViewBag.Tag = "showstats";
 }
 
+
+<script>
+    $(function () {
+        var availableTags = [
+        "ActionScript",
+        "AppleScript",
+        "Asp",
+        "BASIC",
+        "C",
+        "C++",
+        "Clojure",
+        "COBOL",
+        "ColdFusion",
+        "Erlang",
+        "Fortran",
+        "Groovy",
+        "Haskell",
+        "Java",
+        "JavaScript",
+        "Lisp",
+        "Perl",
+        "PHP",
+        "Python",
+        "Ruby",
+        "Scala",
+        "Scheme"
+        ];
+        $("#tags").autocomplete({
+            source: availableTags
+        });
+    });
+</script>
+
 @section Styles {
     <link href="@Url.Content("~/Content/pages/showstats.css")" rel="stylesheet" type="text/css" />
 }
 @section Scripts {
     <script type="text/javascript" src="@Url.Content("~/Scripts/jqBarGraph.js")"></script>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 }
 
 <h2>@ViewBag.Title</h2>
 
 <div class="@ViewBag.Tag">
+
+    <form method="get" action="" enctype="multipart/form-data" >
+        <table>
+            <tr>
+                <td>Zoek</td>
+                <td><input id="tags" name="inputdata" type="text" /> </td>
+                <td><input type="submit" value="Toon Student" /></td>
+            </tr>
+        </table>
+    </form>
+
+
 
     Zoek <input type="text" /> in 
     <select>
@@ -35,6 +82,12 @@ tutor te selecteren.
     </select>
     <button value="zoek..">zoek..</button>
     <br /><br />
+
+
+
+
+
+
     <div class="studentinfo">
         <table>
             <tr>
