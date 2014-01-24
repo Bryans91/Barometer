@@ -68,7 +68,8 @@ namespace Barometer.Controllers
                         int.Parse(item.Field<String>("StudentNr")),
                         item.Field<String>("FirstName"),
                         item.Field<String>("LastName"),
-                        int.Parse(item.Field<String>("Year")));
+                        int.Parse(item.Field<String>("Year")), 
+                        null); // mentor
 
                     //Student stud = new Student();
                     //stud.Id = int.Parse(item.Field<String>("Id"));

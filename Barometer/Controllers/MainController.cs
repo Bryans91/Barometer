@@ -16,6 +16,7 @@ namespace Barometer.Controllers
 
         public ActionResult Index()
         {
+
             return View();
         }
 

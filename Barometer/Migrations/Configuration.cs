@@ -1,5 +1,7 @@
 namespace Barometer.Migrations
 {
+
+    using Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -14,18 +16,20 @@ namespace Barometer.Migrations
 
         protected override void Seed(Models.BaroDB context)
         {
-            //  This method will be called after migrating to the latest version.
+            Teacher t1 = new Teacher(12, "Marieke", "Versteijlen");
+            Teacher t2 = new Teacher(13, "Jos", "Weert, van");
+            Teacher t3 = new Teacher(14, "Ger", "Saris");
+            Teacher t4 = new Teacher(15, "Angelique", "Boogaard, van den");
+            Teacher t5 = new Teacher(16, "Bob", "Bus");
+            Student s1 = new Student(2053429, "Jeroen", "Broekhuizen", 2, null);
+            context.Teachers.AddOrUpdate(new Teacher[] { t1, t2, t3, t4, t5 });
+            context.Students.AddOrUpdate(s1);
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            context.SaveChanges();
+            
+            //s1.Mentor = t2;
+
+
         }
     }
 }
