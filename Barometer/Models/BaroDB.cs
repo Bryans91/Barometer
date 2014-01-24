@@ -23,7 +23,14 @@ namespace Barometer.Models
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<SubjectQuestions> SubjectQuestions { get; set; }
 
-
+        
+        public Student SearchStudentByStudentNumber(int studentnr)
+        {
+            var model = from s in this.Students
+                        where s.Studentnr == studentnr
+                        select s;
+            return model.First();
+        }
 
     }
 }
