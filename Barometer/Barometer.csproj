@@ -369,9 +369,11 @@
     <Content Include="Views\Tutor\FillForm.cshtml" />
     <Content Include="Views\Tutor\SelectGroup.cshtml" />
     <Content Include="Views\Account\_RemoveAccountPartial.cshtml" />
+    <Content Include="Views\ProjectDocent\ShowStudents.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="upload\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

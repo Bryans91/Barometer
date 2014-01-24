@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -7,7 +8,7 @@ namespace Barometer.Models
 {
     public class ProjectGroup
     {
-        public int _id { get; set; }
+        private int _id;
         private Project _project;
         private List<Student> _projectStudents;
         private Teacher _tutor;
@@ -20,6 +21,12 @@ namespace Barometer.Models
             _classCode = group;
             _tutor = tutor;
             _projectStudents = students;
+        }
+
+        public int Id
+        {
+            get { return _id; }
+            set { _id = value; }
         }
 
         public string ClassCode

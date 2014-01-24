@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -7,7 +8,7 @@ namespace Barometer.Models
 {
     public class SubjectQuestions
     {
-        public int _id { get; set; }
+        private int _id;
         private string _subject;
         private List<Question> _questions;
         private bool _enabled;
@@ -17,6 +18,12 @@ namespace Barometer.Models
             _subject = subject;
             _enabled = enabled;
             _questions = new List<Question>();
+        }
+
+        public int Id
+        {
+            get { return _id; }
+            set { _id = value; }
         }
 
         public string Subject
