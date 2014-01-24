@@ -12,7 +12,6 @@ namespace Barometer.Controllers
     public class ProjectDocentController : Controller
     {
         BaroDB _db = new BaroDB();
-
         //
         // GET: /ProjectDocent/
 
@@ -57,53 +56,58 @@ namespace Barometer.Controllers
                     }
                 }
                 // Insert CSV data in List  
+                //var myEnumerable = dt.AsEnumerable();
+                //foreach (var item in myEnumerable)
+                //{
 
+                //    Student stud = new Student(
+                //        int.Parse(item.Field<String>("StudentNr")),
+                //        item.Field<String>("FirstName"),
+                //        item.Field<String>("LastName"),
+                //        int.Parse(item.Field<String>("Year")), 
+                //        null); // mentor
+                //    stud.ProjectGroup.Add(
+                //        new ProjectGroup(null, item.Field<String>("ProjectGroup"),null ,null )); 
+                //        // moet nog aangevuld worden
+
+                //    students.Add(stud);
+                //}
+
+                ProjectGroup currentGroup;
                 var myEnumerable = dt.AsEnumerable();
                 foreach (var item in myEnumerable)
                 {
-                    // set the CSV file column with my class  
-                    // here it is Important that all field should be string when your inset in DB  
+                    string pgroup = item.Field<String>("ProjectGroup");
 
-                    Student stud = new Student(
-                        int.Parse(item.Field<String>("StudentNr")),
-                        item.Field<String>("FirstName"),
-                        item.Field<String>("LastName"),
-                        int.Parse(item.Field<String>("Year")), 
-                        null); // mentor
-
-                    //Student stud = new Student();
-                    //stud.Id = int.Parse(item.Field<String>("Id"));
-                    //stud.FirstName = item.Field<String>("FirstName");
-                    //stud.LastName = item.Field<String>("LastName");
-                    //stud.StudentNr = int.Parse(item.Field<String>("StudentNr"));
-
-                    students.Add(stud);
-                }
-                List<Student> studentsToAdd = students;
-                foreach (Student stud in students)
-                {
-                    var model = from r in _db.Students
-                                where r.Studentnr == stud.Studentnr
+                    var model = from r in _db.ProjectGroups
+                                where r.ClassCode == pgroup
                                 select r;
-                    studentsToAdd.Remove(model.FirstOrDefault());
-
-
+                    currentGroup = model.FirstOrDefault();
                 }
+                //List<Student> studentsToAdd = students;
+                //foreach (Student stud in students)
+                //{
+                //    var model = from r in _db.Students
+                //                where r.Studentnr == stud.Studentnr
+                //                select r;
+                //    studentsToAdd.Remove(model.FirstOrDefault());
+                //    //model.FirstOrDefault().ProjectGroup.Add(stud.ProjectGroup);
+                //}
 
-                // Insert non-existing students into database
-                foreach (Student s in studentsToAdd)
-                {
-                    _db.Students.Add(s);
-                }
+                //// Insert non-existing students into database
+                //foreach (Student s in studentsToAdd)
+                //{
+                //    _db.Students.Add(s);
+                //}
 
-                foreach (Student st in students)
-                {
+                //foreach (Student st in students)
+                //{
 
-                }
+                //}
 
                 //
 
-                _db.SaveChanges();
+                //_db.SaveChanges();
                 //return RedirectToAction("ShowStudents", students);
             }
             return RedirectToAction("ShowStudents", students);

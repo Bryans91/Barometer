@@ -19,6 +19,10 @@ namespace Barometer.Models
             _description = description;
         }
 
+        public Question()
+        {
+        }
+
         public int Id
         {
             get { return _id; }

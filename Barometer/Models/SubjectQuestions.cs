@@ -20,6 +20,10 @@ namespace Barometer.Models
             _questions = new List<Question>();
         }
 
+        public SubjectQuestions()
+        {
+        }
+
         public int Id
         {
             get { return _id; }
