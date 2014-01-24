@@ -48,11 +48,11 @@ tutor te selecteren.
                     <table>
                         <tr>
                             <td class="title">Naam:</td>
-                            <td>Model.FirstName</td>
+                            <td>@Model.First().FirstName @Model.First().LastName </td>
                         </tr>
                         <tr>
                             <td class="title">Studentnummer:</td>
-                            <td>Model.Studentnr</td>
+                            <td>@Model.First().Studentnr</td>
                         </tr>
                     </table>
                 </div>
@@ -95,15 +95,15 @@ tutor te selecteren.
                             Naam
                         </td>
                     </tr>
-                    foreach(Student s in Model){
+                    @foreach(var s in Model){
                     <tr>
                         <td>
-                            s.Studentnr
+                            @s.Studentnr                                  
                         </td>
                         <td>
-                            s.FirstName s.LastName
+                            @s.FirstName @s.LastName
                         </td>
-                    </tr>
+                    </tr>    
                     }
                 </table>
             }
