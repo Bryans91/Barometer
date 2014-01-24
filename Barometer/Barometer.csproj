@@ -318,7 +318,9 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -357,9 +359,6 @@
     <Content Include="Views\Main\About.cshtml" />
     <Content Include="Views\Main\Contact.cshtml" />
     <Content Include="Views\Main\Index.cshtml" />
-    <Content Include="Views\Mentor\SelectClass.cshtml" />
-    <Content Include="Views\Mentor\SelectStudent.cshtml" />
-    <Content Include="Views\Mentor\ShowStats.cshtml" />
     <Content Include="Views\ProjectDocent\AddTutorToGroup.cshtml" />
     <Content Include="Views\ProjectDocent\CheckProjectGroups.cshtml" />
     <Content Include="Views\ProjectDocent\DetermineFillDates.cshtml" />
@@ -368,7 +367,9 @@
     <Content Include="Views\Student\FillList.cshtml" />
     <Content Include="Views\Tutor\FillForm.cshtml" />
     <Content Include="Views\Tutor\SelectGroup.cshtml" />
+    <Content Include="Views\Account\_RemoveAccountPartial.cshtml" />
     <Content Include="Views\ProjectDocent\ShowStudents.cshtml" />
+    <Content Include="Views\Mentor\ShowStats.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
