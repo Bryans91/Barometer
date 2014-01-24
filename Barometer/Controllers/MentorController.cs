@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Barometer.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,19 +11,10 @@ namespace Barometer.Controllers
     {
         //
         // GET: /Mentor/
-
-        public ActionResult SelectClass()
-        {
-            return View();
-        }
-
-        public ActionResult SelectStudent()//selecteer student om de voortgang te zien
-        {
-            return View(); 
-        }
-
+        BaroDB _db = new BaroDB();
         public ActionResult ShowStats()//laat voortgang van geselecteerde studenten zien
         {
+            var model = _db.Students.ToList();
             return View();
         }
 

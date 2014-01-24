@@ -1,5 +1,16 @@
-﻿@{
+﻿@model IEnumerable<Barometer.Models.Question>
+
+@{
     ViewBag.Title = "FillList";
 }
+
+@foreach (var item in Model)
+{
+    //unfinished(no questions yet)
+    <h4>@item.Name</h4>
+    <p>@item.Description</p>
+    <hr />
+}
+
 
 <h2>FillList</h2>
