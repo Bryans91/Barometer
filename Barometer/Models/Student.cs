@@ -29,6 +29,10 @@ namespace Barometer.Models
 
         }
 
+        public Student()
+        {
+        }
+
         public int Id
         {
             get { return _id; }
