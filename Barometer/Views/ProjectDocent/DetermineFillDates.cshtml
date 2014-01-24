@@ -23,23 +23,10 @@ Stap 7: Projectdocent stelt de beoordelingsmomenten in
 
     <form name="@ViewBag.Tag" action="#" method="post">
 
-        Project startdatum <input type="text" id="datepicker" /><br />
-        Aantal invulmomenten <input type="text" value="2" /><br />
-        Aantal projectweken <input type="text" value="4" /><br />
-        Invul momenten
-        <select>
-            <option>Week 1</option>
-            <option>Week 2</option>
-            <option>Week 3</option>
-            <option>Week 4</option>
-        </select>
-
-        <select>
-            <option>Week 1</option>
-            <option>Week 2</option>
-            <option>Week 3</option>
-            <option>Week 4</option>
-        </select>
+        Project startdatum <input type="text" class="datepicker" id="startdate" /><br />
+        <span class="enddate">Project einddatum <input type="text" class="datepicker" id="enddate" /></span><br />
+        <span class="fillmoments">Aantal invulmomenten <span class="fillselect"></span></span><br />
+        <span class="filldate">Invul weken <span class="filldateselect"></span></span>
 
         <div class="buttons">
             <button type="submit">Accepteer</button>
@@ -52,8 +39,73 @@ Stap 7: Projectdocent stelt de beoordelingsmomenten in
 
 @section Scripts{
  <script>
-     $(function () {
-         $("#datepicker").datepicker();
-     });
+    $(function () {
+        $(".datepicker").datepicker(
+        {
+            dateFormat: "dd-mm-yy",
+            dayNamesMin: ["Zo", "Ma", "Di", "Wo", "Do", "Vr", "Za"],
+            firstDay: 1,
+            minDate: 0
+        });
+    });
+</script>
+    <script>
+        $(document).ready(function () {
+            $("#startdate").change(function () {
+
+                var startDate = $("#startdate").datepicker("getDate");
+
+                $("#enddate").datepicker("option", "minDate", $("#startdate").datepicker("getDate"));
+                $(".enddate").fadeIn(400);
+            });
+        });
+</script>
+<script>
+    $(document).ready(function () {
+        $("#enddate").change(function () {
+            var startDate = $("#startdate").datepicker("getDate");
+            var endDate = $("#enddate").datepicker("getDate");
+            var dayDiff = (Math.abs((startDate - endDate) / 86400000));
+
+            $(".fillselect").empty();
+
+            var weekNumbers = Math.abs(dayDiff / 7);
+
+            var sel = $("<select  onchange=\"callFillmoments(this);\">").appendTo($(".fillselect"));
+            for (var i = 0; i < weekNumbers; i++) {
+                if (i == 0) {
+                    sel.append($("<option>").attr('value', i).text(" "));
+                }
+                else {
+                    sel.append($("<option>").attr('value', i).text(i));
+                }
+            }
+
+            $(".fillmoments").fadeIn(400);
+        });
+    });
+</script>
+<script>
+    function callFillmoments(value) {
+        var aantal = value.value;
+        var startDate = $("#startdate").datepicker("getDate");
+        var endDate = $("#enddate").datepicker("getDate");
+        var dayDiff = (Math.abs((startDate - endDate) / 86400000));
+
+        $(".filldateselect").empty();
+
+        var weekNumbers = Math.abs(dayDiff / 7);
+
+        //HIERGOED
+
+        for (var i = 0; i < aantal; i++) {
+            var sel = $("<select>").appendTo($(".filldateselect"));
+            for (var x = 0; x < weekNumbers; x++) {
+                sel.append($("<option>").attr('value', x).text(x));
+            }
+        }
+
+        $(".filldate").fadeIn(400);
+    }
 </script>
 }
