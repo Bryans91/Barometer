@@ -34,12 +34,12 @@ namespace Barometer.Migrations
             ProjectGroup pg1 = new ProjectGroup("42IN06SOg", p1);
             List<Student> students = new List<Student>();
             students.AddRange(new Student[] { s1, s2, s3, s4, s5, s6, s7, s8 });
-            pg1.ProjectStudents.AddRange(students);
+            //pg1.ProjectStudents.AddRange(students);
 
-            foreach (Student s in students)
-            {
-                s.ProjectGroup.Add(pg1);
-            }
+            //foreach (Student s in students)
+            //{
+            //    s.ProjectGroup.Add(pg1);
+            //}
 
 
 

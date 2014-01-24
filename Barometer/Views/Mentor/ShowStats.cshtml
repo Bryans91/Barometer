@@ -1,6 +1,6 @@
 ﻿<!--
 Requiments:
-Stap 4: Projectdocent geeft elke projectgroep een Tutor. Door bij elke projectgroep de naam van hun 
+Stap 4: Projectdocent geeft elke projectgroep een Tutor. Door bij elke projectgroep de naam van hun
 tutor te selecteren.
 1.4.1 Het systeem weet welke docenten ook als tutor voorkomen
 1.4.2 De gebruiker kan nieuwe tutor toevoegen
@@ -17,6 +17,7 @@ tutor te selecteren.
     ViewBag.Tag = "showstats";
 }
 
+
 @section Styles {
     <link href="@Url.Content("~/Content/pages/showstats.css")" rel="stylesheet" type="text/css" />
 }
@@ -28,53 +29,91 @@ tutor te selecteren.
 
 <div class="@ViewBag.Tag">
 
-    Zoek <input type="text" /> in 
-    <select>
-        <option>Studentnaam</option>
-        <option>Studentnummer</option>
-    </select>
-    <button value="zoek..">zoek..</button>
-    <br /><br />
-    <div class="studentinfo">
+    <form method="post" action="" enctype="multipart/form-data">
         <table>
             <tr>
-                <td class="title">Naam:</td><td>Benny Bijl</td>
-            </tr>
-            <tr>
-                <td class="title">Studentnummer:</td><td>2052712</td>
-            </tr>
-            <tr>
-                <td class="title">Klas:</td><td>42in06SOg</td>
+                <td> Zoek </td>
+                <td> <input name="searchTerm" type="text" /> </td>
+                <td> <input type="submit" value="Toon Student" /> </td>
             </tr>
         </table>
-    </div>
-
- <div id="multiGraph"></div>
-
-	
-
-	<div id="stackedGraph"></div>
-
-<script>
-studentGrades = new Array(
-		[[7,4,5,3,5,6,6],'Project Archer'],
-		[[5,6,7,4,5,6,5],'Project Barometer'],
-		[[7,4,5,8,6,8,7],'Project C#'],
-        [[8,6,7,5,6,7,8],'Project Delphi'],
-		[[5,6,7,8,6,7,8],'Project Elephant'],
-		[[6,9,6,8,7,7,6],'Project Food']
-	);
+    </form>
 
 
+    @{
+        if (Model != null) { 
+            if (Model.Count() == 1)
+            {
+                <div class="studentinfo">
+                    <table>
+                        <tr>
+                            <td class="title">Naam:</td>
+                            <td>@Model.First().FirstName @Model.First().LastName </td>
+                        </tr>
+                        <tr>
+                            <td class="title">Studentnummer:</td>
+                            <td>@Model.First().Studentnr</td>
+                        </tr>
+                    </table>
+                </div>
 
-$("#multiGraph").jqBarGraph({
-	data: studentGrades,
-	colors: ['#67000d', '#cc4c02', '#cb181d', '#993404', '#ef3b2c', '#662506', '#fb6a4a'],
-	legends: ['Kennis van/over vaardigheden','Inzet/motivatie','Inzicht eigen functioneren',
-            'Samenwerken','Schriftelijk communiceren','Mondeling communiceren','Projectmatig werken']
-});
+                <div id="multiGraph"></div>
 
-</script>
+
+
+                <div id="stackedGraph"></div>
+
+                <script>
+                    studentGrades = new Array(
+                            [[7, 4, 5, 3, 5, 6, 6], 'Project Archer'],
+                            [[5, 6, 7, 4, 5, 6, 5], 'Project Barometer'],
+                            [[7, 4, 5, 8, 6, 8, 7], 'Project C#'],
+                            [[8, 6, 7, 5, 6, 7, 8], 'Project Delphi'],
+                            [[5, 6, 7, 8, 6, 7, 8], 'Project Elephant'],
+                            [[6, 9, 6, 8, 7, 7, 6], 'Project Food']
+                        );
+
+
+
+                    $("#multiGraph").jqBarGraph({
+                        data: studentGrades,
+                        colors: ['#67000d', '#cc4c02', '#cb181d', '#993404', '#ef3b2c', '#662506', '#fb6a4a'],
+                        legends: ['Kennis van/over vaardigheden', 'Inzet/motivatie', 'Inzicht eigen functioneren',
+                                'Samenwerken', 'Schriftelijk communiceren', 'Mondeling communiceren', 'Projectmatig werken']
+                    });
+
+                </script>
+            }
+            else if(Model.Count() > 1)
+            {
+                <table>
+                    <tr>
+                        <td>
+                            Studentnummer
+                        </td>
+                        <td>
+                            Naam
+                        </td>
+                    </tr>
+                    @foreach(var s in Model){
+                    <tr>
+                        <td>
+                            @s.Studentnr                                  
+                        </td>
+                        <td>
+                            @s.FirstName @s.LastName
+                        </td>
+                    </tr>    
+                    }
+                </table>
+            }
+        }
+        else
+        {
+            <p><br />Geen student geselecteerd</p>
+        }
+
+    }
 
     <div class="clear">&nbsp;</div>
     <div class="buttons">

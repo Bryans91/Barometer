@@ -12,10 +12,24 @@ namespace Barometer.Controllers
         //
         // GET: /Mentor/
         BaroDB _db = new BaroDB();
-        public ActionResult ShowStats()//laat voortgang van geselecteerde studenten zien
+
+
+        public ActionResult ShowStats()
         {
-            var model = _db.Students.ToList();
+
             return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult ShowStats(string searchTerm = null)//laat voortgang van geselecteerde studenten zien
+        {
+            var model = _db.Students
+                .OrderByDescending(s => s.LastName)
+                .Where(s => searchTerm == null || s.FirstName.StartsWith(searchTerm) || s.LastName.StartsWith(searchTerm))
+                .Take(10).ToList();
+
+            return View(model);
         }
 
 

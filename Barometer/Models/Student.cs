@@ -30,6 +30,10 @@ namespace Barometer.Models
 
         }
 
+        public Student()
+        {
+        }
+
 
         public Teacher Mentor
         {
