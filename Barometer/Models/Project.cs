@@ -27,6 +27,10 @@ namespace Barometer.Models
             _questionList = questionList;
         }
 
+        public Project()
+        {
+        }
+
         public QuestionList Questionlist
         {
             get { return _questionList; }

@@ -28,6 +28,10 @@ namespace Barometer.Models
             _projectStudents = students;
         }
 
+        public ProjectGroup()
+        {
+        }
+
         public int Id
         {
             get { return _id; }
