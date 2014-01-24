@@ -17,7 +17,7 @@ namespace Barometer.Models
         private int _year;
         private Teacher _mentor;
 
-        public Student(int studentNr, string firstName, string lastName, int year)//,Mentor mentor
+        public Student(int studentNr, string firstName, string lastName, int year, Teacher mentor)//,Mentor mentor
         {
             _studentnr = studentNr;
             _firstName = firstName;
@@ -25,7 +25,7 @@ namespace Barometer.Models
             _projects = new List<Models.Project>();
             _projectGroups = new List<Models.ProjectGroup>();
             _year = year;
-            //_mentor = mentor;
+            _mentor = mentor;
 
         }
 
