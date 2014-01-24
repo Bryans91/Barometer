@@ -73,41 +73,66 @@ namespace Barometer.Controllers
                 //    students.Add(stud);
                 //}
 
+                Project currentProject = new Project();
                 ProjectGroup currentGroup;
+                Student currentStudent;
+                List<ProjectGroup> groupsToAdd = new List<ProjectGroup>();
+                List<Student> studentsToAdd = new List<Student>();
                 var myEnumerable = dt.AsEnumerable();
                 foreach (var item in myEnumerable)
                 {
                     string pgroup = item.Field<String>("ProjectGroup");
+                    int studnr = int.Parse(item.Field<String>("StudentNr"));
 
-                    var model = from r in _db.ProjectGroups
+                    var groupModel = from r in _db.ProjectGroups
                                 where r.ClassCode == pgroup
                                 select r;
-                    currentGroup = model.FirstOrDefault();
+                    currentGroup = groupModel.FirstOrDefault();
+
+                    //var studentModel = from r in _db.Students
+                    //            where r.Studentnr == studnr
+                    //            select r;
+                    currentStudent = _db.Students.Find(studnr);
+
+                    if (currentGroup == null)
+                    {
+                        ProjectGroup newGroup = new ProjectGroup(pgroup, currentProject);
+                        groupsToAdd.Add(newGroup);
+                        currentGroup = newGroup;
+                    }
+                    else
+                        groupsToAdd.Add(currentGroup);
+
+                    if ( currentStudent == null)
+                    {
+                        Student newStudent = new Student(
+                            int.Parse(item.Field<String>("StudentNr")),
+                            item.Field<String>("FirstName"),
+                            item.Field<String>("LastName"),
+                            int.Parse(item.Field<String>("Year")), 
+                            null); // mentor
+                            newStudent.ProjectGroup.Add(
+                                new ProjectGroup(null, item.Field<String>("ProjectGroup"),null ,null )); 
+                        studentsToAdd.Add(newStudent);
+                        currentStudent = newStudent;
+                    }
+                    else
+                        studentsToAdd.Add(currentStudent);
+
+                    currentStudent.ProjectGroup.Add(currentGroup);
+                    currentGroup.ProjectStudents.Add(currentStudent);                  
                 }
-                //List<Student> studentsToAdd = students;
-                //foreach (Student stud in students)
-                //{
-                //    var model = from r in _db.Students
-                //                where r.Studentnr == stud.Studentnr
-                //                select r;
-                //    studentsToAdd.Remove(model.FirstOrDefault());
-                //    //model.FirstOrDefault().ProjectGroup.Add(stud.ProjectGroup);
-                //}
 
-                //// Insert non-existing students into database
-                //foreach (Student s in studentsToAdd)
-                //{
-                //    _db.Students.Add(s);
-                //}
+                foreach (Student stud in studentsToAdd)
+                {
+                    _db.Students.Add(stud);
+                }
+                foreach (ProjectGroup group in groupsToAdd)
+                {
+                    _db.ProjectGroups.Add(group);
+                }
 
-                //foreach (Student st in students)
-                //{
-
-                //}
-
-                //
-
-                //_db.SaveChanges();
+                _db.SaveChanges();
                 //return RedirectToAction("ShowStudents", students);
             }
             return RedirectToAction("ShowStudents", students);
