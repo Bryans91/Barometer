@@ -32,8 +32,8 @@ namespace Barometer.Migrations
 
             Project p1 = new Project("Barometer", t1, new DateTime(2013, 11, 01), new DateTime(2014, 02, 07), null);
             ProjectGroup pg1 = new ProjectGroup("42IN06SOg", p1);
-            List<Student> students = new List<Student>();
-            students.AddRange(new Student[] { s1, s2, s3, s4, s5, s6, s7, s8 });
+            //List<Student> students = new List<Student>();
+            //students.AddRange();
             //pg1.ProjectStudents.AddRange(students);
 
             //foreach (Student s in students)
@@ -49,7 +49,7 @@ namespace Barometer.Migrations
 
 
             context.Teachers.AddOrUpdate(new Teacher[] { t1, t2, t3, t4, t5 });
-            context.Students.AddOrUpdate(students.ToArray());
+            context.Students.AddOrUpdate(new Student[] { s1, s2, s3, s4, s5, s6, s7, s8 });
             context.Projects.AddOrUpdate(p1);
             context.ProjectGroups.AddOrUpdate(pg1);
 

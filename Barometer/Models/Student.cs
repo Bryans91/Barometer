@@ -32,6 +32,9 @@ namespace Barometer.Models
 
         public Student()
         {
+            _projects = new List<Models.Project>();
+            _projectGroups = new List<Models.ProjectGroup>();
+
         }
 
 
