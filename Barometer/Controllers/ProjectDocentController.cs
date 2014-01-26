@@ -111,8 +111,7 @@ namespace Barometer.Controllers
                             item.Field<String>("LastName"),
                             int.Parse(item.Field<String>("Year")), 
                             null); // mentor
-                            newStudent.ProjectGroup.Add(
-                                new ProjectGroup(null, item.Field<String>("ProjectGroup"),null ,null )); 
+ 
                         studentsToAdd.Add(newStudent);
                         currentStudent = newStudent;
                     }
