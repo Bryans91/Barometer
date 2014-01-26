@@ -84,6 +84,8 @@ namespace Barometer.Controllers
                     string pgroup = item.Field<String>("ProjectGroup");
                     int studnr = int.Parse(item.Field<String>("StudentNr"));
 
+                    currentStudent = _db.Students.Find(studnr);
+
                     var groupModel = from r in _db.ProjectGroups
                                 where r.ClassCode == pgroup
                                 select r;
@@ -92,7 +94,7 @@ namespace Barometer.Controllers
                     //var studentModel = from r in _db.Students
                     //            where r.Studentnr == studnr
                     //            select r;
-                    currentStudent = _db.Students.Find(studnr);
+                    
 
                     if (currentGroup == null)
                     {
@@ -101,7 +103,8 @@ namespace Barometer.Controllers
                         currentGroup = newGroup;
                     }
                     else
-                        groupsToAdd.Add(currentGroup);
+                        if (!currentGroup.ClassCode.Equals(currentGroup.ClassCode))
+                            groupsToAdd.Add(currentGroup);
 
                     if ( currentStudent == null)
                     {
@@ -118,8 +121,11 @@ namespace Barometer.Controllers
                     else
                         studentsToAdd.Add(currentStudent);
 
-                    currentStudent.ProjectGroup.Add(currentGroup);
-                    currentGroup.ProjectStudents.Add(currentStudent);                  
+                    if (currentStudent != null && currentGroup != null)
+                    {
+                        currentStudent.ProjectGroup.Add(currentGroup);
+                        currentGroup.ProjectStudents.Add(currentStudent);
+                    }               
                 }
 
                 foreach (Student stud in studentsToAdd)

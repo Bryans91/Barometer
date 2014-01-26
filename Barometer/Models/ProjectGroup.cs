@@ -18,6 +18,7 @@ namespace Barometer.Models
         {
             _classCode = classCode;
             _project = project;
+            _projectStudents = new List<Student>();
         }
 
         public ProjectGroup(Project project, string group, Teacher tutor, List<Student> students)
