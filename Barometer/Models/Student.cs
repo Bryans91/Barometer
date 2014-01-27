@@ -14,7 +14,7 @@ namespace Barometer.Models
         private string _firstName;
         private string _lastName;
         private List<Project> _projects;
-        private List<ProjectGroup> _projectGroups;
+        private ICollection<ProjectGroup> _projectGroups;
         private int _year;
         private Teacher _mentor;
 
@@ -57,7 +57,7 @@ namespace Barometer.Models
             set { _projects = value; }
         }
 
-        public List<ProjectGroup> ProjectGroup
+        public ICollection<ProjectGroup> ProjectGroup
         {
             get { return _projectGroups; }
             set { _projectGroups = value; }
