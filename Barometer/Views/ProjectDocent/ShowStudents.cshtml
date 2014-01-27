@@ -8,11 +8,12 @@
 
 <p>
     @Html.ActionLink("Create New", "Create")
+    @ViewBag.ex
 </p>
 <table>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Id)
+            
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Year)
@@ -31,9 +32,9 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
+@*        <td>
             @Html.DisplayFor(modelItem => item.Id)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.Year)
         </td>
