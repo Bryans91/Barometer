@@ -53,25 +53,31 @@ namespace Barometer.Controllers
                 return RedirectToAction("ExternalLoginFailure");
             }
 
-            if (OAuthWebSecurity.Login(result.Provider, result.ProviderUserId, createPersistentCookie: false))
-            {
-                return RedirectToLocal(returnUrl);
-            }
+            //if (OAuthWebSecurity.Login(result.Provider, result.ProviderUserId, createPersistentCookie: false))
+            //{
+            //    return RedirectToLocal(returnUrl);
+            //}
 
-            if (User.Identity.IsAuthenticated)
+            //else
+            //{
+            //    // User is new, ask for their desired membership name
+            //    string loginData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);
+            //    ViewBag.LoginProvider = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
+            //    ViewBag.ReturnUrl = returnUrl;
+            //    BaroDB db = new BaroDB();
+            //    Student student = db.SearchStudentByStudentNumber(int.Parse(result.ProviderUserId));
+            //    string name = student.FirstName + " " + student.LastName;
+            //    return View("ExternalLoginConfirmation", new RegisterExternalLoginModel { UserName = name, ExternalLoginData = loginData });
+            //}
+
+            if (Session["currentUser"] == null)
             {
-                // If the current user is logged in add the new account
-                OAuthWebSecurity.CreateOrUpdateAccount(result.Provider, result.ProviderUserId, User.Identity.Name);
-                return RedirectToLocal(returnUrl);
+                BaroDB db = new BaroDB();
+                Student student = db.SearchStudentByStudentNumber(int.Parse(result.ProviderUserId));
+                string name = student.FirstName + " " + student.LastName;
+                Session["currentUser"] = new OAuth.CurrentUser { ID = student.Studentnr, DisplayName = name, Access = access.student };
             }
-            else
-            {
-                // User is new, ask for their desired membership name
-                string loginData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);
-                ViewBag.LoginProvider = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
-                ViewBag.ReturnUrl = returnUrl;
-                return View("ExternalLoginConfirmation", new RegisterExternalLoginModel { UserName = result.ProviderUserId, ExternalLoginData = loginData });
-            }
+            return RedirectToLocal(returnUrl);
         }
 
         //
@@ -157,10 +163,12 @@ namespace Barometer.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public ActionResult LogOff()
         {
             WebSecurity.Logout();
-
+            Session.Abandon();
+            //return View();
             return RedirectToAction("Index", "Main");
         }
 

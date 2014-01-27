@@ -1,9 +1,10 @@
-﻿@*@using Microsoft.AspNet.Identity*@
-@if (Request.IsAuthenticated)
+﻿
+@*@if (Request.IsAuthenticated)*@
+@if(Session["currentUser"] != null)
 {
     <text>
         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
-        <text>Hallo, @User.Identity.Name</text>
+        <text>Hallo, @(((Barometer.OAuth.CurrentUser)Session["currentUser"]).DisplayName)</text>
             @Html.AntiForgeryToken()
             <a href="javascript:document.getElementById('logoutForm').submit()">Log uit</a>
         }
