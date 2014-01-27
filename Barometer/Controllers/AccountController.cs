@@ -79,8 +79,22 @@ namespace Barometer.Controllers
                     string name = student.FirstName + " " + student.LastName;
                     Session["currentUser"] = new OAuth.CurrentUser { ID = student.Studentnr, DisplayName = name, Access = access.student };
                 }
+                Teacher teacher = db.SearchTeacherByTeacherNumber(int.Parse(result.ProviderUserId));
+                //Teacher teacher = db.SearchTeacherByTeacherNumber(14);
+                if (teacher != null)
+                {
+                    string name = teacher.FirstName + " " + teacher.LastName;
+                    //TODO check voor type gebruiker (mentor, projectDocent, tutor)
+                    Session["currentUser"] = new OAuth.CurrentUser { ID = teacher.DocentNumber, DisplayName = name, Access = access.mentor };
+                }
+
+                if (Session["currentUser"] != null)
+                {
+                    return RedirectToLocal(returnUrl);
+                }
             }
-            return RedirectToLocal(returnUrl);
+
+            return RedirectToAction("ExternalLoginFailure");
         }
 
         //
