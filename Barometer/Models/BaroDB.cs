@@ -29,7 +29,17 @@ namespace Barometer.Models
             var model = from s in this.Students
                         where s.Studentnr == studentnr
                         select s;
-            if (model.Count<Student>() == 0)
+            if (model.Count() == 0)
+                return null;
+            return model.First();
+        }
+
+        public Teacher SearchTeacherByTeacherNumber(int teachernr)
+        {
+            var model = from t in this.Teachers
+                        where t.DocentNumber == teachernr
+                        select t;
+            if (model.Count() == 0)
                 return null;
             return model.First();
         }
