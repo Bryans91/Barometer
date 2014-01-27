@@ -29,12 +29,12 @@ tutor te selecteren.
 
 <div class="@ViewBag.Tag">
 
-    <form method="post" action="" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data">
         <table>
             <tr>
-                <td> Zoek </td>
+                <td> Zoek een student: </td>
                 <td> <input name="searchTerm" type="text" /> </td>
-                <td> <input type="submit" value="Toon Student" /> </td>
+                <td> <input type="submit" value="Zoek" /> </td>
             </tr>
         </table>
     </form>
@@ -100,9 +100,16 @@ tutor te selecteren.
                         <td>
                             @s.Studentnr                                  
                         </td>
-                        <td>
-                            @s.FirstName @s.LastName
-                        </td>
+                        <form method="post">
+                            <td>
+                                @s.FirstName @s.LastName
+                                <input name="searchTerm" type="hidden" value="@s.Studentnr" />
+
+                            </td>
+                            <td>
+                                <input type="submit" value="Toon Student" />
+                            </td>    
+                        </form>
                     </tr>    
                     }
                 </table>
