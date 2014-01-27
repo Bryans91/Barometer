@@ -29,6 +29,8 @@ namespace Barometer.Models
             var model = from s in this.Students
                         where s.Studentnr == studentnr
                         select s;
+            if (model.Count<Student>() == 0)
+                return null;
             return model.First();
         }
 

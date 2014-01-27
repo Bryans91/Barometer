@@ -74,8 +74,11 @@ namespace Barometer.Controllers
             {
                 BaroDB db = new BaroDB();
                 Student student = db.SearchStudentByStudentNumber(int.Parse(result.ProviderUserId));
-                string name = student.FirstName + " " + student.LastName;
-                Session["currentUser"] = new OAuth.CurrentUser { ID = student.Studentnr, DisplayName = name, Access = access.student };
+                if (student != null)
+                {
+                    string name = student.FirstName + " " + student.LastName;
+                    Session["currentUser"] = new OAuth.CurrentUser { ID = student.Studentnr, DisplayName = name, Access = access.student };
+                }
             }
             return RedirectToLocal(returnUrl);
         }
