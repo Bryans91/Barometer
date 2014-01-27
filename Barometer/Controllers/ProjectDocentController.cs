@@ -73,7 +73,7 @@ namespace Barometer.Controllers
                 //    students.Add(stud);
                 //}
 
-                Project currentProject = new Project();
+                Project currentProject = new Project("Test",null, new DateTime(2014, 1, 1), new DateTime(2014, 1, 1), null);
                 ProjectGroup currentGroup = null;
                 ProjectGroup dbGroup = null;
                 Student currentStudent = null;
@@ -134,9 +134,13 @@ namespace Barometer.Controllers
                     if (currentStudent != null && currentGroup != null)
                     {
                         currentStudent.ProjectGroup.Add(currentGroup);
+                        if (currentGroup.ProjectStudents == null)
+                            currentGroup.ProjectStudents = new List<Student>();
                         currentGroup.ProjectStudents.Add(currentStudent);
                     }               
                 }
+
+                _db.Projects.Add(currentProject);
 
                 foreach (Student stud in studentsToAdd)
                 {
