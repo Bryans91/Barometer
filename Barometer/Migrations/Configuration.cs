@@ -48,13 +48,13 @@ namespace Barometer.Migrations
 
 
 
-            context.Teachers.AddOrUpdate(new Teacher[] { t1, t2, t3, t4, t5 });
-            context.Students.AddOrUpdate(new Student[] { s1, s2, s3, s4, s5, s6, s7, s8 });
-            context.Projects.AddOrUpdate(p1);
-            context.ProjectGroups.AddOrUpdate(pg1);
+            //context.Teachers.AddOrUpdate(new Teacher[] { t1, t2, t3, t4, t5 });
+            //context.Students.AddOrUpdate(new Student[] { s1, s2, s3, s4, s5, s6, s7, s8 });
+            //context.Projects.AddOrUpdate(p1);
+            //context.ProjectGroups.AddOrUpdate(pg1);
 
 
-            context.SaveChanges();
+            //context.SaveChanges();
         }
     }
 }
