@@ -24,15 +24,17 @@ namespace Barometer.Controllers
         [HttpPost]
         public ActionResult ShowStats(string searchTerm = null)//laat voortgang van geselecteerde studenten zien
         {
-
+            int parsed;
+            Int32.TryParse(searchTerm, out parsed);
             var model = _db.Students
                     .OrderByDescending(s => s.LastName)
                     .Where(s => searchTerm == null 
                             || s.FirstName.StartsWith(searchTerm) 
                             || s.LastName.StartsWith(searchTerm) 
-                            || System.Data.Objects.SqlClient.SqlFunctions.StringConvert((double)s.Studentnr).StartsWith(searchTerm))
+                            || s.Studentnr == parsed)
                     .Take(10).ToList();
-             
+            ViewBag.test = "Searchterm: " + searchTerm + "  -  " + " returnstring  " + parsed ; 
+
             return View(model);
         }
 
