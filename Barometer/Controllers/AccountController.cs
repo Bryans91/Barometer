@@ -62,12 +62,23 @@ namespace Barometer.Controllers
                     string name = student.FirstName + " " + student.LastName;
                     Session["currentUser"] = new OAuth.CurrentUser { ID = student.Studentnr, DisplayName = name, Access = access.student };
                 }
+                //Teacher teacher = db.SearchTeacherByTeacherNumber(int.Parse(result.ProviderUserId));
                 Teacher teacher = db.SearchTeacherByTeacherNumber(int.Parse(result.ProviderUserId));
                 if (teacher != null)
                 {
                     string name = teacher.FirstName + " " + teacher.LastName;
-                    //TODO check voor type gebruiker (mentor, projectDocent, tutor)
-                    Session["currentUser"] = new OAuth.CurrentUser { ID = teacher.DocentNumber, DisplayName = name, Access = access.mentor };
+                    switch(teacher.Role)
+                    {
+                        case TeacherAccess.mentor:
+                            Session["currentUser"] = new OAuth.CurrentUser { ID = teacher.DocentNumber, DisplayName = name, Access = access.mentor };
+                            break;
+                        case TeacherAccess.tutor:
+                            Session["currentUser"] = new OAuth.CurrentUser { ID = teacher.DocentNumber, DisplayName = name, Access = access.tutor };
+                            break;
+                        case TeacherAccess.projectDocent:
+                            Session["currentUser"] = new OAuth.CurrentUser { ID = teacher.DocentNumber, DisplayName = name, Access = access.projectDocent };
+                            break;
+                    }
                 }
 
                 if (Session["currentUser"] != null)
