@@ -48,13 +48,19 @@ Stap 2: Project docent importeert excel-bestand met de projectgroepen
     <form name="@ViewBag.Tag" action="#" method=post enctype="multipart/form-data">
 
     <table>
-        <tr class="input">
+        <tr>
+            <td><label>Naam voor nieuw project:</label></td>
+        </tr>
+        <tr>
+            <td><input type="text" autofocus="autofocus" /></td>
+        </tr>
+        <tr>
             <td><label for="file">Importeer CSV bestand:</label></td>         
         </tr>
-        <tr class="input">
+        <tr>
             <td><input type="file" name="file" id="file" /></td>
         </tr>
-        <tr class="input">
+        <tr>
             <td><input type="submit" value="Maak project aan" /></td>
         </tr>
     </table>

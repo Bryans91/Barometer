@@ -21,7 +21,7 @@ namespace Barometer.Controllers
         }
 
         [HttpPost]
-        public ActionResult MakeProject(HttpPostedFileBase file)
+        public ActionResult MakeProject(HttpPostedFileBase file, String projectName)
         {
             // Read the CSV file name & file path  
             // I am usisg here Kendo UI Uploader  
@@ -55,25 +55,8 @@ namespace Barometer.Controllers
                         dt.Rows.Add(row);
                     }
                 }
-                // Insert CSV data in List  
-                //var myEnumerable = dt.AsEnumerable();
-                //foreach (var item in myEnumerable)
-                //{
 
-                //    Student stud = new Student(
-                //        int.Parse(item.Field<String>("StudentNr")),
-                //        item.Field<String>("FirstName"),
-                //        item.Field<String>("LastName"),
-                //        int.Parse(item.Field<String>("Year")), 
-                //        null); // mentor
-                //    stud.ProjectGroup.Add(
-                //        new ProjectGroup(null, item.Field<String>("ProjectGroup"),null ,null )); 
-                //        // moet nog aangevuld worden
-
-                //    students.Add(stud);
-                //}
-
-                Project currentProject = new Project("Test",null, new DateTime(2014, 1, 1), new DateTime(2014, 1, 1), null);
+                Project currentProject = new Project(projectName,null, new DateTime(2014, 1, 1), new DateTime(2014, 1, 1), null);
                 ProjectGroup currentGroup = null;
                 ProjectGroup dbGroup = null;
                 Student currentStudent = null;
@@ -88,14 +71,9 @@ namespace Barometer.Controllers
                     currentStudent = _db.Students.Find(studnr);
 
                     var groupModel = from r in _db.ProjectGroups
-                                where r.ClassCode == pgroup
-                                select r;
+                                     where r.ClassCode == pgroup
+                                     select r;
                     dbGroup = groupModel.FirstOrDefault();
-
-                    //var studentModel = from r in _db.Students
-                    //            where r.Studentnr == studnr
-                    //            select r;
-
 
                     if (dbGroup == null)
                     {
@@ -103,13 +81,14 @@ namespace Barometer.Controllers
                         {
                             ProjectGroup newGroup = new ProjectGroup(pgroup, currentProject);
                             groupsToAdd.Add(newGroup);
-                            currentGroup = newGroup;    
+                            currentGroup = newGroup;
                         }
-                        else 
+                        else
                         {
                             if (!currentGroup.ClassCode.Equals(pgroup))
                             {
                                 ProjectGroup newGroup = new ProjectGroup(pgroup, currentProject);
+                                currentProject.ProjectGroups.Add(newGroup);
                                 groupsToAdd.Add(newGroup);
                                 currentGroup = newGroup;
                             }
@@ -118,15 +97,15 @@ namespace Barometer.Controllers
                     else
                         currentGroup = dbGroup;
 
-                    if ( currentStudent == null)
+                    if (currentStudent == null)
                     {
                         Student newStudent = new Student(
                             int.Parse(item.Field<String>("StudentNr")),
                             item.Field<String>("FirstName"),
                             item.Field<String>("LastName"),
-                            int.Parse(item.Field<String>("Year")), 
+                            int.Parse(item.Field<String>("Year")),
                             null); // mentor
- 
+
                         studentsToAdd.Add(newStudent);
                         currentStudent = newStudent;
                     }
@@ -137,7 +116,7 @@ namespace Barometer.Controllers
                         if (currentGroup.ProjectStudents == null)
                             currentGroup.ProjectStudents = new List<Student>();
                         currentGroup.ProjectStudents.Add(currentStudent);
-                    }               
+                    }
                 }
 
                 _db.Projects.Add(currentProject);
@@ -150,17 +129,18 @@ namespace Barometer.Controllers
                 {
                     _db.ProjectGroups.Add(group);
                 }
-
+                
                 _db.SaveChanges();
-                //return RedirectToAction("ShowStudents", students);
+                return RedirectToAction("ShowStudents", currentProject.Id);
             }
-            return RedirectToAction("ShowStudents", students);
+            return RedirectToAction("ShowStudents");
         }
 
 
         //Tijdelijke View voor studenten te show van de DB
-        public ActionResult ShowStudents()
+        public ActionResult ShowStudents(int projectId)
         {
+            
             return View(_db.Students);
         }
 
