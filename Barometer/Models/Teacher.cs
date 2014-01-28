@@ -12,12 +12,14 @@ namespace Barometer.Models
         private int _teacherNumber;
         private string _firstName;
         private string _lastName;
+        private TeacherAccess _role;
 
-        public Teacher(int teacherNumber, string firstName, string lastName)
+        public Teacher(int teacherNumber, string firstName, string lastName, TeacherAccess role)
         {
             _teacherNumber = teacherNumber;
             _firstName = firstName;
             _lastName = lastName;
+            _role = role;
         }
 
         public Teacher()
@@ -48,6 +50,18 @@ namespace Barometer.Models
             get { return _teacherNumber; }
             set { _teacherNumber = value; }
         }
-        
+
+        public TeacherAccess Role
+        {
+            get { return _role; }
+            set { _role = value; }
+        }
+    }
+
+    public enum TeacherAccess
+    {
+        projectDocent,
+        tutor,
+        mentor
     }
 }
