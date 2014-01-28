@@ -16,6 +16,14 @@ namespace Barometer.Models
         [DataType(DataType.Date)]
         private DateTime _endDate;
         private QuestionList _questionList;
+        private List<DateTime> _beoordelingsmomenten;
+
+        public List<DateTime> Beoordelingsmomenten
+        {
+            get { return _beoordelingsmomenten; }
+            set { _beoordelingsmomenten = value; }
+        }
+        
 
         
         public Project(string name, Teacher projectTeacher, DateTime startDate, DateTime endDate, QuestionList questionList)

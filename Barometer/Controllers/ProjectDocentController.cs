@@ -73,9 +73,10 @@ namespace Barometer.Controllers
                 //    students.Add(stud);
                 //}
 
-                Project currentProject = new Project();
-                ProjectGroup currentGroup;
-                Student currentStudent;
+                Project currentProject = new Project("Test",null, new DateTime(2014, 1, 1), new DateTime(2014, 1, 1), null);
+                ProjectGroup currentGroup = null;
+                ProjectGroup dbGroup = null;
+                Student currentStudent = null;
                 List<ProjectGroup> groupsToAdd = new List<ProjectGroup>();
                 List<Student> studentsToAdd = new List<Student>();
                 var myEnumerable = dt.AsEnumerable();
@@ -84,24 +85,38 @@ namespace Barometer.Controllers
                     string pgroup = item.Field<String>("ProjectGroup");
                     int studnr = int.Parse(item.Field<String>("StudentNr"));
 
+                    currentStudent = _db.Students.Find(studnr);
+
                     var groupModel = from r in _db.ProjectGroups
                                 where r.ClassCode == pgroup
                                 select r;
-                    currentGroup = groupModel.FirstOrDefault();
+                    dbGroup = groupModel.FirstOrDefault();
 
                     //var studentModel = from r in _db.Students
                     //            where r.Studentnr == studnr
                     //            select r;
-                    currentStudent = _db.Students.Find(studnr);
 
-                    if (currentGroup == null)
+
+                    if (dbGroup == null)
                     {
-                        ProjectGroup newGroup = new ProjectGroup(pgroup, currentProject);
-                        groupsToAdd.Add(newGroup);
-                        currentGroup = newGroup;
+                        if (currentGroup == null)
+                        {
+                            ProjectGroup newGroup = new ProjectGroup(pgroup, currentProject);
+                            groupsToAdd.Add(newGroup);
+                            currentGroup = newGroup;    
+                        }
+                        else 
+                        {
+                            if (!currentGroup.ClassCode.Equals(pgroup))
+                            {
+                                ProjectGroup newGroup = new ProjectGroup(pgroup, currentProject);
+                                groupsToAdd.Add(newGroup);
+                                currentGroup = newGroup;
+                            }
+                        }
                     }
                     else
-                        groupsToAdd.Add(currentGroup);
+                        currentGroup = dbGroup;
 
                     if ( currentStudent == null)
                     {
@@ -115,12 +130,17 @@ namespace Barometer.Controllers
                         studentsToAdd.Add(newStudent);
                         currentStudent = newStudent;
                     }
-                    else
-                        studentsToAdd.Add(currentStudent);
 
-                    currentStudent.ProjectGroup.Add(currentGroup);
-                    currentGroup.ProjectStudents.Add(currentStudent);                  
+                    if (currentStudent != null && currentGroup != null)
+                    {
+                        currentStudent.ProjectGroup.Add(currentGroup);
+                        if (currentGroup.ProjectStudents == null)
+                            currentGroup.ProjectStudents = new List<Student>();
+                        currentGroup.ProjectStudents.Add(currentStudent);
+                    }               
                 }
+
+                _db.Projects.Add(currentProject);
 
                 foreach (Student stud in studentsToAdd)
                 {

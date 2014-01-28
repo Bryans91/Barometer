@@ -53,71 +53,30 @@ namespace Barometer.Controllers
                 return RedirectToAction("ExternalLoginFailure");
             }
 
-            if (OAuthWebSecurity.Login(result.Provider, result.ProviderUserId, createPersistentCookie: false))
+            if (Session["currentUser"] == null)
             {
-                return RedirectToLocal(returnUrl);
-            }
-
-            if (User.Identity.IsAuthenticated)
-            {
-                // If the current user is logged in add the new account
-                OAuthWebSecurity.CreateOrUpdateAccount(result.Provider, result.ProviderUserId, User.Identity.Name);
-                return RedirectToLocal(returnUrl);
-            }
-            else
-            {
-                // User is new, ask for their desired membership name
-                string loginData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);
-                ViewBag.LoginProvider = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
-                ViewBag.ReturnUrl = returnUrl;
-                return View("ExternalLoginConfirmation", new RegisterExternalLoginModel { UserName = result.ProviderUserId, ExternalLoginData = loginData });
-            }
-        }
-
-        //
-        // POST: /Account/ExternalLoginConfirmation
-
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult ExternalLoginConfirmation(RegisterExternalLoginModel model, string returnUrl)
-        {
-            string provider = null;
-            string providerUserId = null;
-
-            if (User.Identity.IsAuthenticated || !OAuthWebSecurity.TryDeserializeProviderUserId(model.ExternalLoginData, out provider, out providerUserId))
-            {
-                return RedirectToAction("Manage");
-            }
-
-            if (ModelState.IsValid)
-            {
-                // Insert a new user into the database
-                using (UsersContext db = new UsersContext())
+                BaroDB db = new BaroDB();
+                Student student = db.SearchStudentByStudentNumber(int.Parse(result.ProviderUserId));
+                if (student != null)
                 {
-                    UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
-                    // Check if user already exists
-                    if (user == null)
-                    {
-                        // Insert name into the profile table
-                        db.UserProfiles.Add(new UserProfile { UserName = model.UserName });
-                        db.SaveChanges();
+                    string name = student.FirstName + " " + student.LastName;
+                    Session["currentUser"] = new OAuth.CurrentUser { ID = student.Studentnr, DisplayName = name, Access = access.student };
+                }
+                Teacher teacher = db.SearchTeacherByTeacherNumber(int.Parse(result.ProviderUserId));
+                if (teacher != null)
+                {
+                    string name = teacher.FirstName + " " + teacher.LastName;
+                    //TODO check voor type gebruiker (mentor, projectDocent, tutor)
+                    Session["currentUser"] = new OAuth.CurrentUser { ID = teacher.DocentNumber, DisplayName = name, Access = access.mentor };
+                }
 
-                        OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
-                        OAuthWebSecurity.Login(provider, providerUserId, createPersistentCookie: false);
-
-                        return RedirectToLocal(returnUrl);
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("UserName", "User name already exists. Please enter a different user name.");
-                    }
+                if (Session["currentUser"] != null)
+                {
+                    return RedirectToLocal(returnUrl);
                 }
             }
 
-            ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(provider).DisplayName;
-            ViewBag.ReturnUrl = returnUrl;
-            return View(model);
+            return RedirectToAction("ExternalLoginFailure");
         }
 
         //
@@ -129,19 +88,6 @@ namespace Barometer.Controllers
             return View();
         }
 
-
-
-        //public AccountController()
-        //    : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
-        //{
-        //}
-
-        //public AccountController(UserManager<ApplicationUser> userManager)
-        //{
-        //    UserManager = userManager;
-        //}
-
-        //public UserManager<ApplicationUser> UserManager { get; private set; }
 
         //
         // GET: /Account/Login
@@ -157,9 +103,11 @@ namespace Barometer.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public ActionResult LogOff()
         {
             WebSecurity.Logout();
+            Session.Abandon();
 
             return RedirectToAction("Index", "Main");
         }

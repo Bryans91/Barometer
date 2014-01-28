@@ -24,7 +24,7 @@ namespace Barometer.Migrations
             Student s1 = new Student(2053429, "Jeroen", "Broekhuizen", 2, t2);
             Student s2 = new Student(2059821, "Alexander", "Doorn, van", 2, t4);
             Student s3 = new Student(2052712, "Benny", "Bijl", 2, t4);
-            Student s4 = new Student(2052712, "Bryan", "Schreuder", 2, t3);
+            Student s4 = new Student(2052387, "Bryan", "Schreuder", 2, t3);
             Student s5 = new Student(2059370, "Joep", "Broek, van den", 2, t1);
             Student s6 = new Student(2062810, "Luuk", "Bruin, de", 2, t3);
             Student s7 = new Student(2063273, "Solo", "Schekermans", 2, t3);
@@ -32,8 +32,8 @@ namespace Barometer.Migrations
 
             Project p1 = new Project("Barometer", t1, new DateTime(2013, 11, 01), new DateTime(2014, 02, 07), null);
             ProjectGroup pg1 = new ProjectGroup("42IN06SOg", p1);
-            List<Student> students = new List<Student>();
-            students.AddRange(new Student[] { s1, s2, s3, s4, s5, s6, s7, s8 });
+            //List<Student> students = new List<Student>();
+            //students.AddRange();
             //pg1.ProjectStudents.AddRange(students);
 
             //foreach (Student s in students)
@@ -48,13 +48,13 @@ namespace Barometer.Migrations
 
 
 
-            context.Teachers.AddOrUpdate(new Teacher[] { t1, t2, t3, t4, t5 });
-            context.Students.AddOrUpdate(students.ToArray());
-            context.Projects.AddOrUpdate(p1);
-            context.ProjectGroups.AddOrUpdate(pg1);
+            //context.Teachers.AddOrUpdate(new Teacher[] { t1, t2, t3, t4, t5 });
+            //context.Students.AddOrUpdate(new Student[] { s1, s2, s3, s4, s5, s6, s7, s8 });
+            //context.Projects.AddOrUpdate(p1);
+            //context.ProjectGroups.AddOrUpdate(pg1);
 
 
-            context.SaveChanges();
+            //context.SaveChanges();
         }
     }
 }
