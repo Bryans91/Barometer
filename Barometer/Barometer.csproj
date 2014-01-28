@@ -203,8 +203,9 @@
     <Compile Include="Models\ProjectGroup.cs" />
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\QuestionList.cs" />
-    <Compile Include="Models\ReviewTime.cs" />
+    <Compile Include="Models\ReviewDate.cs" />
     <Compile Include="Models\Student.cs" />
+    <Compile Include="Models\StudentGrades.cs" />
     <Compile Include="Models\SubjectQuestions.cs" />
     <Compile Include="Models\Teacher.cs" />
     <Compile Include="OAuth\AvansOAuthClient.cs" />
