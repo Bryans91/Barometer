@@ -17,6 +17,7 @@ namespace Barometer.Models
         private DateTime _endDate;
         private QuestionList _questionList;
         private List<DateTime> _beoordelingsmomenten;
+        private List<ProjectGroup> _projectGroups;
 
         public List<DateTime> Beoordelingsmomenten
         {
@@ -43,6 +44,12 @@ namespace Barometer.Models
         {
             get { return _questionList; }
             set { _questionList = value; }
+        }
+
+        public List<ProjectGroup> ProjectGroups
+        {
+            get { return _projectGroups; }
+            set { _projectGroups = value; }
         }
 
         public int Id
