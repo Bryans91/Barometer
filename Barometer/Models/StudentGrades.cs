@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -8,7 +9,8 @@ namespace Barometer.Models
     public class StudentGrades
     {
         private int _weeknr;
-        private Student _student;
+        private Student _gradedStudent;
+        private Student _gradingStudent;
         private Project _project;
         private int _kennis_van_over_vaardigheden;
         private int _inzet_motivatie;
@@ -17,17 +19,25 @@ namespace Barometer.Models
         private int _schriftelijk_communiceren;
         private int _mondeling_communiceren;
         private int _projectmatig_werken;
+        [Key]
         public int Weeknr 
         { 
             get { return _weeknr; } 
             set { _weeknr = value; } 
         }
-        public Student Student
+        [Key]
+        public Student GradedStudent
         {
-            get { return _student; }
-            set { _student = value; }
+            get { return _gradedStudent; }
+            set { _gradedStudent = value; }
         }
-        
+        [Key]
+        public Student GradingStudent
+        {
+            get { return _gradingStudent; }
+            set { _gradingStudent = value; }
+        }
+        [Key]
         public Project Project
         {
             get { return _project; }
