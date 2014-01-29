@@ -34,6 +34,7 @@ namespace Barometer.Models
             _startDate = startDate;
             _endDate = endDate;
             _questionList = questionList;
+            _projectGroups = new List<ProjectGroup>();
         }
 
         public Project()

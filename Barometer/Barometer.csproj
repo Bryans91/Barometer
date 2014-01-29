@@ -366,7 +366,6 @@
     <Content Include="Views\Tutor\SelectGroup.cshtml" />
     <Content Include="Views\ProjectDocent\ShowStudents.cshtml" />
     <Content Include="Views\Mentor\ShowStats.cshtml" />
-    <Content Include="Views\ProjectDocent\_ShowProjects.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
