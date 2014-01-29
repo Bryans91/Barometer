@@ -15,9 +15,28 @@ namespace Barometer.Controllers
 
         public ActionResult FillList()//vragenlijst invullen
         {
+            if (!IsAuthenticated())
+            {
+                return RedirectToAction("Index", "Main");
+            }
+
             var model = _db.Questions.ToList();
             //unfinished
             return View();
+        }
+
+        private bool IsAuthenticated()
+        {
+            if (Session["currentUser"] != null)
+            {
+                BaroDB db = new BaroDB();
+                Student student = db.SearchStudentByStudentNumber(((OAuth.CurrentUser)Session["currentUser"]).ID);
+                if (student != null)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
     }
