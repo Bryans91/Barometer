@@ -46,7 +46,15 @@ namespace Barometer.Controllers
         public ActionResult ExternalLoginCallback(string returnUrl)
         {
             var avansOAuth = (AvansOAuthClient)OAuthWebSecurity.GetOAuthClientData("avans").AuthenticationClient;
-            AuthenticationResult result = avansOAuth.VerifyAuthentication(HttpContext);
+            AuthenticationResult result;
+            try
+            {
+                result = avansOAuth.VerifyAuthentication(HttpContext);
+            }
+            catch
+            {
+                return RedirectToAction("ExternalLoginFailure");
+            }
 
             if (!result.IsSuccessful)
             {
@@ -77,6 +85,9 @@ namespace Barometer.Controllers
                             break;
                         case TeacherAccess.projectDocent:
                             Session["currentUser"] = new OAuth.CurrentUser { ID = teacher.DocentNumber, DisplayName = name, Access = access.projectDocent };
+                            break;
+                        case TeacherAccess.admin:
+                            Session["currentUser"] = new OAuth.CurrentUser { ID = teacher.DocentNumber, DisplayName = name, Access = access.admin };
                             break;
                     }
                 }
