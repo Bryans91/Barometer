@@ -99,17 +99,11 @@ tutor te selecteren.
                     <tr>
                         <td>
                             @s.Studentnr                                  
-                        </td>
-                        <form method="post">
+                        </td>           
                             <td>
-                                @s.FirstName @s.LastName
-                                <input name="searchTerm" type="hidden" value="@s.Studentnr" />
-
+                                @Ajax.ActionLink(@s.FirstName + " " + @s.LastName, "ShowStats", new { searchTerm = @s.Studentnr } , new AjaxOptions { HttpMethod = "POST" });                               
                             </td>
-                            <td>
-                                <input type="submit" value="Toon Student" />
-                            </td>    
-                        </form>
+                      
                     </tr>    
                     }
                 </table>
