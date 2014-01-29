@@ -16,13 +16,13 @@ namespace Barometer.Models
         [DataType(DataType.Date)]
         private DateTime _endDate;
         private QuestionList _questionList;
-        private List<DateTime> _beoordelingsmomenten;
+        private List<ReviewDate> _reviewDates;
         private List<ProjectGroup> _projectGroups;
 
-        public List<DateTime> Beoordelingsmomenten
+        public List<ReviewDate> ReviewDates
         {
-            get { return _beoordelingsmomenten; }
-            set { _beoordelingsmomenten = value; }
+            get { return _reviewDates; }
+            set { _reviewDates = value; }
         }
         
 
@@ -46,6 +46,7 @@ namespace Barometer.Models
             get { return _questionList; }
             set { _questionList = value; }
         }
+
 
         public List<ProjectGroup> ProjectGroups
         {
