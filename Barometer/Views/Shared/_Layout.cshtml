@@ -24,10 +24,10 @@
                 </tr>
                 <tr>
                     <td class="infobar">
-                        <span class="notifications">
+                        @*<span class="notifications">
                             Er zijn géén nieuwe meldingen
                         </span>
-                        -
+                        -*@
                         <span class="userinfo">
                             @Html.Partial("_LoginPartial")
                         </span>
@@ -41,10 +41,30 @@
     <div class="navigation">
       <ul>
         <li>@Html.ActionLink("Home", "Index", "Main")</li>
-        <li>@Html.ActionLink("Vragenlijst invullen(Student)","FillList","Student")</li>
-        <li>@Html.ActionLink("Project aanmaken(ProjectDocent)","MakeProject","ProjectDocent")</li>
-        <li>@Html.ActionLink("Beoordeling invullen(Tutor)","SelectGroup","Tutor")</li>
-        <li>@Html.ActionLink("Beoordeling bekijken(Mentor)","ShowStats","Mentor")</li>
+        @if(Session["currentUser"] != null)
+        {
+            switch (((Barometer.OAuth.CurrentUser)Session["currentUser"]).Access)
+            { 
+                case (Barometer.OAuth.access.student):
+                    <li>@Html.ActionLink("Vragenlijst invullen","FillList","Student")</li>
+                    break;
+                case (Barometer.OAuth.access.projectDocent):
+                    <li>@Html.ActionLink("Project aanmaken","MakeProject","ProjectDocent")</li>
+                    break;
+                case (Barometer.OAuth.access.tutor):
+                    <li>@Html.ActionLink("Beoordeling invullen","SelectGroup","Tutor")</li>
+                    break;
+                case (Barometer.OAuth.access.mentor):
+                    <li>@Html.ActionLink("Beoordeling bekijken","ShowStats","Mentor")</li>
+                    break;
+                case (Barometer.OAuth.access.admin):
+                    <li>@Html.ActionLink("Vragenlijst invullen (student)","FillList","Student")</li>
+                    <li>@Html.ActionLink("Project aanmaken (project docent)","MakeProject","ProjectDocent")</li>
+                    <li>@Html.ActionLink("Beoordeling invullen (tutor)","SelectGroup","Tutor")</li>
+                    <li>@Html.ActionLink("Beoordeling bekijken (mentor)","ShowStats","Mentor")</li>
+                    break;
+            }
+        }
         <li>@Html.ActionLink("About", "About", "Main")</li>
         <li>@Html.ActionLink("Contact", "Contact", "Main")</li>
       </ul>

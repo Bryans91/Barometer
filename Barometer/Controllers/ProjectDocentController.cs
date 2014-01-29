@@ -17,12 +17,22 @@ namespace Barometer.Controllers
 
         public ActionResult MakeProject()
         {
+            if (!IsAuthenticated())
+            {
+                return RedirectToAction("Index", "Main");
+            }
+
             return View();
         }
 
         [HttpPost]
         public ActionResult MakeProject(HttpPostedFileBase file, String projectName)
         {
+            if (!IsAuthenticated())
+            {
+                return RedirectToAction("Index", "Main");
+            }
+
             // Read the CSV file name & file path  
             // I am usisg here Kendo UI Uploader  
             string path = null;
@@ -149,28 +159,69 @@ namespace Barometer.Controllers
         //Tijdelijke View voor studenten te show van de DB
         public ActionResult ShowStudents()
         {
-            
+            if (!IsAuthenticated())
+            {
+                return RedirectToAction("Index", "Main");
+            }
+
             return View(_db.Students);
         }
 
         public ActionResult MakeQuestionList()
         {
+            if (!IsAuthenticated())
+            {
+                return RedirectToAction("Index", "Main");
+            }
+
             return View();
         }
 
         public ActionResult CheckProjectGroups()
         {
+            if (!IsAuthenticated())
+            {
+                return RedirectToAction("Index", "Main");
+            }
+
             return View();
         }
 
         public ActionResult AddTutorToGroup()
         {
+            if (!IsAuthenticated())
+            {
+                return RedirectToAction("Index", "Main");
+            }
+
             return View();
         }
 
         public ActionResult DetermineFillDates()
         {
+            if (!IsAuthenticated())
+            {
+                return RedirectToAction("Index", "Main");
+            }
+
             return View();
+        }
+
+        private bool IsAuthenticated()
+        {
+            if (Session["currentUser"] != null)
+            {
+                BaroDB db = new BaroDB();
+                Teacher teacher = db.SearchTeacherByTeacherNumber(((OAuth.CurrentUser)Session["currentUser"]).ID);
+                if (teacher != null)
+                {
+                    if (teacher.Role == TeacherAccess.projectDocent || teacher.Role == TeacherAccess.admin)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
     }

@@ -10,6 +10,7 @@ namespace Barometer.OAuth
         public int ID { get; set; }
         public string DisplayName { get; set; }
         public access Access { get; set; }
+        public string DisplayAccess { get { return Access.ToString(); } }
     }
 
     public enum access
@@ -17,6 +18,7 @@ namespace Barometer.OAuth
         student,
         projectDocent,
         tutor,
-        mentor
+        mentor,
+        admin
     }
 }

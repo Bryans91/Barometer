@@ -16,6 +16,10 @@ namespace Barometer.Controllers
 
         public ActionResult ShowStats()
         {
+            if (!IsAuthenticated())
+            {
+                return RedirectToAction("Index", "Main");
+            }
 
             return View();
         }
@@ -24,6 +28,11 @@ namespace Barometer.Controllers
         [HttpPost]
         public ActionResult ShowStats(string searchTerm = null)//laat voortgang van geselecteerde studenten zien
         {
+            if (!IsAuthenticated())
+            {
+                return RedirectToAction("Index", "Main");
+            }
+
             int parsed;
             Int32.TryParse(searchTerm, out parsed);
             var model = _db.Students
@@ -38,7 +47,22 @@ namespace Barometer.Controllers
             return View(model);
         }
 
-
+        private bool IsAuthenticated()
+        {
+            if (Session["currentUser"] != null)
+            {
+                BaroDB db = new BaroDB();
+                Teacher teacher = db.SearchTeacherByTeacherNumber(((OAuth.CurrentUser)Session["currentUser"]).ID);
+                if (teacher != null)
+                {
+                    if (teacher.Role == TeacherAccess.mentor || teacher.Role == TeacherAccess.admin)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
 
     }
 }
