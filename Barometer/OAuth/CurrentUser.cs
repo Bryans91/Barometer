@@ -18,6 +18,7 @@ namespace Barometer.OAuth
         student,
         projectDocent,
         tutor,
-        mentor
+        mentor,
+        admin
     }
 }

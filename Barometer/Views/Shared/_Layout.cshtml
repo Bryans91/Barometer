@@ -57,6 +57,12 @@
                 case (Barometer.OAuth.access.mentor):
                     <li>@Html.ActionLink("Beoordeling bekijken","ShowStats","Mentor")</li>
                     break;
+                case (Barometer.OAuth.access.admin):
+                    <li>@Html.ActionLink("Vragenlijst invullen (student)","FillList","Student")</li>
+                    <li>@Html.ActionLink("Project aanmaken (project docent)","MakeProject","ProjectDocent")</li>
+                    <li>@Html.ActionLink("Beoordeling invullen (tutor)","SelectGroup","Tutor")</li>
+                    <li>@Html.ActionLink("Beoordeling bekijken (mentor)","ShowStats","Mentor")</li>
+                    break;
             }
         }
         <li>@Html.ActionLink("About", "About", "Main")</li>

@@ -55,7 +55,7 @@ namespace Barometer.Controllers
                 Teacher teacher = db.SearchTeacherByTeacherNumber(((OAuth.CurrentUser)Session["currentUser"]).ID);
                 if (teacher != null)
                 {
-                    if (teacher.Role == TeacherAccess.mentor)
+                    if (teacher.Role == TeacherAccess.mentor || teacher.Role == TeacherAccess.admin)
                     {
                         return true;
                     }
