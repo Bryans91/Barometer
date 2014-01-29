@@ -51,10 +51,19 @@ namespace Barometer.Controllers
                 string[] value = line.Split(';');
                 DataTable dt = new DataTable();
                 DataRow row;
+                int columnCount = 0;
                 foreach (string dc in value)
                 {
-                    dt.Columns.Add(new DataColumn(dc));
+                    if (dc.Equals("FirstName") || dc.Equals("LastName") || dc.Equals("StudentNr") || dc.Equals("Year") || dc.Equals("ProjectGroup"))
+                    {
+                        dt.Columns.Add(new DataColumn(dc));
+                        columnCount++;
+                    }
+                    //else
+                        //errorScherm
                 }
+                //if(columnCount != 5)
+                    //errorScherm
                 while (!sr.EndOfStream)
                 {
                     value = sr.ReadLine().Split(';');
@@ -141,14 +150,14 @@ namespace Barometer.Controllers
                 }
                 
                 _db.SaveChanges();
-                return RedirectToAction("ShowStudents", currentProject.Id);
+                return RedirectToAction("ShowStudents");
             }
             return RedirectToAction("ShowStudents");
         }
 
 
         //Tijdelijke View voor studenten te show van de DB
-        public ActionResult ShowStudents(int projectId)
+        public ActionResult ShowStudents()
         {
             if (!IsAuthenticated())
             {
