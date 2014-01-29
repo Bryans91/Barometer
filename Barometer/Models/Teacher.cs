@@ -62,6 +62,7 @@ namespace Barometer.Models
     {
         projectDocent,
         tutor,
-        mentor
+        mentor,
+        admin
     }
 }
