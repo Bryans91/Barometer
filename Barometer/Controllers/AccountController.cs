@@ -62,8 +62,8 @@ namespace Barometer.Controllers
                     string name = student.FirstName + " " + student.LastName;
                     Session["currentUser"] = new OAuth.CurrentUser { ID = student.Studentnr, DisplayName = name, Access = access.student };
                 }
-                //Teacher teacher = db.SearchTeacherByTeacherNumber(int.Parse(result.ProviderUserId));
                 Teacher teacher = db.SearchTeacherByTeacherNumber(int.Parse(result.ProviderUserId));
+                //Teacher teacher = db.SearchTeacherByTeacherNumber(13); //Voor testen, login als leraar ondanks je student nr.
                 if (teacher != null)
                 {
                     string name = teacher.FirstName + " " + teacher.LastName;
