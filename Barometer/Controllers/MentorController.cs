@@ -24,28 +24,8 @@ namespace Barometer.Controllers
             return View();
         }
 
-        [HttpGet]
-        public ActionResult ShowStats(string searchTerm = null)//laat voortgang van geselecteerde studenten zien
-        {
-            if (!IsAuthenticated())
-            {
-                return RedirectToAction("Index", "Main");
-            }
 
-            int parsed;
-            Int32.TryParse(searchTerm, out parsed);
-            var model = _db.Students
-                    .OrderByDescending(s => s.LastName)
-                    .Where(s => searchTerm == null                   
-                            || s.Studentnr == parsed)
-                    .Take(10).ToList();
-            ViewBag.test = "Searchterm: " + searchTerm + "  -  " + " returnstring  " + parsed;
-
-            return View(model);
-        }
-
-
-        [HttpPost]
+       [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
         public ActionResult ShowStats(string searchTerm = null)//laat voortgang van geselecteerde studenten zien
         {
             if (!IsAuthenticated())
