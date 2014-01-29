@@ -26,7 +26,7 @@ namespace Barometer.Controllers
         }
 
         [HttpPost]
-        public ActionResult MakeProject(HttpPostedFileBase file, String projectName)
+        public ActionResult MakeProject(HttpPostedFileBase file, HttpPostAttribute projectName)
         {
             if (!IsAuthenticated())
             {
@@ -75,7 +75,7 @@ namespace Barometer.Controllers
                     }
                 }
 
-                Project currentProject = new Project(projectName,null, new DateTime(2014, 1, 1), new DateTime(2014, 1, 1), null);
+                Project currentProject = new Project(projectName.ToString(),null, new DateTime(2014, 1, 1), new DateTime(2014, 1, 1), null);
                 ProjectGroup currentGroup = null;
                 ProjectGroup dbGroup = null;
                 Student currentStudent = null;
@@ -134,7 +134,6 @@ namespace Barometer.Controllers
                         currentStudent.ProjectGroup.Add(currentGroup);
                         if (currentGroup.ProjectStudents == null)
                             currentGroup.ProjectStudents = new List<Student>();
-                        currentGroup.ProjectStudents.Add(currentStudent);
                     }
                 }
 
@@ -152,12 +151,22 @@ namespace Barometer.Controllers
                 _db.SaveChanges();
                 return RedirectToAction("ShowStudents");
             }
-            return RedirectToAction("ShowStudents");
+            return RedirectToAction("ShowStudents"); // error scherm met file is null
         }
 
 
+        public ActionResult CheckProjectGroups()
+        {
+            if (!IsAuthenticated())
+            {
+                return RedirectToAction("Index", "Main");
+            }
+
+            return View(_db.ProjectGroups);
+        }
+
         //Tijdelijke View voor studenten te show van de DB
-        public ActionResult ShowStudents()
+        public ActionResult ShowStudents(int Id)
         {
             if (!IsAuthenticated())
             {
@@ -177,15 +186,6 @@ namespace Barometer.Controllers
             return View();
         }
 
-        public ActionResult CheckProjectGroups()
-        {
-            if (!IsAuthenticated())
-            {
-                return RedirectToAction("Index", "Main");
-            }
-
-            return View();
-        }
 
         public ActionResult AddTutorToGroup()
         {
