@@ -20,7 +20,7 @@ namespace Barometer.Controllers
                 return RedirectToAction("Index", "Main");
             }
 
-            var model = _db.Questions.ToList();
+            //var model = _db.Questions.ToList();
             //unfinished
             return View();
         }
