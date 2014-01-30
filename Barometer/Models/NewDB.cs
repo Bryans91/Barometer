@@ -11,9 +11,7 @@ namespace Barometer.Migrations
 
         public NewDB()
             : base("DefaultConnection")
-        {
-
-        }
+        {}
         public DbSet<Project> Projects { get; set; }
         public DbSet<ProjectGroup> ProjectGroups { get; set; }
         public DbSet<Question> Questions { get; set; }
@@ -21,5 +19,8 @@ namespace Barometer.Migrations
         public DbSet<Student> Students { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<SubjectQuestions> SubjectQuestions { get; set; }
+        public DbSet<StudentGrades> StudentGrades { get; set; }
+        public ReviewDates ReviewDates { get; set; }
+        
     }
 }

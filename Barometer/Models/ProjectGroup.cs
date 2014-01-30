@@ -10,7 +10,7 @@ namespace Barometer.Models
     {
         private int _id;
         private Project _project;
-        private IEnumerable<Student> _projectStudents;
+        private List<Student> _projectStudents;
         private Teacher _tutor;
         private string _classCode;
 
@@ -57,7 +57,7 @@ namespace Barometer.Models
         }
         
 
-        public IEnumerable<Student> ProjectStudents
+        public List<Student> ProjectStudents
         {
             get { return _projectStudents; }
             set { _projectStudents = value; }
