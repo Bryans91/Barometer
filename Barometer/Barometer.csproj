@@ -196,10 +196,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201401301536179_newmigration.cs" />
-    <Compile Include="Migrations\201401301536179_newmigration.Designer.cs">
-      <DependentUpon>201401301536179_newmigration.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\NewDB.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -382,11 +378,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201401301536179_newmigration.resx">
-      <DependentUpon>201401301536179_newmigration.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
