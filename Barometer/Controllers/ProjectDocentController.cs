@@ -149,7 +149,7 @@ namespace Barometer.Controllers
                 }
                 
                 _db.SaveChanges();
-                return RedirectToAction("ShowStudents");
+                return RedirectToAction("CheckProjectGroups");
             }
             return RedirectToAction("ShowStudents"); // error scherm met file is null
         }
@@ -166,7 +166,7 @@ namespace Barometer.Controllers
         }
 
         //Tijdelijke View voor studenten te show van de DB
-        public ActionResult ShowStudents(int Id)
+        public ActionResult ShowStudents()
         {
             if (!IsAuthenticated())
             {
