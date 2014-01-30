@@ -41,7 +41,7 @@ namespace Barometer.Models
             set { _description = value; }
         }
 
-        public string Answer
+        public int Answer
         {
             get { return _answer; }
             set { _answer = value; }
