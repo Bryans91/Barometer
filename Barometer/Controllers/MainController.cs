@@ -41,5 +41,11 @@ namespace Barometer.Controllers
             return View();
         }
 
+        public ActionResult Error(String errorMessage)
+        {
+            ViewBag.Error = errorMessage;
+            return View();
+        }
+
     }
 }
