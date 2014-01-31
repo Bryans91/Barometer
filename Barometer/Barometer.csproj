@@ -207,6 +207,7 @@
     <Compile Include="Models\ReviewDates.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\StudentGrades.cs" />
+    <Compile Include="Models\StudentProjectGroups.cs" />
     <Compile Include="Models\SubjectQuestions.cs" />
     <Compile Include="Models\Teacher.cs" />
     <Compile Include="OAuth\AvansOAuthClient.cs" />
