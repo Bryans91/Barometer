@@ -9,12 +9,12 @@ namespace Barometer.Models
     public class StudentGrades
     {
         [Key]
-        public int Grade { get; set; }
+        public int Id { get; set; }
         public Student Student { get; set; }
         public Project Project { get; set; }
         public SubjectQuestions SubjectQuestion { get; set; }
         public ReviewDates ReviewDate { get; set; }
-
+        public int Grade { get; set; }
 
 
 
