@@ -10,13 +10,10 @@ namespace Barometer.Models
     {
         private int _id;
         private string _name;
-        private string _description;
-        private int _answer;
 
-        public Question(string name, string description)
+        public Question(string name)
         {
             _name = name;
-            _description = description;
         }
 
         public Question()
@@ -33,18 +30,6 @@ namespace Barometer.Models
         {
             get { return _name; }
             set { _name = value; }
-        }
-
-        public string Description
-        {
-            get { return _description; }
-            set { _description = value; }
-        }
-
-        public int Answer
-        {
-            get { return _answer; }
-            set { _answer = value; }
         }
         
     }
