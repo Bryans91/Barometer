@@ -26,7 +26,7 @@ namespace Barometer.Controllers
         }
 
         [HttpPost]
-        public ActionResult MakeProject(HttpPostedFileBase file, HttpPostAttribute projectName)
+        public ActionResult MakeProject(HttpPostedFileBase file)
         {
             if (!IsAuthenticated())
             {
@@ -75,7 +75,7 @@ namespace Barometer.Controllers
                     }
                 }
 
-                Project currentProject = new Project(projectName.ToString(),null, new DateTime(2014, 1, 1), new DateTime(2014, 1, 1), null);
+                Project currentProject = new Project(Request.Form["projectName"], null, new DateTime(2014, 1, 1), new DateTime(2014, 1, 1), null);
                 ProjectGroup currentGroup = null;
                 ProjectGroup dbGroup = null;
                 Student currentStudent = null;
@@ -184,11 +184,11 @@ namespace Barometer.Controllers
 
         //public PartialViewResult CheckStudents(int projectId)
         //{
-        //    List<Student> students = new List<Student>();    
+        //    List<Student> students = new List<Student>();
 
         //    var dbstudents = from s in _db.StudentProjectGroups
-        //                   where s.ProjectGroup_Id == projectId
-        //                   select s;
+        //                     where s.ProjectGroup_Id == projectId
+        //                     select s;
         //    foreach (var x in dbstudents)
         //    {
         //        students.Add(_db.Students.Find(x.Student_Studentnr));
