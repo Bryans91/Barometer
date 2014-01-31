@@ -225,6 +225,52 @@ namespace Barometer.Controllers
                 return RedirectToAction("Index", "Main");
             }
 
+            List<ProjectGroup> groups = new List<ProjectGroup>();
+            List<Teacher> teachers = new List<Teacher>();
+
+            var project = from p in _db.Projects
+                          orderby p.Id descending
+                          select p;
+
+            int pId = project.First().Id;
+
+            var dbgroups = from g in _db.ProjectGroups
+                           where g.Project.Id == pId
+                           select g;
+            foreach (var x in dbgroups)
+            {
+                groups.Add(x);
+            }
+
+            var tutors = from t in _db.Teachers
+                         where t.Role == TeacherAccess.tutor
+                         select t;
+            foreach (var y in tutors)
+            {
+                teachers.Add(y);
+            }
+
+            ViewBag.Tutors = teachers;
+
+            return View(groups);
+        }
+
+        [HttpPost]
+        public ActionResult AddTutorToGroup(HttpPostAttribute att)
+        {
+            //var project = from p in _db.Projects
+            //              orderby p.Id descending
+            //              select p;
+
+            //int pId = project.First().Id;
+
+            //var dbgroups = from g in _db.ProjectGroups
+            //               where g.Project.Id == pId
+            //               select g;
+            //foreach (var x in dbgroups)
+            //{
+                
+            //}
             return View();
         }
 
