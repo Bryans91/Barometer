@@ -1,4 +1,5 @@
-﻿<!--
+﻿@model IEnumerable<Barometer.Models.ProjectGroup>
+<!--
 Requiments:
 Stap 4: Projectdocent geeft elke projectgroep een Tutor. Door bij elke projectgroep de naam van hun 
 tutor te selecteren.
@@ -23,72 +24,22 @@ tutor te selecteren.
 
 <h2>@ViewBag.Title</h2>
 
-<div class="@ViewBag.Tag">
-
+<form name="@ViewBag.Tag" action="#" method=post enctype="multipart/form-data">
+    @foreach(var item in Model)
+    {
     <div class="groups">
-        <select name="tutor">
-            <option value="1">Tutor naam</option>
-            <option value="2">Tutor naam2</option>
-            <option value="3">Tutor naam3</option>
-            <option value="4">Tutor naam4</option>
+        <select name="@item.Id">
+            @foreach (Barometer.Models.Teacher tutor in ViewBag.Tutors)
+            {                
+                <option value="@tutor.Id">@tutor.FirstName , @tutor.LastName</option>
+            }
         </select>
-        &raquo; Groep A<br />
-        <select name="tutor">
-            <option value="1">Tutor naam</option>
-            <option value="2">Tutor naam2</option>
-            <option value="3">Tutor naam3</option>
-            <option value="4">Tutor naam4</option>
-        </select>
-        &raquo; Groep B<br />
-        <select name="tutor">
-            <option value="1">Tutor naam</option>
-            <option value="2">Tutor naam2</option>
-            <option value="3">Tutor naam3</option>
-            <option value="4">Tutor naam4</option>
-        </select>
-        &raquo; Groep C<br />
-        <select name="tutor">
-            <option value="1">Tutor naam</option>
-            <option value="2">Tutor naam2</option>
-            <option value="3">Tutor naam3</option>
-            <option value="4">Tutor naam4</option>
-        </select>
-        &raquo; Groep D<br />
-        <select name="tutor">
-            <option value="1">Tutor naam</option>
-            <option value="2">Tutor naam2</option>
-            <option value="3">Tutor naam3</option>
-            <option value="4">Tutor naam4</option>
-        </select>
-        &raquo; Groep E<br />
-        <select name="tutor">
-            <option value="1">Tutor naam</option>
-            <option value="2">Tutor naam2</option>
-            <option value="3">Tutor naam3</option>
-            <option value="4">Tutor naam4</option>
-        </select>
-        &raquo; Groep F<br />
-        <select name="tutor">
-            <option value="1">Tutor naam</option>
-            <option value="2">Tutor naam2</option>
-            <option value="3">Tutor naam3</option>
-            <option value="4">Tutor naam4</option>
-        </select>
-        &raquo; Groep G<br />
-        <select name="tutor">
-            <option value="1">Tutor naam</option>
-            <option value="2">Tutor naam2</option>
-            <option value="3">Tutor naam3</option>
-            <option value="4">Tutor naam4</option>
-        </select>
-        &raquo; Groep H<br />
+        &raquo; @item.ClassCode<br />
     </div>
+    }      
     <div class="clear"></div>
-    <div class="buttons">
-        <form name="@ViewBag.Tag" action="#" method="post">
+    <div class="buttons">       
             <button type="submit">Accepteer</button>
             <button type="submit">Ga terug</button>
-        </form>
     </div>
-
-</div>
+</form>
