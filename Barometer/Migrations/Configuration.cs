@@ -53,13 +53,28 @@ namespace Barometer.Migrations
         //    //}
 
 
+            QuestionList ql1 = new QuestionList();
+            SubjectQuestions sq1 = new SubjectQuestions("subject 1", true);
+            SubjectQuestions sq2 = new SubjectQuestions("subject 2", true);
+            Question q11 = new Question("sub1, question 1", "description 1");
+            Question q12 = new Question("sub1, question 2", "description 2");
+            Question q21 = new Question("sub2, question 1", "description 1");
+            Question q22 = new Question("sub2, question 2", "description 2");
+
+            ql1.Subjects.Add(sq1);
+            ql1.Subjects.Add(sq2);
+
+            sq1.Questions.Add(q11);
+            sq1.Questions.Add(q12);
+            sq2.Questions.Add(q21);
+            sq2.Questions.Add(q22);
 
 
 
 
 
-
-            context.Teachers.AddOrUpdate(new Teacher[] { t6, t7, t8, t9, t10, t11, t12, t13 });
+            //context.QuestionLists.AddOrUpdate(ql1);
+        //    context.Teachers.AddOrUpdate(new Teacher[] { t6, t7, t8, t9, t10, t11, t12, t13 });
         //    context.Students.AddOrUpdate(new Student[] { s1, s2, s3, s4, s5, s6, s7, s8 });
         //    //context.Projects.AddOrUpdate(p1);
         //    //context.ProjectGroups.AddOrUpdate(pg1);
