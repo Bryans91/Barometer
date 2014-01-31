@@ -12,10 +12,9 @@ namespace Barometer.Models
         private string _name;
         private int _answer;
 
-        public Question(string name, string description)
+        public Question(string name)
         {
             _name = name;
-            _description = description;
         }
 
         public Question()
