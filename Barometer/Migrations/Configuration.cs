@@ -41,31 +41,31 @@ namespace Barometer.Migrations
             Teacher t13 = new Teacher(2059071, "Thomas", "Voogt", TeacherAccess.projectDocent);
             
 
-            Project p1 = new Project("Barometer", t1, new DateTime(2013, 11, 01), new DateTime(2014, 02, 07), null);
-            ProjectGroup pg1 = new ProjectGroup("42IN06SOg", p1);
-            //List<Student> students = new List<Student>();
-            //students.AddRange();
-            //pg1.ProjectStudents.AddRange(students);
+        //    //Project p1 = new Project("Barometer", t1, new DateTime(2013, 11, 01), new DateTime(2014, 02, 07), null);
+        //    //ProjectGroup pg1 = new ProjectGroup("42IN06SOg", p1);
+        //    //List<Student> students = new List<Student>();
+        //    //students.AddRange();
+        //    //pg1.ProjectStudents.AddRange(students);
 
-            //foreach (Student s in students)
-            //{
-            //    s.ProjectGroup.Add(pg1);
-            //}
-
-
+        //    //foreach (Student s in students)
+        //    //{
+        //    //    s.ProjectGroup.Add(pg1);
+        //    //}
 
 
 
 
 
 
-            //context.Teachers.AddOrUpdate(new Teacher[] { t6, t7, t8, t9, t10, t11, t12, t13 });
-            //context.Students.AddOrUpdate(new Student[] { s1, s2, s3, s4, s5, s6, s7, s8 });
-            //context.Projects.AddOrUpdate(p1);
-            //context.ProjectGroups.AddOrUpdate(pg1);
 
 
-            //context.SaveChanges();
+            context.Teachers.AddOrUpdate(new Teacher[] { t6, t7, t8, t9, t10, t11, t12, t13 });
+            context.Students.AddOrUpdate(new Student[] { s1, s2, s3, s4, s5, s6, s7, s8 });
+        //    //context.Projects.AddOrUpdate(p1);
+        //    //context.ProjectGroups.AddOrUpdate(pg1);
+
+
+            context.SaveChanges();
         }
     }
 }

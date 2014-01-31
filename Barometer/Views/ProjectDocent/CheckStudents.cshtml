@@ -1,0 +1,9 @@
+﻿@model IEnumerable<Barometer.Models.Student>
+
+@foreach (var item in Model)
+{
+    <div>
+        @(item.FirstName) , @(item.LastName) , @(item.Studentnr)
+    </div>
+}
+
