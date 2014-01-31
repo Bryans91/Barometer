@@ -1,4 +1,5 @@
 ﻿
+
 @*@if (Request.IsAuthenticated)*@
 @if(Session["currentUser"] != null)
 {
@@ -12,5 +13,5 @@
 }
 else
 {
-    @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+    @Html.Action("ExternalLoginsList", "Account", new { ReturnUrl = ViewBag.ReturnUrl })
 }
