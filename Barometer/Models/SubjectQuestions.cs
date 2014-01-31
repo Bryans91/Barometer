@@ -37,10 +37,10 @@ namespace Barometer.Models
         }
         
         public bool Enabled
-	{
-		get { return _enabled;}
-		set { _enabled = value;}
-	}
+	    {
+		    get { return _enabled;}
+		    set { _enabled = value;}
+	    }
        
 
         public List<Question> Questions
