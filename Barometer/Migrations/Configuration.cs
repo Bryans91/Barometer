@@ -53,24 +53,42 @@ namespace Barometer.Migrations
         //    //}
 
 
-            QuestionList ql1 = new QuestionList();
-            SubjectQuestions sq1 = new SubjectQuestions("subject 1", true);
-            SubjectQuestions sq2 = new SubjectQuestions("subject 2", true);
-            Question q11 = new Question("sub1, question 1", "description 1");
-            Question q12 = new Question("sub1, question 2", "description 2");
-            Question q21 = new Question("sub2, question 1", "description 1");
-            Question q22 = new Question("sub2, question 2", "description 2");
+            //QuestionList ql1 = new QuestionList();
+            //SubjectQuestions sq1 = new SubjectQuestions("subject 1", true);
+            //SubjectQuestions sq2 = new SubjectQuestions("subject 2", true);
+            //Question q11 = new Question("question 1");
+            //Question q12 = new Question("question 2");
+            //Question q21 = new Question("question 3");
+            //Question q22 = new Question("question 4");
 
-            ql1.Subjects.Add(sq1);
-            ql1.Subjects.Add(sq2);
+            //ql1.Subjects.Add(sq1);
+            //ql1.Subjects.Add(sq2);
 
+            //sq1.Questions.Add(q11);
+            //sq1.Questions.Add(q12);
+            //sq2.Questions.Add(q21);
+            //sq2.Questions.Add(q22);
+
+            SubjectQuestions sq1 = context.SubjectQuestions.ToList().ElementAt(0);
+            SubjectQuestions sq2 = context.SubjectQuestions.ToList().ElementAt(1);
+
+            Question q11 = new Question("question 1");
+            Question q12 = new Question("question 2");
+            Question q21 = new Question("question 3");
+            Question q22 = new Question("question 4");
+
+            if (sq1.Questions == null)
+            {
+                sq1.Questions = new List<Question>();
+            }
             sq1.Questions.Add(q11);
             sq1.Questions.Add(q12);
+            if (sq2.Questions == null)
+            {
+                sq2.Questions = new List<Question>();
+            }
             sq2.Questions.Add(q21);
             sq2.Questions.Add(q22);
-
-
-
 
 
             //context.QuestionLists.AddOrUpdate(ql1);
