@@ -41,7 +41,7 @@ namespace Barometer.Controllers
             return View();
         }
 
-        public ActionResult Error(String errorMessage)
+        public ActionResult Error(String errorMessage = "Er is een fout opgetreden op deze pagina.")
         {
             ViewBag.Error = errorMessage;
             return View();
