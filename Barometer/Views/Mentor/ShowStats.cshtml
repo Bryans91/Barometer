@@ -11,7 +11,7 @@ tutor te selecteren.
  1.4.4.2 Het systeem onthoudt de link tussen tutor en projectgroep
 1.4.5 Het systeem meldt als een projectgroep nog geen tutor heeft
 -->
-@model IEnumerable<Barometer.Models.Student>
+@model IEnumerable<Barometer.Models.StudentGrades>
 @{
     ViewBag.Title = "Laat voortgang student zien";
     ViewBag.Tag = "showstats";
@@ -48,11 +48,11 @@ tutor te selecteren.
                     <table>
                         <tr>
                             <td class="title">Naam:</td>
-                            <td>@Model.First().FirstName @Model.First().LastName </td>
+                            <td>@Model.First().Student.FirstName @Model.First().Student.LastName </td>
                         </tr>
                         <tr>
                             <td class="title">Studentnummer:</td>
-                            <td>@Model.First().Studentnr</td>
+                            <td>@Model.First().Student.Studentnr</td>
                         </tr>
                     </table>
                 </div>
@@ -98,10 +98,10 @@ tutor te selecteren.
                     @foreach(var s in Model){
                     <tr>
                         <td>
-                            @s.Studentnr                                  
+                            @s.Student.Studentnr                                  
                         </td>           
                             <td>
-                                @Ajax.ActionLink(@s.FirstName + " " + @s.LastName, "ShowStats", new { searchTerm = @s.Studentnr } , new AjaxOptions { HttpMethod = "POST" });                               
+                                @Ajax.ActionLink(@s.Student.FirstName + " " + @s.Student.LastName, "ShowStats", new { searchTerm = @s.Student.Studentnr } , new AjaxOptions { HttpMethod = "POST" });                               
                             </td>
                       
                     </tr>    
