@@ -1,16 +1,35 @@
-﻿@model IEnumerable<Barometer.Models.Question>
+﻿@model IEnumerable<Barometer.Models.SubjectQuestions>
 
 @{
     ViewBag.Title = "FillList";
 }
 
-@foreach (var item in Model)
-{
-    //unfinished(no questions yet)
-    <h4>@item.Name</h4>
-    <p>@item.Description</p>
-    <hr />
-}
-
-
 <h2>FillList</h2>
+
+<p>
+    @ViewBag.ex
+</p>
+
+<div class="@ViewBag.Tag">
+    <form name="@ViewBag.Tag" action="#" method=post enctype="multipart/form-data">
+    <table>
+        <tr>
+            <td><label for="text">Vul de vragenlijst in:</label></td>
+        </tr>
+    </table>
+    <table>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subject)
+        </td>
+    </tr>
+}
+</table>
+</form>
+</div>
+
+
