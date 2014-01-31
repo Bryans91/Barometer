@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Barometer.Models.Question>
+﻿@model IEnumerable<Barometer.Models.SubjectQuestions>
 
 @{
     ViewBag.Title = "FillList";
@@ -24,10 +24,9 @@
             @Html.DisplayFor(modelItem => item.Id)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Name)
+            @Html.DisplayFor(modelItem => item.Subject)
         </td>
     </tr>
->>>>>>> dd21f1a85f784556ce6ca2bcddb6482b3b705ed7
 }
 </table>
 </form>
