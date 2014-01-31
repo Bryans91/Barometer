@@ -53,6 +53,8 @@ namespace Barometer.Controllers
                          || s.Student.FirstName.StartsWith(searchTerm)
                          || s.Student.LastName.StartsWith(searchTerm)
                          || s.Student.Studentnr == parsed).Take(10).ToList();
+
+
             return View(model);
         }
 
