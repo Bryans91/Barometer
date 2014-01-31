@@ -17,10 +17,7 @@ Stap 3: Projectdocent accepteert de weergegeven informatie van het aantal groepe
 {
     <div>
         @item.ClassCode :
-        @foreach (var stud in item.ProjectStudents)
-        {
-            @(stud.FirstName) @(stud.LastName)  @(stud.Studentnr) 
-        }
+        @*@Html.Action("CheckStudents", new { Id = item.Id })*@
     </div>
 }
 

@@ -26,7 +26,7 @@ namespace Barometer.Controllers
         }
 
         [HttpPost]
-        public ActionResult MakeProject(HttpPostedFileBase file, HttpPostAttribute projectName)
+        public ActionResult MakeProject(HttpPostedFileBase file)
         {
             if (!IsAuthenticated())
             {
@@ -75,7 +75,7 @@ namespace Barometer.Controllers
                     }
                 }
 
-                Project currentProject = new Project(projectName.ToString(),null, new DateTime(2014, 1, 1), new DateTime(2014, 1, 1), null);
+                Project currentProject = new Project(Request.Form["projectName"], null, new DateTime(2014, 1, 1), new DateTime(2014, 1, 1), null);
                 ProjectGroup currentGroup = null;
                 ProjectGroup dbGroup = null;
                 Student currentStudent = null;
@@ -149,7 +149,7 @@ namespace Barometer.Controllers
                 }
                 
                 _db.SaveChanges();
-                return RedirectToAction("ShowStudents");
+                return RedirectToAction("CheckProjectGroups");
             }
             return RedirectToAction("ShowStudents"); // error scherm met file is null
         }
@@ -162,11 +162,42 @@ namespace Barometer.Controllers
                 return RedirectToAction("Index", "Main");
             }
 
-            return View(_db.ProjectGroups);
+            List<ProjectGroup> groups = new List<ProjectGroup>();            
+            //int pId = _db.Projects.Max().Id;
+
+            var project = from p in _db.Projects
+                    orderby p.Id ascending
+                    select p;
+
+            int pId = project.First().Id;
+
+            var dbgroups = from g in _db.ProjectGroups
+                    where g.Project.Id == pId
+                    select g;
+            foreach (var x in dbgroups)
+            {
+                groups.Add(x);
+            }
+
+            return View(groups);
         }
 
+        //public PartialViewResult CheckStudents(int projectId)
+        //{
+        //    List<Student> students = new List<Student>();
+
+        //    var dbstudents = from s in _db.StudentProjectGroups
+        //                     where s.ProjectGroup_Id == projectId
+        //                     select s;
+        //    foreach (var x in dbstudents)
+        //    {
+        //        students.Add(_db.Students.Find(x.Student_Studentnr));
+        //    }
+        //    return PartialView(students);
+        //}
+
         //Tijdelijke View voor studenten te show van de DB
-        public ActionResult ShowStudents(int Id)
+        public ActionResult ShowStudents()
         {
             if (!IsAuthenticated())
             {
