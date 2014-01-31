@@ -4,12 +4,33 @@
     ViewBag.Title = "FillList";
 }
 
-@foreach (var item in Model)
-{
-    //unfinished(no questions yet)
-    <h4>@item.Name</h4> 
-    <hr />
-}
-
-
 <h2>FillList</h2>
+
+<p>
+    @ViewBag.ex
+</p>
+
+<div class="@ViewBag.Tag">
+    <form name="@ViewBag.Tag" action="#" method=post enctype="multipart/form-data">
+    <table>
+        <tr>
+            <td><label for="text">Vul de vragenlijst in:</label></td>
+        </tr>
+    </table>
+    <table>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+    </tr>
+>>>>>>> dd21f1a85f784556ce6ca2bcddb6482b3b705ed7
+}
+</table>
+</form>
+</div>
+
+
