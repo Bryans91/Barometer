@@ -16,7 +16,7 @@ namespace Barometer.Migrations
 
         protected override void Seed(BaroDB context)
         {
-            Teacher t1 = new Teacher(12, "Marieke", "Versteijlen", TeacherAccess.projectDocent);
+            Teacher t1 = new Teacher(12, "Marieke", "Versteijlen", TeacherAccess.tutor);
             Teacher t2 = new Teacher(13, "Jos", "Weert, van", TeacherAccess.mentor);
             Teacher t3 = new Teacher(14, "Ger", "Saris", TeacherAccess.mentor);
             Teacher t4 = new Teacher(15, "Angelique", "Boogaard, van den", TeacherAccess.tutor);
