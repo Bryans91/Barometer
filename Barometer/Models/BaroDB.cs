@@ -23,7 +23,7 @@ namespace Barometer.Models
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<SubjectQuestions> SubjectQuestions { get; set; }
         public DbSet<StudentGrades> StudentGrades { get; set; }
-        public ReviewDates ReviewDates { get; set; }
+        public DbSet<ReviewDates> ReviewDates { get; set; }
 
         
         public Student SearchStudentByStudentNumber(int studentnr)

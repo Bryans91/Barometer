@@ -50,9 +50,9 @@ namespace Barometer.Migrations
         //    //foreach (Student s in students)
         //    //{
         //    //    s.ProjectGroup.Add(pg1);
-        //    //}
+            //    //}
 
-
+            #region questions
             //QuestionList ql1 = new QuestionList();
             //SubjectQuestions sq1 = new SubjectQuestions("subject 1", true);
             //SubjectQuestions sq2 = new SubjectQuestions("subject 2", true);
@@ -72,23 +72,49 @@ namespace Barometer.Migrations
             SubjectQuestions sq1 = context.SubjectQuestions.ToList().ElementAt(0);
             SubjectQuestions sq2 = context.SubjectQuestions.ToList().ElementAt(1);
 
-            Question q11 = new Question("question 1");
-            Question q12 = new Question("question 2");
-            Question q21 = new Question("question 3");
-            Question q22 = new Question("question 4");
+            //Question q11 = new Question("question 1");
+            //Question q12 = new Question("question 2");
+            //Question q21 = new Question("question 3");
+            //Question q22 = new Question("question 4");
 
-            if (sq1.Questions == null)
-            {
-                sq1.Questions = new List<Question>();
-            }
-            sq1.Questions.Add(q11);
-            sq1.Questions.Add(q12);
-            if (sq2.Questions == null)
-            {
-                sq2.Questions = new List<Question>();
-            }
-            sq2.Questions.Add(q21);
-            sq2.Questions.Add(q22);
+            //if (sq1.Questions == null)
+            //{
+            //    sq1.Questions = new List<Question>();
+            //}
+            //sq1.Questions.Add(q11);
+            //sq1.Questions.Add(q12);
+            //if (sq2.Questions == null)
+            //{
+            //    sq2.Questions = new List<Question>();
+            //}
+            //sq2.Questions.Add(q21);
+            //sq2.Questions.Add(q22);
+            #endregion
+
+            #region studentgrades
+            //Student student = context.SearchStudentByStudentNumber(2059821);
+            //Project p2 = new Project { StartDate = new DateTime(2014, 1, 1), EndDate = new DateTime(2014, 1, 1), Name = "Project 2" };
+            //Project p3 = new Project { StartDate = new DateTime(2014, 1, 1), EndDate = new DateTime(2014, 1, 1), Name = "Project 3" };
+            //ReviewDates rd1 = new ReviewDates { Weeknr = 1, Project = p2 };
+            //ReviewDates rd2 = new ReviewDates { Weeknr = 1, Project = p2 };
+            //ReviewDates rd3 = new ReviewDates { Weeknr = 1, Project = p3 };
+            //ReviewDates rd4 = new ReviewDates { Weeknr = 1, Project = p3 };
+
+            //StudentGrades sg1 = new StudentGrades { Student = student, Grade = 8, Project = p2, SubjectQuestion = sq1, ReviewDate = rd1 };
+            //StudentGrades sg2 = new StudentGrades { Student = student, Grade = 7, Project = p2, SubjectQuestion = sq1, ReviewDate = rd2 };
+            //StudentGrades sg3 = new StudentGrades { Student = student, Grade = 6, Project = p2, SubjectQuestion = sq2, ReviewDate = rd1 };
+            //StudentGrades sg4 = new StudentGrades { Student = student, Grade = 7, Project = p2, SubjectQuestion = sq2, ReviewDate = rd2 };
+
+            //StudentGrades sg5 = new StudentGrades { Student = student, Grade = 5, Project = p3, SubjectQuestion = sq1, ReviewDate = rd3 };
+            //StudentGrades sg6 = new StudentGrades { Student = student, Grade = 6, Project = p3, SubjectQuestion = sq1, ReviewDate = rd4 };
+            //StudentGrades sg7 = new StudentGrades { Student = student, Grade = 9, Project = p3, SubjectQuestion = sq2, ReviewDate = rd3 };
+            //StudentGrades sg8 = new StudentGrades { Student = student, Grade = 8, Project = p3, SubjectQuestion = sq2, ReviewDate = rd4 };
+            
+
+            //context.Projects.AddOrUpdate(new Project[] { p2, p3 });
+            //context.ReviewDates.AddOrUpdate(new ReviewDates[] { rd1, rd2, rd3, rd4 });
+            //context.StudentGrades.AddOrUpdate(new StudentGrades[] { sg1, sg2, sg3, sg4, sg5, sg6, sg7, sg8 });
+            #endregion
 
 
             //context.QuestionLists.AddOrUpdate(ql1);

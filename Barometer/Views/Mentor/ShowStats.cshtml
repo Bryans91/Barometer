@@ -96,56 +96,53 @@ tutor te selecteren.
                 <div id="stackedGraph"></div>
 
                 <script>
-
-            
                     studentGrades = new Array();
                     subjects = new Array();
                     @{
-
-                Barometer.Models.Project[] studentProjects = Model.Select(s => s.Project).Distinct().ToArray();
-                            int nrOfProjects = studentProjects.Length;
-                            
-                            //dataloop
-                            for(int i = 0 ; i < nrOfProjects ; i++){
-                                string projectName = studentProjects[i].Name;
-                                    <text>                   
-                                    grades = new Array();
-                                    </text>
-                                foreach (var p in Model.Where(s => s.Project.Name == projectName)) {
-                                    if (i == 0)
-                                    {
-                                       <text>
-                                        subjects.push("@p.SubjectQuestions.Subject");
-                    </text>
-                                    }
+                        Barometer.Models.Project[] studentProjects = Model.Select(s => s.Project).Distinct().ToArray();
+                        int nrOfProjects = studentProjects.Length;
+                        
+                        //dataloop
+                        for(int i = 0 ; i < nrOfProjects ; i++)
+                        {
+                            string projectName = studentProjects[i].Name;
+                            <text>allGrades = new Array();</text>
+                            foreach (var p in Model.Where(s => s.Project.Name == projectName)) 
+                            {
+                                if (i == 0)
+                                {
+                                    <text>subjects.push("@p.SubjectQuestions.Subject");</text>
+                                }
                                 <text>
-                    grades.push(@p.StudentGrades.Grade );
-                    </text>
-                                 }
-
-                                 <text>
-                    temp = new Array();
-                    temp.push(grades);
-                    temp.push("@projectName" );
-                    studentGrades.push(temp);
-                    </text>
+                                    if (typeof allGrades["@p.SubjectQuestions.Id"] == 'undefined')
+                                    {
+                                        allGrades["@p.SubjectQuestions.Id"] = new Array();
+                                    }
+                                    allGrades["@p.SubjectQuestions.Id"].push(@p.StudentGrades.Grade);
+                            </text>
                             }
-
+                            
+                            <text>
+                                grades = new Array();
+                                for (var i = 0; i < allGrades.length; i++)
+                                {
+                                    if (typeof allGrades[i] != 'undefined')
+                                    {
+                                        var sum = 0;
+                                        for (var j = 0; j < allGrades[i].length; j++)
+                                        {
+                                            sum += allGrades[i][j];
+                                        }
+                                        grades.push(Math.round(sum/allGrades[i].length * 10)/10)
+                                    }
+                                }
+                                temp = new Array();
+                                temp.push(grades);
+                                temp.push("@projectName" );
+                                studentGrades.push(temp);
+                            </text>
+                        }
                     }
-                    /*
-                    studentGrades = new Array(
-                            [[7, 4, 5, 3, 5, 6, 6], 'Project Archer'],
-                            [[5, 6, 7, 4, 5, 6, 5], 'Project Barometer'],
-                            [[7, 4, 5, 8, 6, 8, 7], 'Project C#'],
-                            [[8, 6, 7, 5, 6, 7, 8], 'Project Delphi'],
-                            [[5, 6, 7, 8, 6, 7, 8], 'Project Elephant'],
-                            [[6, 9, 6, 8, 7, 7, 6], 'Project Food']
-                        );
-
-                                 legends: ['Kennis van/over vaardigheden', 'Inzet/motivatie', 'Inzicht eigen functioneren',
-                                'Samenwerken', 'Schriftelijk communiceren', 'Mondeling communiceren', 'Projectmatig werken']
-                        */
-
 
                     $("#multiGraph").jqBarGraph({
                         data: studentGrades,
