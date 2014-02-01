@@ -41,8 +41,27 @@ tutor te selecteren.
 
 
     @{
-        if (Model != null) { 
-            if (Model.Count() == 1)
+        if (Model != null)
+        {
+            int count = 0;
+            int studentNr = Model.First().Student.Studentnr;
+            foreach (var s in Model)
+            {
+                if (count == 0 && s.Student.Studentnr == studentNr)
+                {
+                    count++;
+                }
+
+                if (s.Student.Studentnr != studentNr)
+                {
+                    studentNr = s.Student.Studentnr;
+                    count++;
+                }
+
+            }
+
+
+            if (count == 1) // if 1 student
             {
                 <div class="studentinfo">
                     <table>
@@ -64,6 +83,42 @@ tutor te selecteren.
                 <div id="stackedGraph"></div>
 
                 <script>
+
+                    studentGrades = new Array();
+                    subjects = new Array();
+                    @{
+
+                            Barometer.Models.Project[] studentProjects = Model.Select(s => s.Project).Distinct().ToArray();
+                            int nrOfProjects = studentProjects.Length;
+
+                            //dataloop
+                            for(int i = 0 ; i < nrOfProjects ; i++){
+                                string projectName = studentProjects[i].Name;
+                                    <text>
+                                    grades = new Array();
+                                    </text>
+                                foreach (var p in Model.Where(s => s.Project.Name == projectName)) {
+                                    if (i == 0)
+                                    {
+                                        <text>
+                                        subjects.push(@p.SubjectQuestion.Subject);
+                                       </text>
+                                    }
+                                <text>
+                                grades.push(@p.Grade);
+                                </text>
+                                 }
+
+                                 <text>
+                                temp = new Array();
+                                temp.push(grades);
+                                temp.push(@projectName);
+                                studentGrades.push(temp);
+                                </text>
+                            }
+
+                    }
+                    /*
                     studentGrades = new Array(
                             [[7, 4, 5, 3, 5, 6, 6], 'Project Archer'],
                             [[5, 6, 7, 4, 5, 6, 5], 'Project Barometer'],
@@ -73,18 +128,20 @@ tutor te selecteren.
                             [[6, 9, 6, 8, 7, 7, 6], 'Project Food']
                         );
 
+                                 legends: ['Kennis van/over vaardigheden', 'Inzet/motivatie', 'Inzicht eigen functioneren',
+                                'Samenwerken', 'Schriftelijk communiceren', 'Mondeling communiceren', 'Projectmatig werken']
+                        */
 
 
                     $("#multiGraph").jqBarGraph({
                         data: studentGrades,
                         colors: ['#67000d', '#cc4c02', '#cb181d', '#993404', '#ef3b2c', '#662506', '#fb6a4a'],
-                        legends: ['Kennis van/over vaardigheden', 'Inzet/motivatie', 'Inzicht eigen functioneren',
-                                'Samenwerken', 'Schriftelijk communiceren', 'Mondeling communiceren', 'Projectmatig werken']
+                        legends: subjects
                     });
 
                 </script>
             }
-            else if(Model.Count() > 1)
+            else if (count > 1) // multiple students
             {
                 <table>
                     <tr>
@@ -95,16 +152,17 @@ tutor te selecteren.
                             Naam
                         </td>
                     </tr>
-                    @foreach(var s in Model){
-                    <tr>
-                        <td>
-                            @s.Student.Studentnr                                  
-                        </td>           
+                    @foreach (var s in Model)
+                    {
+                        <tr>
                             <td>
-                                @Ajax.ActionLink(@s.Student.FirstName + " " + @s.Student.LastName, "ShowStats", new { searchTerm = @s.Student.Studentnr } , new AjaxOptions { HttpMethod = "POST" });                               
+                                @s.Student.Studentnr
                             </td>
-                      
-                    </tr>    
+                            <td>
+                                @Ajax.ActionLink(@s.Student.FirstName + " " + @s.Student.LastName, "ShowStats", new { searchTerm = @s.Student.Studentnr }, new AjaxOptions { HttpMethod = "POST" });
+                            </td>
+
+                        </tr>
                     }
                 </table>
             }

@@ -48,7 +48,7 @@ namespace Barometer.Controllers
            */
 
             var model = _db.StudentGrades
-                .OrderByDescending(s => s.Student.LastName)
+                .OrderByDescending(s => s.Student.LastName).OrderByDescending( s => s.Project.Name)
                 .Where(s => searchTerm == null
                          || s.Student.FirstName.StartsWith(searchTerm)
                          || s.Student.LastName.StartsWith(searchTerm)
