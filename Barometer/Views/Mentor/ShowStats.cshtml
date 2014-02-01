@@ -11,7 +11,7 @@ tutor te selecteren.
  1.4.4.2 Het systeem onthoudt de link tussen tutor en projectgroep
 1.4.5 Het systeem meldt als een projectgroep nog geen tutor heeft
 -->
-@model IEnumerable<Barometer.Models.StudentGrades>
+@model IEnumerable<Barometer.Models.ShowStats>
 @{
     ViewBag.Title = "Laat voortgang student zien";
     ViewBag.Tag = "showstats";
@@ -29,6 +29,8 @@ tutor te selecteren.
 
 <div class="@ViewBag.Tag">
 
+  
+
     <form method="post" enctype="multipart/form-data">
         <table>
             <tr>
@@ -41,11 +43,13 @@ tutor te selecteren.
 
 
     @{
-        if (Model != null)
+        if (Model != null && Model.Count() != 0)
         {
             int count = 0;
-            if (Model.First() != null) {
-                if (Model.First().Student != null) { 
+            if (Model.First() != null)
+            {
+                if (Model.First().Student!= null)
+                {                 
                     int studentNr = Model.First().Student.Studentnr;
                     foreach (var s in Model)
                     {
@@ -61,12 +65,17 @@ tutor te selecteren.
                         }
 
                     }
+
+
+
+
                 }
             }
 
 
             if (count == 1) // if 1 student
             {
+                  
                 <div class="studentinfo">
                     <table>
                         <tr>
@@ -92,33 +101,33 @@ tutor te selecteren.
                     subjects = new Array();
                     @{
 
-                            Barometer.Models.Project[] studentProjects = Model.Select(s => s.Project).Distinct().ToArray();
+                Barometer.Models.Project[] studentProjects = Model.Select(s => s.Project).Distinct().ToArray();
                             int nrOfProjects = studentProjects.Length;
 
                             //dataloop
                             for(int i = 0 ; i < nrOfProjects ; i++){
                                 string projectName = studentProjects[i].Name;
-                                    <text>
+                                    <text>                                
                                     grades = new Array();
                                     </text>
                                 foreach (var p in Model.Where(s => s.Project.Name == projectName)) {
                                     if (i == 0)
                                     {
-                                        <text>
-                                        subjects.push(@p.SubjectQuestion.Subject);
-                                       </text>
+                                       <text>
+                                        subjects.push(@p.SubjectQuestions.Subject);
+                                              </text>
                                     }
                                 <text>
-                                grades.push(@p.Grade);
-                                </text>
+                    grades.push(@p.StudentGrades.Grade);
+                    </text>
                                  }
 
                                  <text>
-                                temp = new Array();
-                                temp.push(grades);
-                                temp.push(@projectName);
-                                studentGrades.push(temp);
-                                </text>
+                    temp = new Array();
+                    temp.push(grades);
+                    temp.push(@projectName);
+                    studentGrades.push(temp);
+                    </text>
                             }
 
                     }
@@ -147,6 +156,7 @@ tutor te selecteren.
             }
             else if (count > 1) // multiple students
             {
+                  <p>if 4</p>
                 <table>
                     <tr>
                         <td>

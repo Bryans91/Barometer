@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 
@@ -25,7 +26,7 @@ namespace Barometer.Controllers
         }
 
 
-       [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
         public ActionResult ShowStats(string searchTerm = null)//laat voortgang van geselecteerde studenten zien
         {
             if (!IsAuthenticated())
@@ -35,28 +36,43 @@ namespace Barometer.Controllers
 
             int parsed;
             Int32.TryParse(searchTerm, out parsed);
+
+
+            /*OLDSEARCH
+             * var model = _db.Students
+                     .OrderByDescending(s => s.LastName)
+                     .Where(s => searchTerm == null 
+                             || s.FirstName.StartsWith(searchTerm) 
+                             || s.LastName.StartsWith(searchTerm) 
+                             || s.Studentnr == parsed)
+                     .Take(10).ToList();
+             ViewBag.test = "Searchterm: " + searchTerm + "  -  " + " returnstring  " + parsed ; 
+         
+           NEWER BUT OLD  
+             var model = _db.StudentGrades
+                 .OrderByDescending(s => s.Student.LastName).OrderByDescending( s => s.Project.Name)
+                 .Where(s => searchTerm == null
+                          || s.Student.FirstName.StartsWith(searchTerm)
+                          || s.Student.LastName.StartsWith(searchTerm)
+                          || s.Student.Studentnr == parsed).Take(10).ToList();
             
-           
-           /*var model = _db.Students
-                    .OrderByDescending(s => s.LastName)
-                    .Where(s => searchTerm == null 
-                            || s.FirstName.StartsWith(searchTerm) 
-                            || s.LastName.StartsWith(searchTerm) 
-                            || s.Studentnr == parsed)
-                    .Take(10).ToList();
-            ViewBag.test = "Searchterm: " + searchTerm + "  -  " + " returnstring  " + parsed ; 
-           */
+            */
 
-            var model = _db.StudentGrades
-                .OrderByDescending(s => s.Student.LastName).OrderByDescending( s => s.Project.Name)
-                .Where(s => searchTerm == null
-                         || s.Student.FirstName.StartsWith(searchTerm)
-                         || s.Student.LastName.StartsWith(searchTerm)
-                         || s.Student.Studentnr == parsed).Take(10).ToList();
+            var data = from sg in _db.StudentGrades
+                       join s in _db.Students on sg.Student.Studentnr equals s.Studentnr
+                       join p in _db.Projects on sg.Project.Id equals p.Id
+                       join sj in _db.SubjectQuestions on sg.SubjectQuestion.Id equals sj.Id
+                       where sg.Student.Studentnr == parsed
+                       || sg.Student.FirstName.StartsWith(searchTerm)
+                       || sg.Student.LastName.StartsWith(searchTerm)
+                       select new { StudentGrades = sg, Student = s, Project = p , SubjectQuestions = sj};
 
+            var model = data.ToList().ToNonAnonymousList(typeof(ShowStats));
+            //var model = new ShowStats(data.ToList());
 
             return View(model);
         }
+
 
         private bool IsAuthenticated()
         {
