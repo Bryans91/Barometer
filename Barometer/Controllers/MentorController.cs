@@ -36,8 +36,9 @@ namespace Barometer.Controllers
             int parsed;
             Int32.TryParse(searchTerm, out parsed);
             
-           
-           /*var model = _db.Students
+ 
+           /*OLDSEARCH
+            * var model = _db.Students
                     .OrderByDescending(s => s.LastName)
                     .Where(s => searchTerm == null 
                             || s.FirstName.StartsWith(searchTerm) 
@@ -45,16 +46,27 @@ namespace Barometer.Controllers
                             || s.Studentnr == parsed)
                     .Take(10).ToList();
             ViewBag.test = "Searchterm: " + searchTerm + "  -  " + " returnstring  " + parsed ; 
-           */
-
+         
+          NEWER BUT OLD  
             var model = _db.StudentGrades
                 .OrderByDescending(s => s.Student.LastName).OrderByDescending( s => s.Project.Name)
                 .Where(s => searchTerm == null
                          || s.Student.FirstName.StartsWith(searchTerm)
                          || s.Student.LastName.StartsWith(searchTerm)
                          || s.Student.Studentnr == parsed).Take(10).ToList();
+            
+           */
 
+            var data = from sg in _db.StudentGrades
+                       join s in _db.Students on sg.Student.Studentnr equals s.Studentnr
+                       join p in _db.Projects on sg.Project.Id equals p.Id
+                       where sg.Student.Studentnr == parsed
+                       || sg.Student.FirstName.StartsWith(searchTerm)
+                       || sg.Student.LastName.StartsWith(searchTerm)
+                       select new { StudentGrades = sg , Student = s , Project = p };
 
+            var model = data.ToList();
+            
             return View(model);
         }
 
