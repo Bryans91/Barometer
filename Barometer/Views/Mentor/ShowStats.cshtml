@@ -44,20 +44,24 @@ tutor te selecteren.
         if (Model != null)
         {
             int count = 0;
-            int studentNr = Model.First().Student.Studentnr;
-            foreach (var s in Model)
-            {
-                if (count == 0 && s.Student.Studentnr == studentNr)
-                {
-                    count++;
-                }
+            if (Model.First() != null) {
+                if (Model.First().Student != null) { 
+                    int studentNr = Model.First().Student.Studentnr;
+                    foreach (var s in Model)
+                    {
+                        if (count == 0 && s.Student.Studentnr == studentNr)
+                        {
+                            count++;
+                        }
 
-                if (s.Student.Studentnr != studentNr)
-                {
-                    studentNr = s.Student.Studentnr;
-                    count++;
-                }
+                        if (s.Student.Studentnr != studentNr)
+                        {
+                            studentNr = s.Student.Studentnr;
+                            count++;
+                        }
 
+                    }
+                }
             }
 
 
