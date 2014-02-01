@@ -25,7 +25,7 @@ namespace Barometer.Controllers
         }
 
 
-        [HttpPost]
+       [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
         public ActionResult ShowStats(string searchTerm = null)//laat voortgang van geselecteerde studenten zien
         {
             if (!IsAuthenticated())
@@ -35,7 +35,9 @@ namespace Barometer.Controllers
 
             int parsed;
             Int32.TryParse(searchTerm, out parsed);
-            var model = _db.Students
+            
+           
+           /*var model = _db.Students
                     .OrderByDescending(s => s.LastName)
                     .Where(s => searchTerm == null 
                             || s.FirstName.StartsWith(searchTerm) 
@@ -43,6 +45,15 @@ namespace Barometer.Controllers
                             || s.Studentnr == parsed)
                     .Take(10).ToList();
             ViewBag.test = "Searchterm: " + searchTerm + "  -  " + " returnstring  " + parsed ; 
+           */
+
+            var model = _db.StudentGrades
+                .OrderByDescending(s => s.Student.LastName).OrderByDescending( s => s.Project.Name)
+                .Where(s => searchTerm == null
+                         || s.Student.FirstName.StartsWith(searchTerm)
+                         || s.Student.LastName.StartsWith(searchTerm)
+                         || s.Student.Studentnr == parsed).Take(10).ToList();
+
 
             return View(model);
         }
