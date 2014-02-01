@@ -197,6 +197,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\MyExtensions.cs" />
     <Compile Include="Models\NewDB.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\BaroDB.cs" />
@@ -205,6 +206,7 @@
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\QuestionList.cs" />
     <Compile Include="Models\ReviewDates.cs" />
+    <Compile Include="Models\ShowStats.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\StudentGrades.cs" />
     <Compile Include="Models\StudentProjectGroups.cs" />
