@@ -97,35 +97,36 @@ tutor te selecteren.
 
                 <script>
 
+            
                     studentGrades = new Array();
                     subjects = new Array();
                     @{
 
                 Barometer.Models.Project[] studentProjects = Model.Select(s => s.Project).Distinct().ToArray();
                             int nrOfProjects = studentProjects.Length;
-
+                            
                             //dataloop
                             for(int i = 0 ; i < nrOfProjects ; i++){
                                 string projectName = studentProjects[i].Name;
-                                    <text>                                
+                                    <text>                   
                                     grades = new Array();
                                     </text>
                                 foreach (var p in Model.Where(s => s.Project.Name == projectName)) {
                                     if (i == 0)
                                     {
                                        <text>
-                                        subjects.push(@p.SubjectQuestions.Subject);
-                                              </text>
+                                        subjects.push("@p.SubjectQuestions.Subject");
+                    </text>
                                     }
                                 <text>
-                    grades.push(@p.StudentGrades.Grade);
+                    grades.push(@p.StudentGrades.Grade );
                     </text>
                                  }
 
                                  <text>
                     temp = new Array();
                     temp.push(grades);
-                    temp.push(@projectName);
+                    temp.push("@projectName" );
                     studentGrades.push(temp);
                     </text>
                             }
@@ -187,6 +188,8 @@ tutor te selecteren.
         }
 
     }
+
+
 
     <div class="clear">&nbsp;</div>
     <div class="buttons">
