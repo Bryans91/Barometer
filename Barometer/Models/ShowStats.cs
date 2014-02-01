@@ -10,5 +10,6 @@ namespace Barometer.Models
         public StudentGrades StudentGrades { get; set; }
         public Student Student { get; set; }
         public Project Project { get; set; }
+        public SubjectQuestions SubjectQuestions { get; set; }
     }
 }

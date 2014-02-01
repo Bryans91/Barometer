@@ -46,15 +46,10 @@ tutor te selecteren.
         if (Model != null && Model.Count() != 0)
         {
             int count = 0;
-
-            <p>if 1</p>
-
             if (Model.First() != null)
             {
-                  <p>if 1.1</p>
                 if (Model.First().Student!= null)
-                {
-                      <p>if 2</p>
+                {                 
                     int studentNr = Model.First().Student.Studentnr;
                     foreach (var s in Model)
                     {
@@ -80,7 +75,7 @@ tutor te selecteren.
 
             if (count == 1) // if 1 student
             {
-                  <p>if 3</p>
+                  
                 <div class="studentinfo">
                     <table>
                         <tr>
@@ -112,18 +107,18 @@ tutor te selecteren.
                             //dataloop
                             for(int i = 0 ; i < nrOfProjects ; i++){
                                 string projectName = studentProjects[i].Name;
-                                    <text>
-                    grades = new Array();
-                    </text>
+                                    <text>                                
+                                    grades = new Array();
+                                    </text>
                                 foreach (var p in Model.Where(s => s.Project.Name == projectName)) {
                                     if (i == 0)
                                     {
                                        <text>
-                    subjects.push(@p.SubjectQuestion.Subject);
-                    </text>
+                                        subjects.push(@p.SubjectQuestions.Subject);
+                                              </text>
                                     }
                                 <text>
-                    grades.push(@p.Grade);
+                    grades.push(@p.StudentGrades.Grade);
                     </text>
                                  }
 

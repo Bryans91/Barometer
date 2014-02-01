@@ -61,10 +61,11 @@ namespace Barometer.Controllers
             var data = from sg in _db.StudentGrades
                        join s in _db.Students on sg.Student.Studentnr equals s.Studentnr
                        join p in _db.Projects on sg.Project.Id equals p.Id
+                       join sj in _db.SubjectQuestions on sg.SubjectQuestion.Id equals sj.Id
                        where sg.Student.Studentnr == parsed
                        || sg.Student.FirstName.StartsWith(searchTerm)
                        || sg.Student.LastName.StartsWith(searchTerm)
-                       select new { StudentGrades = sg, Student = s, Project = p };
+                       select new { StudentGrades = sg, Student = s, Project = p , SubjectQuestions = sj};
 
             var model = data.ToList().ToNonAnonymousList(typeof(ShowStats));
             //var model = new ShowStats(data.ToList());
