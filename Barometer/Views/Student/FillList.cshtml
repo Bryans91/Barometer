@@ -27,6 +27,15 @@
             @Html.DisplayFor(modelItem => item.Subject)
         </td>
     </tr>
+    if(item.Questions != null){
+        foreach (var item1 in item.Questions){
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item1.Name)
+                </td>
+            </tr>
+        }
+    }
 }
 </table>
 </form>
