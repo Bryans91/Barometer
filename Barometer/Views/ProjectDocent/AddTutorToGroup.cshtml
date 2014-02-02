@@ -24,14 +24,27 @@ tutor te selecteren.
 
 <h2>@ViewBag.Title</h2>
 
-<form name="@ViewBag.Tag" action="#" method=post enctype="multipart/form-data">
+@using (Html.BeginForm("AddTutorTotGroup", "ProjectDocent", FormMethod.Post))
+{
+    <div>
+        Tutors
+        @Html.DropDownList("Tutors");
+    </div>
+    <p>
+       <input type="submit" value="Accepteer" />
+    </p>
+
+}
+    
+
+@*<form name="@ViewBag.Tag" action="#" method=post enctype="multipart/form-data">
     @foreach(var item in Model)
     {
     <div class="groups">
         <select name="@item.Id">
             @foreach (Barometer.Models.Teacher tutor in ViewBag.Tutors)
             {                
-                <option value="@tutor.Id">@tutor.FirstName , @tutor.LastName</option>
+                <option value="@tutor.Id">@tutor.FirstName, @tutor.LastName</option>
             }
         </select>
         &raquo; @item.ClassCode<br />
@@ -42,4 +55,4 @@ tutor te selecteren.
             <button type="submit">Accepteer</button>
             <button type="submit">Ga terug</button>
     </div>
-</form>
+</form>*@

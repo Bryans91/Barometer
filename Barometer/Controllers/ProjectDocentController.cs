@@ -226,7 +226,7 @@ namespace Barometer.Controllers
             }
 
             List<ProjectGroup> groups = new List<ProjectGroup>();
-            List<Teacher> teachers = new List<Teacher>();
+            List<SelectListItem> teachers = new List<SelectListItem>();
 
             var project = from p in _db.Projects
                           orderby p.Id descending
@@ -235,7 +235,7 @@ namespace Barometer.Controllers
             int pId = project.First().Id;
 
             var dbgroups = from g in _db.ProjectGroups
-                           where g.Project.Id == pId
+                           where g.Project.Id == 5 //tijdelijk 5 voor test
                            select g;
             foreach (var x in dbgroups)
             {
@@ -245,9 +245,11 @@ namespace Barometer.Controllers
             var tutors = from t in _db.Teachers
                          where t.Role == TeacherAccess.tutor
                          select t;
+            int i = 0;
             foreach (var y in tutors)
             {
-                teachers.Add(y);
+                teachers.Add(new SelectListItem { Text = y.FirstName + ", " + y.LastName, Value = i.ToString() });
+                i++;
             }
 
             ViewBag.Tutors = teachers;
