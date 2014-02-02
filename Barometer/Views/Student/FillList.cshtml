@@ -1,10 +1,10 @@
-﻿@model IEnumerable<Barometer.Models.SubjectQuestions>
-
+﻿@model IEnumerable<Barometer.Models.FillList>
 @{
-    ViewBag.Title = "FillList";
+    ViewBag.Title = "Vul de vragenlijst in:";
+    ViewBag.Tag = "FillList";
 }
 
-<h2>FillList</h2>
+<h2>@ViewBag.Title</h2>
 
 <p>
     @ViewBag.ex
@@ -18,18 +18,19 @@
         </tr>
     </table>
     <table>
-@foreach (var item in Model) {
+@foreach (var i in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Id)
+
+            @i.SubjectQuestions.Subject;
         </td>
+    </tr>
+    <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Subject)
+            @i.Question.Id;
         </td>
     </tr>
 }
 </table>
 </form>
 </div>
-
-
