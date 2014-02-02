@@ -24,15 +24,19 @@ tutor te selecteren.
 
 <h2>@ViewBag.Title</h2>
 
-@using (Html.BeginForm("AddTutorTotGroup", "ProjectDocent", FormMethod.Post))
-{
-    <div>
-        Tutors
-        @Html.DropDownList("Tutors");
-    </div>
-    <p>
+@using (Html.BeginForm("AddTutorToGroup", "ProjectDocent", FormMethod.Post))
+{      
+    foreach(var item in Model){
+      <div>
+          @Html.DropDownList("Tutors")
+          &raquo; @item.ClassCode<br />
+      </div>  
+    
+    }   
+    
+    <div class="buttons">
        <input type="submit" value="Accepteer" />
-    </p>
+    </div>
 
 }
     
