@@ -10,7 +10,7 @@ namespace Barometer.Models
     {
         private int _id;
         private string _name;
-        private int _SubjectQuestions_Id;
+        private SubjectQuestions _SubjectQuestions_Id;
 
 
         public Question(string name)
@@ -34,7 +34,7 @@ namespace Barometer.Models
             set { _name = value; }
         }
 
-        public int SubjectQuestions_Id
+        public SubjectQuestions SubjectQuestion
         {
             get { return _SubjectQuestions_Id; }
             set { _SubjectQuestions_Id = value; }
