@@ -21,10 +21,13 @@
 @foreach (var i in Model) {
     <tr>
         <td>
+
             @i.SubjectQuestions.Subject;
         </td>
+    </tr>
+    <tr>
         <td>
-            @i.SubjectQuestions.Id;
+            @i.Question.Id;
         </td>
     </tr>
 }
