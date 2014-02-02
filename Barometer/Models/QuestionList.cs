@@ -10,6 +10,7 @@ namespace Barometer.Models
     {
         private int _id;
         private List<SubjectQuestions> _subjects;
+        private String _name;
 
         public QuestionList()
         {
@@ -21,7 +22,12 @@ namespace Barometer.Models
             get { return _id; }
             set { _id = value; }
         }
-        
+
+        public String Name {
+            get { return _name; }
+            set { _name = value; }
+        }
+
         public List<SubjectQuestions> Subjects
         {
             get { return _subjects; }
