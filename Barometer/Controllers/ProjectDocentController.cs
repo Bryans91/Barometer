@@ -258,22 +258,38 @@ namespace Barometer.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddTutorToGroup(HttpPostAttribute att)
+        public ActionResult AddTutorToGroup(List<string> Tutors)
         {
-            //var project = from p in _db.Projects
-            //              orderby p.Id descending
-            //              select p;
+            List<string> tutors = Tutors;
+            List<Teacher> teachers = new List<Teacher>();
+            var tutors1 = from t in _db.Teachers
+                         where t.Role == TeacherAccess.tutor
+                         select t;
 
-            //int pId = project.First().Id;
+            foreach (var y in tutors1)
+            {
+                teachers.Add(y);       
+            }
 
-            //var dbgroups = from g in _db.ProjectGroups
-            //               where g.Project.Id == pId
-            //               select g;
-            //foreach (var x in dbgroups)
-            //{
-                
-            //}
-            return View();
+            List<ProjectGroup> groups = new List<ProjectGroup>();
+            var dbgroups = from g in _db.ProjectGroups
+                           where g.Project.Id == 5 //tijdelijk 5 voor test
+                           select g;
+            foreach (var x in dbgroups)
+            {
+                groups.Add(x);
+            }
+            int index = 0;
+            foreach (ProjectGroup gr in groups)
+            {
+                string tut = Tutors.ToArray().GetValue(index).ToString();
+                gr.Tutor = (Teacher)teachers.ToArray().GetValue(int.Parse(tut));
+                    
+                index++;
+            }
+            _db.SaveChanges();
+            
+            return RedirectToAction("Error","Main", Tutors);
         }
 
         public ActionResult DetermineFillDates()
