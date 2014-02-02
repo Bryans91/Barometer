@@ -197,6 +197,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\FillList.cs" />
     <Compile Include="Models\MyExtensions.cs" />
     <Compile Include="Models\NewDB.cs" />
     <Compile Include="Models\AccountModels.cs" />
