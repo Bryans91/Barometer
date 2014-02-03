@@ -131,9 +131,9 @@ namespace Barometer.Controllers
 
                     if (currentStudent != null && currentGroup != null)
                     {
-                        currentStudent.ProjectGroup.Add(currentGroup);
-                        if (currentGroup.ProjectStudents == null)
-                            currentGroup.ProjectStudents = new List<Student>();
+                        //currentStudent.ProjectGroup.Add(currentGroup);
+                        //if (currentGroup.ProjectStudents == null)
+                        //    currentGroup.ProjectStudents = new List<Student>();
                     }
                 }
 

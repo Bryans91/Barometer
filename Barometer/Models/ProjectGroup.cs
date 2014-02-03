@@ -55,13 +55,7 @@ namespace Barometer.Models
             get { return _tutor; }
             set { _tutor = value; }
         }
-        
-
-        public List<Student> ProjectStudents
-        {
-            get { return _projectStudents; }
-            set { _projectStudents = value; }
-        }
+        public List<StudentProjectGroups> StudentProjectGroup { get; set; }
         
 
         public Project Project

@@ -57,11 +57,7 @@ namespace Barometer.Models
             set { _projects = value; }
         }
 
-        public List<ProjectGroup> ProjectGroup
-        {
-            get { return _projectGroups; }
-            set { _projectGroups = value; }
-        }
+        public List<StudentProjectGroups> StudentProjectGroup { get; set; }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
