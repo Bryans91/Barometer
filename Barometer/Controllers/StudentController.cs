@@ -29,6 +29,25 @@ namespace Barometer.Controllers
             return View(model);
         }
 
+        public ActionResult SelectStudent() //Student selecteren
+        {
+            if (!IsAuthenticated())
+            {
+                return RedirectToAction("Index", "Main");
+            }
+
+            Student student = _db.SearchStudentByStudentNumber(((OAuth.CurrentUser)(Session["currentUser"])).ID);
+
+            var data1 = from p in _db.Projects
+                        where student.Project.Contains(p)
+                        && p.EndDate < DateTime.Now
+                        select new { Project = p };
+
+            var model = data1.ToList().ToNonAnonymousList(typeof(Student));
+            //ViewBag.count = model.Count;
+            return View(student);
+        }
+
         private bool IsAuthenticated()
         {
             if (Session["currentUser"] != null)

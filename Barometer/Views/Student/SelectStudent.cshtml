@@ -1,0 +1,19 @@
+﻿@*@model IEnumerable<Barometer.Models.Student>*@
+@model Barometer.Models.Student
+
+@{
+    ViewBag.Title = "Selecteer Student";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@Model.Project.Count()
+
+@*@if (Model.Count() == 0)
+{
+    <text>Geen projecten gevonden.</text>
+}
+else
+{
+    @Model.Count()<text> Project(en) gevonden!</text>
+}*@

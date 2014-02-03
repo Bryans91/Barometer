@@ -116,6 +116,11 @@ namespace Barometer.Migrations
             //context.StudentGrades.AddOrUpdate(new StudentGrades[] { sg1, sg2, sg3, sg4, sg5, sg6, sg7, sg8 });
             #endregion
 
+            s8.Project.Add(context.Projects.Find(5));
+            s8.Project.Add(context.Projects.Find(6));
+
+            context.Students.AddOrUpdate(s8);
+
 
             //context.QuestionLists.AddOrUpdate(ql1);
         //    context.Teachers.AddOrUpdate(new Teacher[] { t6, t7, t8, t9, t10, t11, t12, t13 });
