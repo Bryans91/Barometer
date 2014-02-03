@@ -133,6 +133,8 @@ namespace Barometer.Controllers
                     {
                         StudentProjectGroups spg = new StudentProjectGroups(currentStudent, currentGroup);
                         currentStudent.StudentProjectGroup.Add(spg);
+                        if (currentGroup.StudentProjectGroup == null)
+                            currentGroup.StudentProjectGroup = new List<StudentProjectGroups>();                    
                         currentGroup.StudentProjectGroup.Add(spg);
                     }
                 }
@@ -149,7 +151,7 @@ namespace Barometer.Controllers
                 }
                 
                 _db.SaveChanges();
-                return RedirectToAction("CheckProjectGroups");
+                return RedirectToAction("AddTutorToGroup");
             }
             return RedirectToAction("ShowStudents"); // error scherm met file is null
         }
@@ -235,7 +237,7 @@ namespace Barometer.Controllers
             int pId = project.First().Id;
 
             var dbgroups = from g in _db.ProjectGroups
-                           where g.Project.Id == 5 //tijdelijk 5 voor test
+                           where g.Project.Id == pId
                            select g;
             foreach (var x in dbgroups)
             {
@@ -260,6 +262,12 @@ namespace Barometer.Controllers
         [HttpPost]
         public ActionResult AddTutorToGroup(List<string> Tutors)
         {
+            var project = from p in _db.Projects
+                          orderby p.Id descending
+                          select p;
+
+            int pId = project.First().Id;
+
             List<string> tutors = Tutors;
             List<Teacher> teachers = new List<Teacher>();
             var tutors1 = from t in _db.Teachers
@@ -273,7 +281,7 @@ namespace Barometer.Controllers
 
             List<ProjectGroup> groups = new List<ProjectGroup>();
             var dbgroups = from g in _db.ProjectGroups
-                           where g.Project.Id == 5 //tijdelijk 5 voor test
+                           where g.Project.Id == pId
                            select g;
             foreach (var x in dbgroups)
             {
@@ -288,8 +296,8 @@ namespace Barometer.Controllers
                 index++;
             }
             _db.SaveChanges();
-            
-            return RedirectToAction("Error","Main", Tutors);
+
+            return RedirectToAction("DetermineFillDates");
         }
 
         [HttpGet]
