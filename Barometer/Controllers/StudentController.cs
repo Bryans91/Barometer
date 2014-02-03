@@ -19,13 +19,13 @@ namespace Barometer.Controllers
             {
                 return RedirectToAction("Index", "Main");
             }
+
+
             var data = from sq in _db.SubjectQuestions
                        join q in _db.Questions on sq.Id equals q.SubjectQuestion.Id
-                       select new { SubjectQuestions = sq, Questions = q};
+                       select new { SubjectQuestions = sq, Question = q };
 
             var model = data.ToList().ToNonAnonymousList(typeof(FillList));
-            //var model = _db.SubjectQuestions.ToList();
-            //unfinished
             return View(model);
         }
 
