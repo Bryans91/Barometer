@@ -18,15 +18,25 @@
         </tr>
     </table>
     <table>
-@foreach (var i in Model) {
+@*@foreach (var i in Model) {*@
+@for (var i = 0; i < Model.ToArray().Length; i++ )
+{
     <tr>
+        <td><b>
+            @if (i == 0)
+            {
+                @Model.ElementAt(i).SubjectQuestions.Subject
+            }
+            else
+            { 
+                if (Model.ElementAt(i).SubjectQuestions.Id != Model.ElementAt(i-1).SubjectQuestions.Id)
+                {
+                    @Model.ElementAt(i).SubjectQuestions.Subject
+                }
+            }
+        </b></td>
         <td>
-            @i.SubjectQuestions.Subject;
-        </td>
-    </tr>
-    <tr>
-        <td>
-            @i.Question.Name;
+            @Model.ElementAt(i).Question.Name
         </td>
     </tr>
 }
