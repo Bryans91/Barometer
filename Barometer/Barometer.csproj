@@ -376,6 +376,7 @@
     <Content Include="upload\Groep2.csv" />
     <Content Include="upload\Groep3.csv" />
     <Content Include="Views\ProjectDocent\CheckStudents.cshtml" />
+    <Content Include="Views\Student\SelectStudent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
