@@ -13,5 +13,11 @@ namespace Barometer.Models
         public int Id { get; set; }
         public Student Student { get; set; }
         public ProjectGroup ProjectGroup { get; set; }
+
+        public StudentProjectGroups(Student stud, ProjectGroup proj)
+        {
+            Student = stud;
+            ProjectGroup = proj;
+        }
     }
 }
