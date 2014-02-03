@@ -15,6 +15,7 @@ namespace Barometer.Models
         public SubjectQuestions SubjectQuestion { get; set; }
         public ReviewDates ReviewDate { get; set; }
         public int Grade { get; set; }
+        public int TutorGrading { get; set; }
 
 
 
