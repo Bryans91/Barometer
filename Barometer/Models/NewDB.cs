@@ -21,6 +21,7 @@ namespace Barometer.Migrations
         public DbSet<SubjectQuestions> SubjectQuestions { get; set; }
         public DbSet<StudentGrades> StudentGrades { get; set; }
         public ReviewDates ReviewDates { get; set; }
+        public DbSet<StudentProjectGroups> StudentProjectGroups { get; set; }
         
     }
 }

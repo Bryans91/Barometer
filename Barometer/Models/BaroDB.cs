@@ -24,6 +24,7 @@ namespace Barometer.Models
         public DbSet<SubjectQuestions> SubjectQuestions { get; set; }
         public DbSet<StudentGrades> StudentGrades { get; set; }
         public DbSet<ReviewDates> ReviewDates { get; set; }
+        public DbSet<StudentProjectGroups> StudentProjectGroups { get; set; }
 
         
         public Student SearchStudentByStudentNumber(int studentnr)
