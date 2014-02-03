@@ -27,14 +27,14 @@ namespace Barometer.Models
             _projectGroups = new List<Models.ProjectGroup>();
             _year = year;
             _mentor = mentor;
-
+            StudentProjectGroup = new List<StudentProjectGroups>();
         }
 
         public Student()
         {
             _projects = new List<Models.Project>();
             _projectGroups = new List<Models.ProjectGroup>();
-
+            StudentProjectGroup = new List<StudentProjectGroups>();
         }
 
 
