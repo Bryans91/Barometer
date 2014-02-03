@@ -292,12 +292,36 @@ namespace Barometer.Controllers
             return RedirectToAction("Error","Main", Tutors);
         }
 
+        [HttpGet]
         public ActionResult DetermineFillDates()
         {
             if (!IsAuthenticated())
             {
                 return RedirectToAction("Index", "Main");
             }
+
+            var project = from p in _db.Projects
+                          orderby p.Id descending
+                          select p;
+
+            //ViewBag.ProjectName = project.First().Name;
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult DetermineFillDates2()
+        {
+
+            var i = Request.Form[0];
+            var i1 = Request.Form[1];   
+            var i2 = Request.Form[2];   
+            var i3 = Request.Form[3];   
+            var i4 = Request.Form[4];   
+            var i5 = Request.Form[5];   
+            var i6 = Request.Form[6];   
+
+            //ViewBag.ProjectName = project.First().Name;
 
             return View();
         }
