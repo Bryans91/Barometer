@@ -312,26 +312,58 @@ namespace Barometer.Controllers
                           orderby p.Id descending
                           select p;
 
-            //ViewBag.ProjectName = project.First().Name;
+            ViewBag.ProjectName = project.First().Name;
 
             return View();
         }
 
         [HttpPost]
-        public ActionResult DetermineFillDates2()
+        public ActionResult DetermineFillDates2(List<string> strings)
         {
+            string startdatum = null;
+            string einddatum = null;
+            List<string> weeks = new List<string>();
 
-            var i = Request.Form[0];
-            var i1 = Request.Form[1];   
-            var i2 = Request.Form[2];   
-            var i3 = Request.Form[3];   
-            var i4 = Request.Form[4];   
-            var i5 = Request.Form[5];   
-            var i6 = Request.Form[6];   
+            
+            for (int i = 0; i < Request.Form.Count; i++) 
+            {
+                if (i == 0)
+                    startdatum = Request.Form[i];
+                else if (i == 1)
+                    einddatum = Request.Form[i];
+                else
+                    weeks.Add(Request.Form[i]);
+            }
 
-            //ViewBag.ProjectName = project.First().Name;
+            string[] starts = null;
+            string[] ends = null;
+            DateTime end = new DateTime();
+            DateTime start = new DateTime();
+            if (startdatum != null && einddatum != null)
+            {
+                starts = startdatum.Split('-');
+                ends = einddatum.Split('-');
+                start = new DateTime(int.Parse(starts[2]), int.Parse(starts[1]), int.Parse(starts[0]));
+                end = new DateTime(int.Parse(ends[2]), int.Parse(ends[1]), int.Parse(ends[0]));
+            }
 
-            return View();
+            var project = from p in _db.Projects
+                          orderby p.Id descending
+                          select p;
+
+            Project proj = project.First();
+
+            foreach(string s in weeks)
+            {
+                _db.ReviewDates.Add(new ReviewDates(proj,int.Parse(s)));
+            }
+
+            proj.StartDate = start;
+            proj.EndDate = end;
+
+            _db.SaveChanges();
+
+            return RedirectToAction("Index","Main");
         }
 
         private bool IsAuthenticated()
