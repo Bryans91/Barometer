@@ -39,6 +39,12 @@ namespace Barometer.Models
             get { return _subjects; }
             set { _subjects = value; }
         }
+
+        public List<Question> Questions
+        {
+            get;
+            set;
+        }
         
        
         
