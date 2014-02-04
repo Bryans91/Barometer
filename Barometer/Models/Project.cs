@@ -53,6 +53,12 @@ namespace Barometer.Models
             set { _projectGroups = value; }
         }
 
+        public List<Question> Questions
+        {
+            get;
+            set;
+        }
+
         public int Id
         {
             get { return _id; }
