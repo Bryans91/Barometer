@@ -191,6 +191,7 @@
     <Compile Include="Controllers\MentorController.cs" />
     <Compile Include="Controllers\ProjectDocentController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="Controllers\Tutor.cs" />
     <Compile Include="Controllers\TutorController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">

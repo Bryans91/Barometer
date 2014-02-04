@@ -12,23 +12,32 @@ namespace Barometer.Controllers
         //
         // GET: /Tutor/
 
+        BaroDB _db = new BaroDB();
+
         public ActionResult SelectGroup()
         {
             if (!IsAuthenticated())
             {
                 return RedirectToAction("Index", "Main");
             }
+            Teacher tutor = _db.SearchTeacherByTeacherNumber(((OAuth.CurrentUser)(Session["currentUser"])).ID);
 
-            return View();
+            var model = from pg in _db.ProjectGroups
+                        where pg.Tutor.DocentNumber == tutor.DocentNumber
+                        select pg;
+
+            return View(model);
         }
 
-        public ActionResult FillForm()//vul individuele beoordeling in
+        [HttpPost]
+        public ActionResult FillForm(string classCode)//vul individuele beoordeling in
         {
             if (!IsAuthenticated())
             {
                 return RedirectToAction("Index", "Main");
             }
 
+     
             return View();
         }
 
