@@ -12,8 +12,16 @@ namespace Barometer.Models
         [Key]
         public int Id { get; set; }
         public int Weeknr { get; set; }
-    
-    
+
+        public ReviewDates(Project proj, int date)
+        {
+            Project = proj;
+            Weeknr = date;
+        }
+
+        public ReviewDates()
+        {
+        }
     
     }
 }
