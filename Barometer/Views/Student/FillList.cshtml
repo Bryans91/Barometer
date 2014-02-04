@@ -20,10 +20,13 @@
     <table>
 @for (var i = 0; i < Model.ToArray().Length; i++ )
 {
+    
     <tr>
         <td><b>
+                
             @if (i == 0)
             {
+                
                 @Model.ElementAt(i).SubjectQuestions.Subject
             }
             else
@@ -34,23 +37,27 @@
                 }
             }
         </b></td>
+    </tr>
+    <tr>
         <td>
             @Model.ElementAt(i).Question.Name
+        </td>
+        <td>
             <select>
-            <option value="grade1">1</option>
-            <option value="grade2">2</option>
-            <option value="grade3">3</option>
-            <option value="grade4">4</option>
-            <option value="grade5">5</option>
-            <option value="grade6">6</option>
-            <option value="grade7">7</option>
-            <option value="grade8">8</option>
-            <option value="grade9">9</option>
-            <option value="grade10">10</option>
+                <option value="grade1">1</option>
+                <option value="grade2">2</option>
+                <option value="grade3">3</option>
+                <option value="grade4">4</option>
+                <option value="grade5">5</option>
+                <option value="grade6">6</option>
+                <option value="grade7">7</option>
+                <option value="grade8">8</option>
+                <option value="grade9">9</option>
+                <option value="grade10">10</option>
             </select>
         </td>
     </tr>
-}
+    }
         
 </table>
          <input type="submit" name="submitButton" value="Submit!" onclick="doSomething()" />
