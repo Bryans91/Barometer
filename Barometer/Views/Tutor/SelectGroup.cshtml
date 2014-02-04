@@ -31,7 +31,7 @@ Stap 6: Tutor publiceert de individuele eindcijfers van de projectleden
                     -
                 </td>
                 <td>
-                    @Ajax.ActionLink(g.ClassCode, "FillList", new { classCode = g.ClassCode }, new AjaxOptions { HttpMethod = "POST" })
+                    @Ajax.ActionLink(g.ClassCode, "FillForm", new { TempClassCode = g.ClassCode }, new AjaxOptions { HttpMethod = "POST" })
                 </td>
             </tr>
     }

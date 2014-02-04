@@ -1,5 +1,54 @@
 ﻿@{
     ViewBag.Title = "FillForm";
 }
+@model IEnumerable<Barometer.Models.FillFormTutor>
+<h2>@Model.First().Projectgroups.ClassCode</h2>
+<div>
+    <form action="" method="post" enctype="multipart/form-data">
+        <table>
+            <tr>
+                <td>Student Nr.</td>
+                <td>Naam</td>
+                <td>Cijfer</td>
+            </tr>
 
-<h2>FillForm</h2>
+            @{
+                foreach (var s in Model.Distinct())
+                {
+                    <tr>
+                        <td>
+                            @s.Students.Studentnr
+                        </td>
+                        <td>
+                            @s.Students.FirstName @s.Students.LastName
+                </td>
+                <td>
+                    <select name="@s.Students.Studentnr">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </td>
+            </tr>
+                }
+
+
+
+
+            }
+            <tr>
+                <td></td>
+                <td></td>
+                <td><input type="submit" value="Cijfers toevoegen" /></td>
+            </tr>
+            
+        </table>
+    </form>
+</div>

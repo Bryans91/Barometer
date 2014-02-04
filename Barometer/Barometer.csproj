@@ -191,13 +191,13 @@
     <Compile Include="Controllers\MentorController.cs" />
     <Compile Include="Controllers\ProjectDocentController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
-    <Compile Include="Controllers\Tutor.cs" />
     <Compile Include="Controllers\TutorController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\FillFormTutor.cs" />
     <Compile Include="Models\FillList.cs" />
     <Compile Include="Models\MyExtensions.cs" />
     <Compile Include="Models\NewDB.cs" />

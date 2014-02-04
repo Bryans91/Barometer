@@ -29,16 +29,23 @@ namespace Barometer.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        public ActionResult FillForm(string classCode)//vul individuele beoordeling in
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        public ActionResult FillForm(string TempClassCode = null)//vul individuele beoordeling in
         {
             if (!IsAuthenticated())
             {
                 return RedirectToAction("Index", "Main");
             }
+            
+            var model = from pg in _db.ProjectGroups 
+                        join spg in _db.StudentProjectGroups on pg.ClassCode equals spg.ProjectGroup.ClassCode
+                        join s in _db.Students on spg.Student.Studentnr equals s.Studentnr
+                        where TempClassCode == pg.ClassCode
+                        select new { ProjectGroups = pg, StudentProjectGroups = spg, Students = s };
+            
+            var viewModel = model.ToList().ToNonAnonymousList(typeof(FillFormTutor));
 
-     
-            return View();
+            return View(viewModel);
         }
 
         private bool IsAuthenticated()
