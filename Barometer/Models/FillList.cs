@@ -10,7 +10,12 @@ namespace Barometer.Models
     {
         public SubjectQuestions SubjectQuestions { get; set; }
         public Question Question { get; set; }
-       
+
+
+        public void doSomething()
+        { 
+        
+        }
     }
 
 
