@@ -11,6 +11,7 @@
 </p>
 
 <div class="@ViewBag.Tag">
+    Geselecteerde student: @(((Barometer.Models.Student)Session["SelectedStudent"]).FirstName) @(((Barometer.Models.Student)Session["SelectedStudent"]).LastName)<br /><br />
     <form name="@ViewBag.Tag" action="#" method=post enctype="multipart/form-data">
     <table>
         <tr>
@@ -44,16 +45,16 @@
         </td>
         <td>
             <select>
-                <option value="grade1">1</option>
-                <option value="grade2">2</option>
-                <option value="grade3">3</option>
-                <option value="grade4">4</option>
-                <option value="grade5">5</option>
-                <option value="grade6">6</option>
-                <option value="grade7">7</option>
-                <option value="grade8">8</option>
-                <option value="grade9">9</option>
-                <option value="grade10">10</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
             </select>
         </td>
     </tr>
