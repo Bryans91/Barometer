@@ -38,14 +38,29 @@ namespace Barometer.Controllers
 
             Student student = _db.SearchStudentByStudentNumber(((OAuth.CurrentUser)(Session["currentUser"])).ID);
 
-            var data1 = from p in _db.Projects
-                        where student.Project.Contains(p)
-                        && p.EndDate < DateTime.Now
-                        select new { Project = p };
+            var data = from spg in _db.StudentProjectGroups
+                        where spg.Student.Studentnr == student.Studentnr
+                        select new { StudentProjectGroups = spg };
+            
+            List<StudentProjectGroups> spgs = (List<StudentProjectGroups>)(data.ToList().ToNonAnonymousList(typeof(StudentProjectGroups)));
 
-            var model = data1.ToList().ToNonAnonymousList(typeof(Student));
+            List<int> StudentProjectGroups = new List<int>();
+
+            foreach (StudentProjectGroups pg in spgs)
+            {
+                if (pg.ProjectGroup != null)
+                {
+                    StudentProjectGroups.Add(pg.ProjectGroup.Id);
+                }
+            }
+
+            var data2 = from s in _db.Students
+                        where StudentProjectGroups.Contains(s.Studentnr)
+                        select new { Student = s };
+
+            var model = data2.ToList().ToNonAnonymousList(typeof(Student));
             //ViewBag.count = model.Count;
-            return View(student);
+            return View(model);
         }
 
         private bool IsAuthenticated()

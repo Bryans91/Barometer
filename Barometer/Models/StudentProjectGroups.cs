@@ -19,5 +19,10 @@ namespace Barometer.Models
             Student = stud;
             ProjectGroup = proj;
         }
+
+        public StudentProjectGroups()
+        {
+
+        }
     }
 }
