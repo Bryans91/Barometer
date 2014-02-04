@@ -355,15 +355,13 @@ namespace Barometer.Controllers
 
             foreach(string s in weeks)
             {
-                //_db.ReviewDates.Add(new ReviewDates(proj,int.Parse(s)));
+                _db.ReviewDates.Add(new ReviewDates(proj,int.Parse(s)));
             }
 
             proj.StartDate = start;
             proj.EndDate = end;
 
             _db.SaveChanges();
-
-            //ViewBag.ProjectName = project.First().Name;
 
             return RedirectToAction("Index","Main");
         }
