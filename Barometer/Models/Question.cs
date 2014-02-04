@@ -40,6 +40,12 @@ namespace Barometer.Models
             set { _SubjectQuestions_Id = value; }
         }
 
+        public Project Project
+        {
+            get;
+            set;
+        }
+
         
     }
 }
