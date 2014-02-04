@@ -11,7 +11,7 @@ namespace Barometer.Models
         public Project Project { get; set; }
         [Key]
         public int Id { get; set; }
-        public int Weeknr { get; set; }
+        public DateTime Date { get; set; }
     
     
     
