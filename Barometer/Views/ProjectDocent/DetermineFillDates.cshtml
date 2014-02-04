@@ -113,7 +113,7 @@ Stap 7: Projectdocent stelt de beoordelingsmomenten in
         //HIERGOED
 
         for (var i = 0; i < aantal; i++) {
-            var sel = $("<select>").appendTo($(".filldateselect"));
+            var sel = $("<select name='" + i +"'>").appendTo($(".filldateselect"));
             for (var x = 0; x < weekNumbers; x++) {
                 sel.append($("<option>").attr('value', x).text(x));
             }
