@@ -216,7 +216,47 @@ namespace Barometer.Controllers
                 return RedirectToAction("Index", "Main");
             }
 
-            return View();
+            var data = from sq in _db.SubjectQuestions
+                       join q in _db.Questions on sq.Id equals q.SubjectQuestion.Id
+                       select new { SubjectQuestions = sq, Question = q };
+
+            var model = data.ToList().ToNonAnonymousList(typeof(FillList));
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult MakeQuestionList2()
+        {
+            var project = from p in _db.Projects
+                    orderby p.Id ascending
+                    select p;
+
+            Project proj = project.First();
+
+            List<string> questions = new List<string>();
+            string[] keys = Request.Form.AllKeys;
+
+            QuestionList qlist = new QuestionList();
+            
+
+            for (int i = 0; i < Request.Form.Count; i++)
+            {
+                string[] subject = keys[i].Split('-');
+                int subjectId = int.Parse(subject[0]);
+
+                string question = Request.Form[i];
+
+                SubjectQuestions squestion = _db.SubjectQuestions.Find(subjectId);
+                Question question1 = new Question(question, proj, squestion);
+
+                qlist.Questions.Add(question1);
+                _db.Questions.Add(question1);
+            }
+
+            _db.QuestionLists.Add(qlist);
+
+            return RedirectToAction("Index", "Main");
         }
 
 
@@ -363,7 +403,7 @@ namespace Barometer.Controllers
 
             _db.SaveChanges();
 
-            return RedirectToAction("Index","Main");
+            return RedirectToAction("MakeQuestionList");
         }
 
         private bool IsAuthenticated()
