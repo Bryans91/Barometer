@@ -208,6 +208,7 @@
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\QuestionList.cs" />
     <Compile Include="Models\ReviewDates.cs" />
+    <Compile Include="Models\SelectStudentModel.cs" />
     <Compile Include="Models\ShowStats.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\StudentGrades.cs" />

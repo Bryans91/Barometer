@@ -1,5 +1,4 @@
-﻿@model IEnumerable<Barometer.Models.Student>
-@*@model Barometer.Models.Student*@
+﻿@model IEnumerable<Barometer.Models.SelectStudentModel>
 
 @{
     ViewBag.Title = "Selecteer Student";
@@ -7,13 +6,18 @@
 
 <h2>@ViewBag.Title</h2>
 
-@Model.Count()
-
-@*@if (Model.Count() == 0)
+@using (Html.BeginForm("FillList", "Student", FormMethod.Post, new { id = "selectStudent" }))
 {
-    <text>Geen projecten gevonden.</text>
+    <text>
+        Groep: @Model.First().ProjectGroup.ClassCode <br /><br />
+        Kies de student die je wilt beoordelen<br />
+    </text>
+    @Html.AntiForgeryToken()
+    <select name="student">
+        @foreach (Barometer.Models.SelectStudentModel s in @Model)
+        {
+            <Text><option value="@s.Student.Studentnr">@s.Student.FirstName @s.Student.LastName</option></text>
+        }
+    </select><br />
+    <input type="submit" value="Selecteer" />
 }
-else
-{
-    @Model.Count()<text> Project(en) gevonden!</text>
-}*@

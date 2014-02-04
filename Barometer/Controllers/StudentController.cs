@@ -20,6 +20,12 @@ namespace Barometer.Controllers
                 return RedirectToAction("Index", "Main");
             }
 
+            if (Request.Form["student"] == null)
+            {
+                return RedirectToAction("SelectStudent", "Student");
+            }
+            int SelectedStudent = int.Parse(Request.Form["student"]);
+            Session["SelectedStudent"] = _db.SearchStudentByStudentNumber(SelectedStudent);
 
             var data = from sq in _db.SubjectQuestions
                        join q in _db.Questions on sq.Id equals q.SubjectQuestion.Id
@@ -39,27 +45,24 @@ namespace Barometer.Controllers
             Student student = _db.SearchStudentByStudentNumber(((OAuth.CurrentUser)(Session["currentUser"])).ID);
 
             var data = from spg in _db.StudentProjectGroups
-                        where spg.Student.Studentnr == student.Studentnr
-                        select new { StudentProjectGroups = spg };
-            
-            List<StudentProjectGroups> spgs = (List<StudentProjectGroups>)(data.ToList().ToNonAnonymousList(typeof(StudentProjectGroups)));
+                       where spg.Student.Studentnr == student.Studentnr
+                       join spg2 in _db.StudentProjectGroups on spg.ProjectGroup.Id equals spg2.ProjectGroup.Id
+                       where spg2.ProjectGroup.Project.EndDate > DateTime.Now
+                       join s in _db.Students on spg2.Student.Studentnr equals s.Studentnr
+                       select new { Student = s, ProjectGroup = spg2.ProjectGroup };
 
-            List<int> StudentProjectGroups = new List<int>();
+            List<SelectStudentModel> model = (List<SelectStudentModel>)(data.ToList().ToNonAnonymousList(typeof(SelectStudentModel)));
 
-            foreach (StudentProjectGroups pg in spgs)
+            //foreach (SelectStudentModel s in model)
+            for (int i = 0; i < model.Count(); i++)
             {
-                if (pg.ProjectGroup != null)
+                if (model.ElementAt(i).Student.Studentnr == student.Studentnr)
                 {
-                    StudentProjectGroups.Add(pg.ProjectGroup.Id);
+                    model.Remove(model.ElementAt(i));
                 }
             }
-
-            var data2 = from s in _db.Students
-                        where StudentProjectGroups.Contains(s.Studentnr)
-                        select new { Student = s };
-
-            var model = data2.ToList().ToNonAnonymousList(typeof(Student));
-            //ViewBag.count = model.Count;
+            //students.RemoveAll((Student s) => { return s.Studentnr == student.Studentnr; });
+            
             return View(model);
         }
 
