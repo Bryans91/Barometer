@@ -378,6 +378,7 @@
     <Content Include="upload\Groep3.csv" />
     <Content Include="Views\ProjectDocent\CheckStudents.cshtml" />
     <Content Include="Views\Student\SelectStudent.cshtml" />
+    <Content Include="Views\Student\ConfirmGrades.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

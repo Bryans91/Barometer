@@ -49,7 +49,7 @@ namespace Barometer.Controllers
                        join spg2 in _db.StudentProjectGroups on spg.ProjectGroup.Id equals spg2.ProjectGroup.Id
                        where spg2.ProjectGroup.Project.EndDate > DateTime.Now
                        join s in _db.Students on spg2.Student.Studentnr equals s.Studentnr
-                       select new { Student = s, ProjectGroup = spg2.ProjectGroup };
+                       select new { Student = s, ProjectGroup = spg2.ProjectGroup, Project = spg2.ProjectGroup.Project };
 
             List<SelectStudentModel> model = (List<SelectStudentModel>)(data.ToList().ToNonAnonymousList(typeof(SelectStudentModel)));
 
@@ -62,8 +62,31 @@ namespace Barometer.Controllers
                 }
             }
             //students.RemoveAll((Student s) => { return s.Studentnr == student.Studentnr; });
-            
+
+            Session["SelectStudentModel"] = model;
+
             return View(model);
+        }
+
+        public ActionResult ConfirmGrades()
+        {
+            SelectStudentModel selectStudentModel = ((List<SelectStudentModel>)Session["SelectStudentModel"]).First();
+            var data = from pg in _db.ProjectGroups
+                       where pg.Id == selectStudentModel.ProjectGroup.Id
+                       join p in _db.Projects on pg.Project.Id equals p.Id
+                       select p;
+
+            Project project = ((List<Project>)data.ToList()).First();
+            //var data = from spg in _db.StudentProjectGroups
+            //           where spg.Student.Studentnr == student.Studentnr
+            //           join spg2 in _db.StudentProjectGroups on spg.ProjectGroup.Id equals spg2.ProjectGroup.Id
+            //           where spg2.ProjectGroup.Project.EndDate > DateTime.Now
+            //           join s in _db.Students on spg2.Student.Studentnr equals s.Studentnr
+            //           select new { Student = s, ProjectGroup = spg2.ProjectGroup };
+
+            var form = Request.Form;
+
+            return View();
         }
 
         private bool IsAuthenticated()
