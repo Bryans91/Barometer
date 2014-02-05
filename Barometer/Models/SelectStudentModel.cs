@@ -10,5 +10,6 @@ namespace Barometer.Models
         public Student Student { get; set; }
         public Project Project { get; set; }
         public ProjectGroup ProjectGroup { get; set; }
+        public int Week { get; set; }
     }
 }
