@@ -26,6 +26,7 @@ tutor te selecteren.
 
 @using (Html.BeginForm("AddTutorToGroup", "ProjectDocent", FormMethod.Post))
 {      
+    <div><b>@ViewBag.ProjectName</b></div>
     foreach(var item in Model){
       <div>
           @Html.DropDownList("Tutors")
