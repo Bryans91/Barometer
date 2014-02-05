@@ -52,28 +52,29 @@ namespace Barometer.Controllers
             
         }
 
-        public ActionResult SubmitToDb(string className = null)
+        public ActionResult SubmitToDb()
         {
-           
+
+            string className = Request.Form["classCode"];
+
             var gradeData = from sg in _db.StudentGrades
                             join s in _db.Students on sg.Student.Studentnr equals s.Studentnr
                             join spg in _db.StudentProjectGroups on s.Studentnr equals spg.Student.Studentnr
                             where spg.ProjectGroup.ClassCode == className
-                            select sg;
+                            select new { StudentGrades = sg, Students = s };
 
             var gData = gradeData.ToList();
 
                 foreach (var g in gData)
-                {
-                    int key = g.Student.Studentnr;
-                    int data = int.Parse(Request.Form[key]);
-                    g.TutorGrading = data;
+                {            
+                    int data = int.Parse(Request.Form[g.Students.Studentnr.ToString()]);
+                    g.StudentGrades.TutorGrading = data;
+                   
 
                 }
              
             _db.SaveChanges();
         
-
             return RedirectToAction("Index", "Main");
         }
 
