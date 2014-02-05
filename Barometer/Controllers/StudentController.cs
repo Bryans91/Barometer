@@ -151,7 +151,7 @@ namespace Barometer.Controllers
                 if (splitkey.Length == 2) //Formaat key moet *-* zijn, anders geen cijfer
                 {
                     int subjectQuestionID = int.Parse(splitkey[0]);
-                    if (previousSubjectQuestionID == subjectQuestionID || previousSubjectQuestionID == -1) //Eerste subject of zelfde subject?
+                    if (previousSubjectQuestionID == subjectQuestionID || previousSubjectQuestionID == -1) 
                     {
                         grades.Add(int.Parse(form[form.AllKeys[i]]));
                     }

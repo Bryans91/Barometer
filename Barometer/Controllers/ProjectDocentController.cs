@@ -33,8 +33,6 @@ namespace Barometer.Controllers
                 return RedirectToAction("Index", "Main");
             }
 
-            // Read the CSV file name & file path  
-            // I am usisg here Kendo UI Uploader  
             string path = null;
 
             List<Student> students = new List<Student>();
