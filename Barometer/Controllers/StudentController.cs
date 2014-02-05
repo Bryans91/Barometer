@@ -51,7 +51,7 @@ namespace Barometer.Controllers
             var data = from spg in _db.StudentProjectGroups
                        where spg.Student.Studentnr == student.Studentnr
                        join spg2 in _db.StudentProjectGroups on spg.ProjectGroup.Id equals spg2.ProjectGroup.Id
-                       where spg2.ProjectGroup.Project.EndDate > DateTime.Now
+                       where spg2.ProjectGroup.Project.EndDate > DateTime.Now && spg2.ProjectGroup.Project.StartDate < DateTime.Now
                        join s in _db.Students on spg2.Student.Studentnr equals s.Studentnr
                        select new { Student = s, ProjectGroup = spg2.ProjectGroup, Project = spg2.ProjectGroup.Project };
 
