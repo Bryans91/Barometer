@@ -13,15 +13,20 @@ namespace Barometer.Models
         private SubjectQuestions _SubjectQuestions_Id;
 
 
-        public Question(string name, Project proj, SubjectQuestions sub)
+        public Question(string name)
         {
-            _name = name;
-            Project = proj;
-            SubjectQuestion = sub;
+            Name = name;
         }
 
         public Question()
         {
+        }
+
+        public Question(string name, Models.Project proj, SubjectQuestions squestion)
+        {
+            Name = name;
+            Project = proj;
+            SubjectQuestion = squestion;
         }
 
         public int Id
