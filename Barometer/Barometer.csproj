@@ -372,13 +372,13 @@
     <Content Include="Views\Student\FillList.cshtml" />
     <Content Include="Views\Tutor\FillForm.cshtml" />
     <Content Include="Views\Tutor\SelectGroup.cshtml" />
-    <Content Include="Views\ProjectDocent\ShowStudents.cshtml" />
     <Content Include="Views\Mentor\ShowStats.cshtml" />
     <Content Include="Views\Main\Error.cshtml" />
     <Content Include="Views\ProjectDocent\CheckStudents.cshtml" />
     <Content Include="Views\Student\SelectStudent.cshtml" />
     <Content Include="Views\Student\ConfirmGrades.cshtml" />
     <Content Include="Views\Student\ViewGrades.cshtml" />
+    <Content Include="Views\ProjectDocent\ShowStudents.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

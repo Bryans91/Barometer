@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Barometer.Models.StudentProjectGroups>
+﻿@model IEnumerable<Barometer.Models.ProjectGroup>
 <!--
 Requirements:
 Stap 3: Projectdocent accepteert de weergegeven informatie van het aantal groepen.
@@ -11,74 +11,26 @@ Stap 3: Projectdocent accepteert de weergegeven informatie van het aantal groepe
 @{
     ViewBag.Title = "Lijst met toegevoegde groepen";
     ViewBag.Tag = "checkprojectgroups";
-    string name = null;
 }
 
 <div><b>@ViewBag.ProjectName</b></div>
 @foreach (var item in Model)
 {
     <div>
-        @if (name == null || !name.Equals(item.ProjectGroup.ClassCode))
-        {
-            <b>@item.ProjectGroup.ClassCode</b>
-            name = item.ProjectGroup.ClassCode;
-        }
-        @if (item.Student !=null)
-        {
-            @item.Student.FirstName @:, @item.Student.LastName, @item.Student.Studentnr
-        }
-               
+         <b>@item.ClassCode :</b><br />
+         @Html.Action("ShowStudents", new { groupId = item.Id })
+        <hr />      
     </div>
 }
 
+<div class="buttons">
+        @using (Html.BeginForm("CheckProjectGroups2", "ProjectDocent", FormMethod.Post)){
+            <button type="submit">Accepteer</button>
+        }
+    </div>
 
 
 @*@section Styles {
     <link href="@Url.Content("~/Content/pages/checkprojectgroups.css")" rel="stylesheet" type="text/css" />
-}
+}*@
 
-<h2>@ViewBag.Title</h2>
-
-<div class="@ViewBag.Tag">
-
-    <div class="groups">
-        &raquo; <a href="#">Group A</a><br />
-        &raquo; <a href="#">Groep B</a><br />
-        &raquo; <a href="#">Groep C</a><br />
-        &raquo; <a href="#">Groep D</a><br />
-        &raquo; <a href="#">Groep E</a><br />
-        &raquo; <a href="#">Groep F</a><br />
-        &raquo; <a href="#"><b>Groep G</b></a><br />
-        &raquo; <a href="#">Groep H</a><br />
-    </div>
-    <div class="groupmembers">
-        Rawa Abdullah<br />
-        Benny Bijl<br />
-        Jeroen Broekhuizen<br />
-        Joep van den Broek<br />
-        Luuk de Bruin<br />
-        Alexander van Doorn<br />
-        Thomas Voogt<br />
-        Bryan Schreuder<br />
-        Solo Schekermans
-    </div>
-    <div class="groupmembersid">
-        (2065367)<br />
-        (2052712)<br />
-        (2036785)<br />
-        (2022613)<br />
-        (2055682)<br />
-        (2073675)<br />
-        (2036755)<br />
-        (2056754)<br />
-        (2051577)
-    </div>
-    <div class="clear"></div>
-    <div class="buttons">
-        <form name="@ViewBag.Tag" action="#" method="post">
-            <button type="submit">Accepteer</button>
-            <button type="submit">Ga terug</button>
-        </form>
-    </div>
-
-</div>*@
