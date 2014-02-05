@@ -276,7 +276,7 @@ namespace Barometer.Controllers
             }
 
             _db.QuestionLists.Add(qlist);
-
+            proj.Questionlist = qlist;
             _db.SaveChanges();
 
             return RedirectToAction("Index", "Main");
