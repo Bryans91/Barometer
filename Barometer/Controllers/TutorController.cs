@@ -43,8 +43,9 @@ namespace Barometer.Controllers
                 var data = from pg in _db.ProjectGroups
                            join spg in _db.StudentProjectGroups on pg.ClassCode equals spg.ProjectGroup.ClassCode
                            join s in _db.Students on spg.Student.Studentnr equals s.Studentnr
+                           join sg in _db.StudentGrades on s.Studentnr equals sg.Student.Studentnr
                            where TempClassCode == pg.ClassCode
-                           select new { ProjectGroups = pg, StudentProjectGroups = spg, Students = s };
+                           select new { ProjectGroups = pg, StudentProjectGroups = spg, Students = s  , StudentGrades = sg};
 
                 var model = data.ToList().ToNonAnonymousList(typeof(FillFormTutor));
 

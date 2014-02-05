@@ -11,6 +11,7 @@
                 <td>Student Nr.</td>
                 <td>Naam</td>
                 <td>Cijfer</td>
+                <td>Huidig Cijfer</td>
             </tr>
 
             @{
@@ -36,6 +37,10 @@
                         <option id="9" value="9">9</option>
                         <option id="10" value="10">10</option>
                     </select>
+                    
+                </td>
+                <td>
+                    @s.StudentGrades.TutorGrading
                 </td>
             </tr>
                 }
