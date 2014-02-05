@@ -6,7 +6,7 @@ Stap 6: Tutor publiceert de individuele eindcijfers van de projectleden
 4.6.1 Het systeem kan eindcijfers publiceren
  4.6.1.1 De tutor kan eindcijfers publiek maken
 -->
-
+@model IEnumerable<Barometer.Models.ProjectGroup>
 @{
     ViewBag.Title = "Individuele beoordeling";
     ViewBag.Tag = "selectgroup";
@@ -17,82 +17,26 @@ Stap 6: Tutor publiceert de individuele eindcijfers van de projectleden
 }
 
 <h2>@ViewBag.Title</h2>
+<div>
 
-<div class="@ViewBag.Tag">
+    <table>
+        <tr>
+            <td></td>
+            <td>Groep: </td>
+        </tr>
+        @foreach (var g in Model)
+    {
+            <tr>
+                <td>
+                    -
+                </td>
+                <td>
+                    @Ajax.ActionLink(g.ClassCode, "FillForm", new { TempClassCode = g.ClassCode }, new AjaxOptions { HttpMethod = "POST" })
+                </td>
+            </tr>
+    }
 
-    <div class="projects">
-        &raquo; <a href="#">Project A</a><br />
-        &raquo; <a href="#">Project B</a><br />
-        &raquo; <a href="#"><b>Project Barometer</b></a><br />
-        &raquo; <a href="#">Project D</a><br />
-    </div>
+    </table>
 
-    <div class="groups">
-        &raquo; <a href="#">Group A</a><br />
-        &raquo; <a href="#">Groep B</a><br />
-        &raquo; <a href="#">Groep C</a><br />
-        &raquo; <a href="#">Groep D</a><br />
-        &raquo; <a href="#">Groep E</a><br />
-        &raquo; <a href="#">Groep F</a><br />
-        &raquo; <a href="#"><b>Groep G</b></a><br />
-        &raquo; <a href="#">Groep H</a><br />
-    </div>
-
-    <div class="groupmembers">
-        Abdullah<br />
-        Benny Bijl<br />
-        Jeroen Broekhuizen<br />
-        Joep van den Broek<br />
-        Luuk de Bruin<br />
-        Alexander van Doorn<br />
-        Thomas Voogt<br />
-        Bryan Schreuder<br />
-        Solo Schekermans
-    </div>
-    <div class="groupmembersid">
-        <select>
-            <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-            <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
-        </select> (2065367)<br />
-        <select>
-            <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-            <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
-        </select> (2052712)<br />
-        <select>
-            <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-            <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
-        </select> (2036785)<br />
-        <select>
-            <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-            <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
-        </select> (2022613)<br />
-        <select>
-            <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-            <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
-        </select> (2055682)<br />
-        <select>
-            <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-            <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
-        </select> (2073675)<br />
-        <select>
-            <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-            <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
-        </select> (2036755)<br />
-        <select>
-            <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-            <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
-        </select> (2056754)<br />
-        <select>
-            <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-            <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
-        </select> (2051577)
-    </div>
-    <div class="clear">&nbsp;</div>
-    <div class="buttons">
-        <form name="@ViewBag.Tag" action="#" method="post">
-            <button type="submit">Sla op</button>
-            <button type="submit">Publiceer</button>
-        </form>
-    </div>
 
 </div>
