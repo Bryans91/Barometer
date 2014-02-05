@@ -373,15 +373,13 @@
     <Content Include="Views\ProjectDocent\ShowStudents.cshtml" />
     <Content Include="Views\Mentor\ShowStats.cshtml" />
     <Content Include="Views\Main\Error.cshtml" />
-    <Content Include="upload\Groep1.csv" />
-    <Content Include="upload\Groep2.csv" />
-    <Content Include="upload\Groep3.csv" />
     <Content Include="Views\ProjectDocent\CheckStudents.cshtml" />
     <Content Include="Views\Student\SelectStudent.cshtml" />
     <Content Include="Views\Student\ConfirmGrades.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="upload\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

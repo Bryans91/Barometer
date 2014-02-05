@@ -11,7 +11,9 @@ namespace Barometer.Models
         private int _id;
         private string _name;
         private SubjectQuestions _SubjectQuestions_Id;
-
+        //private QuestionList qlist;
+        //private Project project;
+        
 
         public Question(string name, Project proj, SubjectQuestions sub)
         {
@@ -43,6 +45,12 @@ namespace Barometer.Models
         }
 
         public Project Project
+        {
+            get;
+            set;
+        }
+
+        public QuestionList QuestionList
         {
             get;
             set;

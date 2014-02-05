@@ -24,41 +24,43 @@ verschillende opdrachten heeft
 
 @using (Html.BeginForm("MakeQuestionList2", "ProjectDocent", FormMethod.Post))
 {
+<div>
+    <b>@ViewBag.ProjectName</b></div>
     <table>
         <tr>
-            <td><label for="text">Vul de vragenlijst in:</label></td>
+            <td>
+                <label for="text">Vul de vragenlijst in:</label></td>
         </tr>
     </table>
     <table>
-@for (var i = 0; i < Model.ToArray().Length; i++ )
+        @for (var i = 0; i < Model.ToArray().Length; i++ )
 {
-    <tr>
-        <td><b>
-            @if (i == 0)
+            <tr>
+                <td><b>
+                    @if (i == 0)
             {
-                @Model.ElementAt(i).SubjectQuestions.Subject
+                        @Model.ElementAt(i).SubjectQuestions.Subject
             }
             else
             { 
                 if (Model.ElementAt(i).SubjectQuestions.Id != Model.ElementAt(i-1).SubjectQuestions.Id)
                 {
-                    @Model.ElementAt(i).SubjectQuestions.Subject
+                        @Model.ElementAt(i).SubjectQuestions.Subject
                 }
             }
-        </b></td>  
-        <td>
-            <input name="@(Model.ElementAt(i).SubjectQuestions.Id)-@i" value="@Model.ElementAt(i).Question.Name" size="50"/>
-        </td>      
-    </tr>
+                </b></td>
+                <td>
+                    <input name="@(Model.ElementAt(i).SubjectQuestions.Id)-@i" value="@Model.ElementAt(i).Question.Name" size="50"/>
+                </td>
+            </tr>
         
 }
 
     </table>
-        <div class="buttons">
-            <button type="submit">Accepteer</button>
-            <button type="submit">Ga terug</button>
-        </div>
+    <div class="buttons">
+        <button type="submit">Accepteer</button>
+        <button type="submit">Ga terug</button>
+    </div>
 
-  
 }
-</div>
+

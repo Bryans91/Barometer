@@ -29,6 +29,7 @@ namespace Barometer.Controllers
 
             var data = from sq in _db.SubjectQuestions
                        join q in _db.Questions on sq.Id equals q.SubjectQuestion.Id
+                       where q.QuestionList.Id == 1
                        select new { SubjectQuestions = sq, Question = q };
 
             var model = data.ToList().ToNonAnonymousList(typeof(FillList));
