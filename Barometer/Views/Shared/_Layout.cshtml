@@ -46,7 +46,8 @@
             switch (((Barometer.OAuth.CurrentUser)Session["currentUser"]).Access)
             { 
                 case (Barometer.OAuth.access.student):
-                    <li>@Html.ActionLink("Vragenlijst invullen","SelectStudent","Student")</li>
+                    <li>@Html.ActionLink("Studenten beoordelen","SelectStudent","Student")</li>
+                    <li>@Html.ActionLink("Bekijk beoordelingen","ViewGrades","Student")</li>
                     break;
                 case (Barometer.OAuth.access.projectDocent):
                     <li>@Html.ActionLink("Project aanmaken","MakeProject","ProjectDocent")</li>
@@ -58,7 +59,8 @@
                     <li>@Html.ActionLink("Beoordeling bekijken","ShowStats","Mentor")</li>
                     break;
                 case (Barometer.OAuth.access.admin):
-                    <li>@Html.ActionLink("Vragenlijst invullen (student)","SelectStudent","Student")</li>
+                    <li>@Html.ActionLink("Studenten beoordelen (student)","SelectStudent","Student")</li>
+                    <li>@Html.ActionLink("Bekijk beoordelingen (student)","ViewGrades","Student")</li>
                     <li>@Html.ActionLink("Project aanmaken (project docent)","MakeProject","ProjectDocent")</li>
                     <li>@Html.ActionLink("Beoordeling invullen (tutor)","SelectGroup","Tutor")</li>
                     <li>@Html.ActionLink("Beoordeling bekijken (mentor)","ShowStats","Mentor")</li>

@@ -377,6 +377,7 @@
     <Content Include="Views\ProjectDocent\CheckStudents.cshtml" />
     <Content Include="Views\Student\SelectStudent.cshtml" />
     <Content Include="Views\Student\ConfirmGrades.cshtml" />
+    <Content Include="Views\Student\ViewGrades.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

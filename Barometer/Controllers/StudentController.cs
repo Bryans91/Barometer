@@ -52,7 +52,7 @@ namespace Barometer.Controllers
             var data = from spg in _db.StudentProjectGroups
                        where spg.Student.Studentnr == student.Studentnr
                        join spg2 in _db.StudentProjectGroups on spg.ProjectGroup.Id equals spg2.ProjectGroup.Id
-                       where spg2.ProjectGroup.Project.EndDate > DateTime.Now
+                       where spg2.ProjectGroup.Project.EndDate > DateTime.Now && spg2.ProjectGroup.Project.StartDate < DateTime.Now
                        join s in _db.Students on spg2.Student.Studentnr equals s.Studentnr
                        select new { Student = s, ProjectGroup = spg2.ProjectGroup, Project = spg2.ProjectGroup.Project };
 
@@ -72,6 +72,12 @@ namespace Barometer.Controllers
 
             List<Student> reviewedStudents = data2.ToList();
 
+            var data3 = from rd in _db.ReviewDates
+                        where rd.Weeknr == week
+                        select rd;
+
+            List<ReviewDates> reviewDates = data3.ToList();
+
 
             for (int i = 0; i < model.Count(); i++)
             {
@@ -89,6 +95,10 @@ namespace Barometer.Controllers
                 model.ElementAt(i).Week = week;
             }
 
+            if (reviewDates.Count == 0)
+            {
+                model = new List<SelectStudentModel>();
+            }
             Session["SelectStudentModel"] = model;
 
             return View(model);
@@ -195,6 +205,27 @@ namespace Barometer.Controllers
             };
 
             _db.StudentGrades.Add(studentGrade);
+        }
+
+        public ActionResult ViewGrades()
+        {
+            if (!IsAuthenticated())
+            {
+                return RedirectToAction("Index", "Main");
+            }
+
+            int studentNr = ((OAuth.CurrentUser)Session["currentUser"]).ID;
+
+            var data = from sg in _db.StudentGrades
+                       join s in _db.Students on sg.Student.Studentnr equals s.Studentnr
+                       join p in _db.Projects on sg.Project.Id equals p.Id
+                       join sj in _db.SubjectQuestions on sg.SubjectQuestion.Id equals sj.Id
+                       where sg.Student.Studentnr == studentNr
+                       select new { StudentGrades = sg, Student = s, Project = p, SubjectQuestions = sj };
+
+            var model = data.ToList().ToNonAnonymousList(typeof(ShowStats));
+
+            return View(model);
         }
 
         private bool IsAuthenticated()
