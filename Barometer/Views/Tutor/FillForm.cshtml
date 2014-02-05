@@ -15,36 +15,47 @@
             </tr>
 
             @{
-                foreach (var s in Model.Distinct())
-                {
-                    <tr>
-                        <td>
-                            @s.Students.Studentnr
-                        </td>
-                        <td>
-                            @s.Students.FirstName @s.Students.LastName
-                </td>
+    foreach (var s in Model.Distinct())
+    {
+        <tr>
+            <td>
+                @s.Students.Studentnr
+            </td>
+            <td>
+                @s.Students.FirstName @s.Students.LastName
+            </td>
+            <td>
+                <select name="@s.Students.Studentnr">
+                    <option id="1" value="1">1</option>
+                    <option id="2" value="2">2</option>
+                    <option id="3" value="3">3</option>
+                    <option id="4" value="4">4</option>
+                    <option id="5" value="5">5</option>
+                    <option id="6" value="6">6</option>
+                    <option id="7" value="7">7</option>
+                    <option id="8" value="8">8</option>
+                    <option id="9" value="9">9</option>
+                    <option id="10" value="10">10</option>
+                </select>
+
+            </td>
+            @if (s.StudentGrades.TutorGrading == null)
+            {
                 <td>
-                    <select name="@s.Students.Studentnr" >
-                        <option id="1" value="1">1</option>
-                        <option id="2" value="2">2</option>
-                        <option id="3" value="3">3</option>
-                        <option id="4" value="4">4</option>
-                        <option id="5" value="5">5</option>
-                        <option id="6" value="6">6</option>
-                        <option id="7" value="7">7</option>
-                        <option id="8" value="8">8</option>
-                        <option id="9" value="9">9</option>
-                        <option id="10" value="10">10</option>
-                    </select>
-                    
+                    Geen cijfer bekend
                 </td>
+            }
+            else
+            {
                 <td>
                     @s.StudentGrades.TutorGrading
                 </td>
-            </tr>
-                }
             }
+
+
+        </tr>
+    }
+}
             <tr>
                 <td></td>
                 <td></td>
