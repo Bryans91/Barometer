@@ -12,7 +12,7 @@
     padding-right: 10px;
 }
 
-.makeproject input
+.makeproject .projectname input
 {
     font-size: 16pt;
     width: 250px;
