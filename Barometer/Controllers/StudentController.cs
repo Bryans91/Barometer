@@ -30,7 +30,16 @@ namespace Barometer.Controllers
                        join s in _db.Students on spg2.Student.Studentnr equals s.Studentnr
                        select new { Student = s, ProjectGroup = spg2.ProjectGroup, Project = spg2.ProjectGroup.Project };
 
-            List<SelectStudentModel> model = (List<SelectStudentModel>)(data.ToList().ToNonAnonymousList(typeof(SelectStudentModel)));
+            List<SelectStudentModel> model;
+
+            try
+            {
+                model = (List<SelectStudentModel>)(data.ToList().ToNonAnonymousList(typeof(SelectStudentModel)));
+            }
+            catch
+            {
+                return View(new List<SelectStudentModel>());
+            }
 
             TimeSpan time = DateTime.Now - model.First().Project.StartDate;
             int week = (int)Math.Floor(time.TotalDays / 7) + 1;
