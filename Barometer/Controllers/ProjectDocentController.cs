@@ -152,7 +152,7 @@ namespace Barometer.Controllers
                 
                 _db.SaveChanges();
 
-                return RedirectToAction("AddTutorToGroup");
+                return RedirectToAction("CheckProjectGroup");
             }
             return RedirectToAction("Error", "Main", new {errorMessage = "Er is geen bestand geselecteerd"});
         }
@@ -166,7 +166,6 @@ namespace Barometer.Controllers
             }
 
             List<ProjectGroup> groups = new List<ProjectGroup>();
-            List<StudentProjectGroups> spg = new List<StudentProjectGroups>();
 
             var project = from p in _db.Projects
                     orderby p.Id descending
@@ -175,61 +174,37 @@ namespace Barometer.Controllers
             ViewBag.ProjectName = project.First().Name;
             int pId = project.First().Id;
 
-            //var dbgroups = from g in _db.ProjectGroups
-            //        where g.Project.Id == pId
-            //        select g;
-            //foreach (var x in dbgroups)
-            //{
-            //    groups.Add(x);
-            //}
-            
-            //foreach(ProjectGroup g in groups)
-            //{
-            //    var students = from s in _db.StudentProjectGroups
-            //                   where s.ProjectGroup.Id == g.Id
-            //                   select s;
-            //    foreach (var x in students)
-            //    {
-            //        spg.Add(x);
-            //    }
-            //}
-
-            var student = from s in _db.StudentProjectGroups
-                          join p in _db.ProjectGroups on s.ProjectGroup.Id equals p.Id
-                          where p.Project.Id == pId
-                          select s;
-            foreach (var stud in student)
+            var dbgroups = from g in _db.ProjectGroups
+                           where g.Project.Id == pId
+                           select g;
+            foreach (var x in dbgroups)
             {
-                spg.Add(stud);
-            }
-                          
+                groups.Add(x);
+            }                                    
 
-            return View(spg);
+            return View(groups);
         }
 
-        //public PartialViewResult CheckStudents(int projectId)
-        //{
-        //    List<Student> students = new List<Student>();
-
-        //    var dbstudents = from s in _db.StudentProjectGroups
-        //                     where s.ProjectGroup_Id == projectId
-        //                     select s;
-        //    foreach (var x in dbstudents)
-        //    {
-        //        students.Add(_db.Students.Find(x.Student_Studentnr));
-        //    }
-        //    return PartialView(students);
-        //}
+        [HttpPost]
+        public ActionResult CheckProjectGroups2()
+        {
+            return RedirectToAction("AddTutorToGroup");
+        }
 
         //Tijdelijke View voor studenten te show van de DB
-        public ActionResult ShowStudents()
+        public PartialViewResult ShowStudents(int groupId)
         {
-            if (!IsAuthenticated())
+            List<Student> students = new List<Student>();
+
+            var student = from s in _db.StudentProjectGroups
+                          where s.ProjectGroup.Id == groupId
+                          select s.Student;
+            foreach (var stud in student)
             {
-                return RedirectToAction("Index", "Main");
+                students.Add(stud);
             }
 
-            return View(_db.Students);
+            return PartialView(students);
         }
 
         public ActionResult MakeQuestionList()
