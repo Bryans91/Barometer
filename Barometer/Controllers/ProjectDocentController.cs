@@ -165,23 +165,46 @@ namespace Barometer.Controllers
                 return RedirectToAction("Index", "Main");
             }
 
-            List<ProjectGroup> groups = new List<ProjectGroup>();            
+            List<ProjectGroup> groups = new List<ProjectGroup>();
+            List<StudentProjectGroups> spg = new List<StudentProjectGroups>();
 
             var project = from p in _db.Projects
-                    orderby p.Id ascending
+                    orderby p.Id descending
                     select p;
 
+            ViewBag.ProjectName = project.First().Name;
             int pId = project.First().Id;
 
-            var dbgroups = from g in _db.ProjectGroups
-                    where g.Project.Id == pId
-                    select g;
-            foreach (var x in dbgroups)
-            {
-                groups.Add(x);
-            }
+            //var dbgroups = from g in _db.ProjectGroups
+            //        where g.Project.Id == pId
+            //        select g;
+            //foreach (var x in dbgroups)
+            //{
+            //    groups.Add(x);
+            //}
+            
+            //foreach(ProjectGroup g in groups)
+            //{
+            //    var students = from s in _db.StudentProjectGroups
+            //                   where s.ProjectGroup.Id == g.Id
+            //                   select s;
+            //    foreach (var x in students)
+            //    {
+            //        spg.Add(x);
+            //    }
+            //}
 
-            return View(groups);
+            var student = from s in _db.StudentProjectGroups
+                          join p in _db.ProjectGroups on s.ProjectGroup.Id equals p.Id
+                          where p.Project.Id == pId
+                          select s;
+            foreach (var stud in student)
+            {
+                spg.Add(stud);
+            }
+                          
+
+            return View(spg);
         }
 
         //public PartialViewResult CheckStudents(int projectId)
@@ -218,7 +241,7 @@ namespace Barometer.Controllers
 
             var data = from sq in _db.SubjectQuestions
                        join q in _db.Questions on sq.Id equals q.SubjectQuestion.Id
-                       where q.QuestionList.Id == 1
+                       where sq.QuestionList.Id == 1
                        select new { SubjectQuestions = sq, Question = q };
 
             var model = data.ToList().ToNonAnonymousList(typeof(FillList));
@@ -236,14 +259,15 @@ namespace Barometer.Controllers
         public ActionResult MakeQuestionList2()
         {
             var project = from p in _db.Projects
-                    orderby p.Id ascending
+                    orderby p.Id descending
                     select p;
 
             Project proj = project.First();
 
             List<string> questions = new List<string>();
+            List<SubjectQuestions> squestions = new List<SubjectQuestions>();;
             string[] keys = Request.Form.AllKeys;
-
+            SubjectQuestions currentSubject = null;
             QuestionList qlist = new QuestionList();
             
 
@@ -255,10 +279,25 @@ namespace Barometer.Controllers
                 string question = Request.Form[i];
 
                 SubjectQuestions squestion = _db.SubjectQuestions.Find(subjectId);
-                Question question1 = new Question(question, proj, squestion) { QuestionList = qlist };
+                if (currentSubject == null)
+                {
+                    currentSubject = new SubjectQuestions(squestion.Subject, squestion.Enabled) { QuestionList = qlist };
+                    squestions.Add(currentSubject);
+                }
+                else if (!squestion.Subject.Equals(currentSubject.Subject))
+                {
+                    currentSubject = new SubjectQuestions(squestion.Subject, squestion.Enabled) { QuestionList = qlist };
+                    squestions.Add(currentSubject);
+                }
+
+                Question question1 = new Question(question, proj, currentSubject) { QuestionList = qlist };
 
                 qlist.Questions.Add(question1);
                 _db.Questions.Add(question1);
+            }
+            foreach(SubjectQuestions s in squestions)
+            {
+                _db.SubjectQuestions.Add(s);
             }
 
             _db.QuestionLists.Add(qlist);

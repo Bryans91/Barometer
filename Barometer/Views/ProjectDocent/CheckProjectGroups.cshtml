@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Barometer.Models.ProjectGroup>
+﻿@model IEnumerable<Barometer.Models.StudentProjectGroups>
 <!--
 Requirements:
 Stap 3: Projectdocent accepteert de weergegeven informatie van het aantal groepen.
@@ -11,13 +11,23 @@ Stap 3: Projectdocent accepteert de weergegeven informatie van het aantal groepe
 @{
     ViewBag.Title = "Lijst met toegevoegde groepen";
     ViewBag.Tag = "checkprojectgroups";
+    string name = null;
 }
 
+<div><b>@ViewBag.ProjectName</b></div>
 @foreach (var item in Model)
 {
     <div>
-        @item.ClassCode :
-        @*@Html.Action("CheckStudents", new { Id = item.Id })*@
+        @if (name == null || !name.Equals(item.ProjectGroup.ClassCode))
+        {
+            <b>@item.ProjectGroup.ClassCode</b>
+            name = item.ProjectGroup.ClassCode;
+        }
+        @if (item.Student !=null)
+        {
+            @item.Student.FirstName @:, @item.Student.LastName, @item.Student.Studentnr
+        }
+               
     </div>
 }
 
