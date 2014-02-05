@@ -52,21 +52,28 @@ namespace Barometer.Controllers
 
             List<ReviewDates> reviewDates = data3.ToList();
 
+            int elements = model.Count();
 
-            for (int i = 0; i < model.Count(); i++)
+            for (int i = model.Count() - 1; i >= 0; i--)
             {
+                model.ElementAt(i).Week = week;
                 if (model.ElementAt(i).Student.Studentnr == student.Studentnr)
                 {
                     model.Remove(model.ElementAt(i));
+                    elements--;
                 }
-                foreach (Student s in reviewedStudents)
+            }
+
+            foreach (Student s in reviewedStudents)
+            {
+                for (int i = model.Count() - 1; i >= 0; i--) //2nd loop because of errors
                 {
                     if (model.ElementAt(i).Student.Studentnr == s.Studentnr)
                     {
                         model.Remove(model.ElementAt(i));
+                        elements--;
                     }
                 }
-                model.ElementAt(i).Week = week;
             }
 
             if (reviewDates.Count == 0)
