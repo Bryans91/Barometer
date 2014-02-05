@@ -23,6 +23,8 @@ namespace Barometer.Models
         public SubjectQuestions()
         {
         }
+        
+        public QuestionList QuestionList { get; set; }
 
         public int Id
         {

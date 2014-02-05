@@ -13,10 +13,10 @@ namespace Barometer.Models
         public int Id { get; set; }
         public int Weeknr { get; set; }
 
-        public ReviewDates(Project proj, int date)
+        public ReviewDates(Project proj, int weeknr)
         {
             Project = proj;
-            Weeknr = date;
+            Weeknr = weeknr;
         }
 
         public ReviewDates()

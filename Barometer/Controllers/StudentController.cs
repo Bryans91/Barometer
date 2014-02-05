@@ -24,8 +24,11 @@ namespace Barometer.Controllers
             {
                 return RedirectToAction("SelectStudent", "Student");
             }
+
             int SelectedStudent = int.Parse(Request.Form["student"]);
             Session["SelectedStudent"] = _db.SearchStudentByStudentNumber(SelectedStudent);
+
+            List<SelectStudentModel> selectStudentModel = (List<SelectStudentModel>)Session["SelectStudentModel"];
 
             var data = from sq in _db.SubjectQuestions
                        join q in _db.Questions on sq.Id equals q.SubjectQuestion.Id
@@ -42,6 +45,7 @@ namespace Barometer.Controllers
                 return RedirectToAction("Index", "Main");
             }
 
+            
             Student student = _db.SearchStudentByStudentNumber(((OAuth.CurrentUser)(Session["currentUser"])).ID);
 
             var data = from spg in _db.StudentProjectGroups
@@ -53,15 +57,17 @@ namespace Barometer.Controllers
 
             List<SelectStudentModel> model = (List<SelectStudentModel>)(data.ToList().ToNonAnonymousList(typeof(SelectStudentModel)));
 
-            //foreach (SelectStudentModel s in model)
+            TimeSpan time = DateTime.Now - model.First().Project.StartDate;
+            int week = (int)Math.Floor(time.TotalDays / 7) + 1;
+
             for (int i = 0; i < model.Count(); i++)
             {
                 if (model.ElementAt(i).Student.Studentnr == student.Studentnr)
                 {
                     model.Remove(model.ElementAt(i));
                 }
+                model.ElementAt(i).Week = week;
             }
-            //students.RemoveAll((Student s) => { return s.Studentnr == student.Studentnr; });
 
             Session["SelectStudentModel"] = model;
 
@@ -70,23 +76,103 @@ namespace Barometer.Controllers
 
         public ActionResult ConfirmGrades()
         {
-            SelectStudentModel selectStudentModel = ((List<SelectStudentModel>)Session["SelectStudentModel"]).First();
-            var data = from pg in _db.ProjectGroups
-                       where pg.Id == selectStudentModel.ProjectGroup.Id
-                       join p in _db.Projects on pg.Project.Id equals p.Id
-                       select p;
+            if (!IsAuthenticated())
+            {
+                return RedirectToAction("Index", "Main");
+            }
 
-            Project project = ((List<Project>)data.ToList()).First();
-            //var data = from spg in _db.StudentProjectGroups
-            //           where spg.Student.Studentnr == student.Studentnr
-            //           join spg2 in _db.StudentProjectGroups on spg.ProjectGroup.Id equals spg2.ProjectGroup.Id
-            //           where spg2.ProjectGroup.Project.EndDate > DateTime.Now
-            //           join s in _db.Students on spg2.Student.Studentnr equals s.Studentnr
-            //           select new { Student = s, ProjectGroup = spg2.ProjectGroup };
+            if (Request.Form.AllKeys.Length == 0)
+            {
+                return RedirectToAction("SelectStudent", "Student");
+            }
+
+            List<SelectStudentModel> selectStudentModel = (List<SelectStudentModel>)Session["SelectStudentModel"];
+            Student selectedStudent = (Student)Session["SelectedStudent"];
 
             var form = Request.Form;
 
+            List<int> grades = new List<int>();
+            int previousSubjectQuestionID = -1;
+
+            for (int i = 0; i < form.AllKeys.Length; i++)
+            {
+                string key = form.AllKeys.ElementAt(i);
+                string[] splitkey = key.Split('-');
+                
+                if (splitkey.Length == 2) //Formaat key moet *-* zijn, anders geen cijfer
+                {
+                    int subjectQuestionID = int.Parse(splitkey[0]);
+                    if (previousSubjectQuestionID == subjectQuestionID || previousSubjectQuestionID == -1) //Eerste subject of zelfde subject?
+                    {
+                        grades.Add(int.Parse(form[form.AllKeys[i]]));
+                    }
+                    else //add grade and empty grade list
+                    {
+                        AddGrade(grades, 
+                                 previousSubjectQuestionID, 
+                                 selectStudentModel.First().Week, 
+                                 selectStudentModel.First().Project.Id, 
+                                 selectedStudent.Studentnr);
+                        grades = new List<int>();
+                        grades.Add(int.Parse(form[form.AllKeys[i]]));
+                    }
+                    previousSubjectQuestionID = subjectQuestionID;
+                }
+            }
+
+            if (grades.Count != 0)
+            {
+                AddGrade(grades,
+                         previousSubjectQuestionID,
+                         selectStudentModel.First().Week,
+                         selectStudentModel.First().Project.Id,
+                         selectedStudent.Studentnr);
+            }
+            _db.SaveChanges();
             return View();
+        }
+
+        private void AddGrade(List<int> grades, int subjectQuestionID, int week, int projId, int studentNumber)
+        {
+            int totalGrade = 0;
+            foreach (int g in grades)
+            {
+                totalGrade += g;
+            }
+            int averageGrade = totalGrade / grades.Count();
+
+
+            //Pulling data out of the database, any information left stored is outdated and will be duplicated otherwise.
+
+            var data1 = from sq in _db.SubjectQuestions
+                        where sq.Id == subjectQuestionID
+                        select sq;
+
+            SubjectQuestions subjectQuestion = data1.ToList().First();
+
+            var data2 = from rd in _db.ReviewDates
+                        where rd.Project.Id == projId
+                        && rd.Weeknr == week
+                        select rd;
+
+            ReviewDates reviewDate = data2.ToList().First();
+
+            var data3 = from p in _db.Projects
+                        where p.Id == projId
+                        select p;
+
+            Project project = data3.ToList().First();
+
+            StudentGrades studentGrade = new StudentGrades
+            {
+                Project = project,
+                Grade = averageGrade,
+                SubjectQuestion = subjectQuestion,
+                Student = _db.SearchStudentByStudentNumber(studentNumber),
+                ReviewDate = reviewDate
+            };
+
+            _db.StudentGrades.Add(studentGrade);
         }
 
         private bool IsAuthenticated()
