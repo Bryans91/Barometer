@@ -59,6 +59,8 @@ namespace Barometer.Models
             set;
         }
 
+        public Student Student { get; set; }
+
         public int Id
         {
             get { return _id; }
