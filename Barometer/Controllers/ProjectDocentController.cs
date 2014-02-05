@@ -38,7 +38,8 @@ namespace Barometer.Controllers
             string path = null;
 
             List<Student> students = new List<Student>();
-
+            if(Request.Form["projectName"].Count() == 0)
+                return RedirectToAction("Error", "Main", new { errorMessage = "Er is geen projectnaam ingevuld" });
             if (file != null)
             {
                 var fileName = Path.GetFileName(file.FileName);
@@ -59,11 +60,11 @@ namespace Barometer.Controllers
                         dt.Columns.Add(new DataColumn(dc));
                         columnCount++;
                     }
-                    //else
-                        //errorScherm
+                    else
+                        return RedirectToAction("Error", "Main", new { errorMessage = "Één kolom header is niet correct" });
                 }
-                //if(columnCount != 5)
-                    //errorScherm
+                if (columnCount != 5)
+                    return RedirectToAction("Error", "Main", new { errorMessage = "Het aantal kolommen is niet correct" });
                 while (!sr.EndOfStream)
                 {
                     value = sr.ReadLine().Split(';');
@@ -77,7 +78,6 @@ namespace Barometer.Controllers
 
                 Project currentProject = new Project(Request.Form["projectName"], null, new DateTime(2014, 1, 1), new DateTime(2014, 1, 1), null);
                 ProjectGroup currentGroup = null;
-                ProjectGroup dbGroup = null;
                 Student currentStudent = null;
                 List<ProjectGroup> groupsToAdd = new List<ProjectGroup>();
                 List<Student> studentsToAdd = new List<Student>();
@@ -89,32 +89,29 @@ namespace Barometer.Controllers
 
                     currentStudent = _db.Students.Find(studnr);
 
-                    var groupModel = from r in _db.ProjectGroups
-                                     where r.ClassCode == pgroup
-                                     select r;
-                    dbGroup = groupModel.FirstOrDefault();
+                    //var groupModel = from r in _db.ProjectGroups
+                    //                 where r.ClassCode == pgroup
+                    //                 select r;
+                    //dbGroup = groupModel.FirstOrDefault();
 
-                    if (dbGroup == null)
+                    
+                    if (currentGroup == null)
                     {
-                        if (currentGroup == null)
+                        ProjectGroup newGroup = new ProjectGroup(pgroup, currentProject);
+                        groupsToAdd.Add(newGroup);
+                        currentGroup = newGroup;
+                    }
+                    else
+                    {
+                        if (!currentGroup.ClassCode.Equals(pgroup))
                         {
                             ProjectGroup newGroup = new ProjectGroup(pgroup, currentProject);
+                            currentProject.ProjectGroups.Add(newGroup);
                             groupsToAdd.Add(newGroup);
                             currentGroup = newGroup;
                         }
-                        else
-                        {
-                            if (!currentGroup.ClassCode.Equals(pgroup))
-                            {
-                                ProjectGroup newGroup = new ProjectGroup(pgroup, currentProject);
-                                currentProject.ProjectGroups.Add(newGroup);
-                                groupsToAdd.Add(newGroup);
-                                currentGroup = newGroup;
-                            }
-                        }
-                    }
-                    else
-                        currentGroup = dbGroup;
+                    }                    
+
 
                     if (currentStudent == null)
                     {
@@ -149,11 +146,15 @@ namespace Barometer.Controllers
                 {
                     _db.ProjectGroups.Add(group);
                 }
+                sr.Close();
+                file = null;
+                System.IO.File.Delete(path);
                 
                 _db.SaveChanges();
+
                 return RedirectToAction("AddTutorToGroup");
             }
-            return RedirectToAction("ShowStudents"); // error scherm met file is null
+            return RedirectToAction("Error", "Main", new {errorMessage = "Er is geen bestand geselecteerd"});
         }
 
 
@@ -165,7 +166,6 @@ namespace Barometer.Controllers
             }
 
             List<ProjectGroup> groups = new List<ProjectGroup>();            
-            //int pId = _db.Projects.Max().Id;
 
             var project = from p in _db.Projects
                     orderby p.Id ascending
@@ -218,9 +218,16 @@ namespace Barometer.Controllers
 
             var data = from sq in _db.SubjectQuestions
                        join q in _db.Questions on sq.Id equals q.SubjectQuestion.Id
+                       where q.QuestionList.Id == 1
                        select new { SubjectQuestions = sq, Question = q };
 
             var model = data.ToList().ToNonAnonymousList(typeof(FillList));
+
+            var project = from p in _db.Projects
+                          orderby p.Id descending
+                          select p;
+
+            ViewBag.ProjectName = project.First().Name;
 
             return View(model);
         }
@@ -248,13 +255,15 @@ namespace Barometer.Controllers
                 string question = Request.Form[i];
 
                 SubjectQuestions squestion = _db.SubjectQuestions.Find(subjectId);
-                Question question1 = new Question(question, proj, squestion);
+                Question question1 = new Question(question, proj, squestion) { QuestionList = qlist };
 
                 qlist.Questions.Add(question1);
                 _db.Questions.Add(question1);
             }
 
             _db.QuestionLists.Add(qlist);
+
+            _db.SaveChanges();
 
             return RedirectToAction("Index", "Main");
         }
@@ -306,6 +315,7 @@ namespace Barometer.Controllers
                           orderby p.Id descending
                           select p;
 
+            ViewBag.ProjectName = project.First().Name;
             int pId = project.First().Id;
 
             List<string> tutors = Tutors;

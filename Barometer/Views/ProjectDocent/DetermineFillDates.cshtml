@@ -21,7 +21,7 @@ Stap 7: Projectdocent stelt de beoordelingsmomenten in
 
 @using (Html.BeginForm("DetermineFillDates2", "ProjectDocent", FormMethod.Post))
 {
-    <div>@ViewBag.ProjectName</div>
+    <div><b>@ViewBag.ProjectName</b></div>
         @:Project startdatum <input name="startdate" type="text" class="datepicker" id="startdate" /><br />
         <span class="enddate">Project einddatum <input name="enddate" type="text" class="datepicker" id="enddate" /></span><br />
         <span class="fillmoments">Aantal invulmomenten <span class="fillselect"></span></span><br />
