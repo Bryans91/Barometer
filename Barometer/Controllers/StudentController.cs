@@ -71,6 +71,12 @@ namespace Barometer.Controllers
 
             List<Student> reviewedStudents = data2.ToList();
 
+            var data3 = from rd in _db.ReviewDates
+                        where rd.Weeknr == week
+                        select rd;
+
+            List<ReviewDates> reviewDates = data3.ToList();
+
 
             for (int i = 0; i < model.Count(); i++)
             {
@@ -88,6 +94,10 @@ namespace Barometer.Controllers
                 model.ElementAt(i).Week = week;
             }
 
+            if (reviewDates.Count == 0)
+            {
+                model = new List<SelectStudentModel>();
+            }
             Session["SelectStudentModel"] = model;
 
             return View(model);
