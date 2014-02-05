@@ -206,6 +206,27 @@ namespace Barometer.Controllers
             _db.StudentGrades.Add(studentGrade);
         }
 
+        public ActionResult ViewGrades()
+        {
+            if (!IsAuthenticated())
+            {
+                return RedirectToAction("Index", "Main");
+            }
+
+            int studentNr = ((OAuth.CurrentUser)Session["currentUser"]).ID;
+
+            var data = from sg in _db.StudentGrades
+                       join s in _db.Students on sg.Student.Studentnr equals s.Studentnr
+                       join p in _db.Projects on sg.Project.Id equals p.Id
+                       join sj in _db.SubjectQuestions on sg.SubjectQuestion.Id equals sj.Id
+                       where sg.Student.Studentnr == studentNr
+                       select new { StudentGrades = sg, Student = s, Project = p, SubjectQuestions = sj };
+
+            var model = data.ToList().ToNonAnonymousList(typeof(ShowStats));
+
+            return View(model);
+        }
+
         private bool IsAuthenticated()
         {
             if (Session["currentUser"] != null)

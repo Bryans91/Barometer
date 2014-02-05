@@ -1,0 +1,131 @@
+﻿@model IEnumerable<Barometer.Models.ShowStats>
+@{
+    ViewBag.Title = "Bekijk je voortgang";
+    ViewBag.Tag = "showstats";
+}
+
+
+@section Styles {
+    <link href="@Url.Content("~/Content/pages/showstats.css")" rel="stylesheet" type="text/css" />
+}
+@section Scripts {
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jqBarGraph.js")"></script>
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="@ViewBag.Tag">
+
+    @{
+        if (Model != null && Model.Count() != 0)
+        {
+            int count = 0;
+            if (Model.First() != null)
+            {
+                if (Model.First().Student != null)
+                {
+                    int studentNr = Model.First().Student.Studentnr;
+                    foreach (var s in Model)
+                    {
+                        if (count == 0 && s.Student.Studentnr == studentNr)
+                        {
+                            count++;
+                        }
+                        if (s.Student.Studentnr != studentNr)
+                        {
+                            studentNr = s.Student.Studentnr;
+                            count++;
+                        }
+                    }
+                }
+            }
+
+
+            if (count == 1) // Student gevonden
+            {
+
+                <div class="studentinfo">
+                    <table>
+                        <tr>
+                            <td class="title">Naam:</td>
+                            <td>@Model.First().Student.FirstName @Model.First().Student.LastName </td>
+                        </tr>
+                        <tr>
+                            <td class="title">Studentnummer:</td>
+                            <td>@Model.First().Student.Studentnr</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div id="multiGraph"></div>
+
+
+
+                <div id="stackedGraph"></div>
+
+                <script>
+                    studentGrades = new Array();
+                    subjects = new Array();
+                    @{
+                Barometer.Models.Project[] studentProjects = Model.Select(s => s.Project).Distinct().ToArray();
+                        int nrOfProjects = studentProjects.Length;
+
+                        //dataloop
+                        for(int i = 0 ; i < nrOfProjects ; i++)
+                        {
+                            string projectName = studentProjects[i].Name;
+                            <text>allGrades = new Array();</text>
+                            foreach (var p in Model.Where(s => s.Project.Name == projectName))
+                            {
+                                if (i == 0)
+                                {
+                                    <text>subjects.push("@p.SubjectQuestions.Subject");</text>
+                                }
+                                <text>
+                    if (typeof allGrades["@p.SubjectQuestions.Id"] == 'undefined') {
+                        allGrades["@p.SubjectQuestions.Id"] = new Array();
+                    }
+                    allGrades["@p.SubjectQuestions.Id"].push(@p.StudentGrades.Grade);
+                    </text>
+                            }
+
+                            <text>
+                    grades = new Array();
+                    for (var i = 0; i < allGrades.length; i++) {
+                        if (typeof allGrades[i] != 'undefined') {
+                            var sum = 0;
+                            for (var j = 0; j < allGrades[i].length; j++) {
+                                sum += allGrades[i][j];
+                            }
+                            grades.push(Math.round(sum / allGrades[i].length * 10) / 10)
+                        }
+                    }
+                    temp = new Array();
+                    temp.push(grades);
+                    temp.push("@projectName");
+                    studentGrades.push(temp);
+                    </text>
+                        }
+                    }
+
+                    $("#multiGraph").jqBarGraph({
+                        data: studentGrades,
+                        colors: ['#67000d', '#cc4c02', '#cb181d', '#993404', '#ef3b2c', '#662506', '#fb6a4a', '#67000d', '#cc4c02', '#cb181d', '#993404', '#ef3b2c', '#662506', '#fb6a4a', '#67000d', '#cc4c02', '#cb181d', '#993404', '#ef3b2c', '#662506', '#fb6a4a'],
+                        legends: subjects
+                    });
+
+                </script>
+            }
+        }
+        else
+        {
+            <p><br />Geen beoordelingen gevonden.</p>
+        }
+
+    }
+
+
+
+    <div class="clear">&nbsp;</div>
+
+</div>
