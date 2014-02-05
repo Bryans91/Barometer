@@ -60,11 +60,30 @@ namespace Barometer.Controllers
             TimeSpan time = DateTime.Now - model.First().Project.StartDate;
             int week = (int)Math.Floor(time.TotalDays / 7) + 1;
 
+            int projId = model.First().Project.Id;
+
+            var data2 = from sg in _db.StudentGrades
+                        where sg.Reviewer.Studentnr == student.Studentnr && sg.Project.Id == projId
+                        join rd in _db.ReviewDates on sg.ReviewDate.Id equals rd.Id
+                        where rd.Weeknr == week 
+                        join s in _db.Students on sg.Student.Studentnr equals s.Studentnr
+                        select s;
+
+            List<Student> reviewedStudents = data2.ToList();
+
+
             for (int i = 0; i < model.Count(); i++)
             {
                 if (model.ElementAt(i).Student.Studentnr == student.Studentnr)
                 {
                     model.Remove(model.ElementAt(i));
+                }
+                foreach (Student s in reviewedStudents)
+                {
+                    if (model.ElementAt(i).Student.Studentnr == s.Studentnr)
+                    {
+                        model.Remove(model.ElementAt(i));
+                    }
                 }
                 model.ElementAt(i).Week = week;
             }
@@ -106,7 +125,7 @@ namespace Barometer.Controllers
                     {
                         grades.Add(int.Parse(form[form.AllKeys[i]]));
                     }
-                    else //add grade and empty grade list
+                    else //add grade to db and empty grade list
                     {
                         AddGrade(grades, 
                                  previousSubjectQuestionID, 
@@ -141,6 +160,7 @@ namespace Barometer.Controllers
             }
             int averageGrade = totalGrade / grades.Count();
 
+            int currentUserNr = ((OAuth.CurrentUser)Session["currentUser"]).ID;
 
             //Pulling data out of the database, any information left stored is outdated and will be duplicated otherwise.
 
@@ -169,6 +189,7 @@ namespace Barometer.Controllers
                 Grade = averageGrade,
                 SubjectQuestion = subjectQuestion,
                 Student = _db.SearchStudentByStudentNumber(studentNumber),
+                Reviewer = _db.SearchStudentByStudentNumber(currentUserNr),
                 ReviewDate = reviewDate
             };
 
