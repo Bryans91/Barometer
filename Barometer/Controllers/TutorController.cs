@@ -61,17 +61,18 @@ namespace Barometer.Controllers
                             where spg.ProjectGroup.ClassCode == className
                             select sg;
 
-            gradeData.ToList();
-            NameValueCollection nvc = Request.Form;
-            foreach(var g in gradeData){
-                string key = g.Student.Studentnr.ToString();
+            var gData = gradeData.ToList();
 
-                
-          
+                foreach (var g in gData)
+                {
+                    int key = g.Student.Studentnr;
+                    int data = int.Parse(Request.Form[key]);
+                    g.TutorGrading = data;
 
-            }
-
-                       
+                }
+             
+            _db.SaveChanges();
+        
 
             return RedirectToAction("Index", "Main");
         }
