@@ -1,6 +1,7 @@
 ﻿using Barometer.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -30,22 +31,49 @@ namespace Barometer.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
-        public ActionResult FillForm(string TempClassCode = null)//vul individuele beoordeling in
+        public ActionResult FillForm(string TempClassCode = null )//vul individuele beoordeling in
         {
             if (!IsAuthenticated())
             {
                 return RedirectToAction("Index", "Main");
             }
-            
-            var model = from pg in _db.ProjectGroups 
-                        join spg in _db.StudentProjectGroups on pg.ClassCode equals spg.ProjectGroup.ClassCode
-                        join s in _db.Students on spg.Student.Studentnr equals s.Studentnr
-                        where TempClassCode == pg.ClassCode
-                        select new { ProjectGroups = pg, StudentProjectGroups = spg, Students = s };
-            
-            var viewModel = model.ToList().ToNonAnonymousList(typeof(FillFormTutor));
 
-            return View(viewModel);
+                ViewBag.ProjectGroup = TempClassCode;
+
+                var data = from pg in _db.ProjectGroups
+                           join spg in _db.StudentProjectGroups on pg.ClassCode equals spg.ProjectGroup.ClassCode
+                           join s in _db.Students on spg.Student.Studentnr equals s.Studentnr
+                           where TempClassCode == pg.ClassCode
+                           select new { ProjectGroups = pg, StudentProjectGroups = spg, Students = s };
+
+                var model = data.ToList().ToNonAnonymousList(typeof(FillFormTutor));
+
+                return View(model);
+            
+        }
+
+        public ActionResult SubmitToDb(string className = null)
+        {
+           
+            var gradeData = from sg in _db.StudentGrades
+                            join s in _db.Students on sg.Student.Studentnr equals s.Studentnr
+                            join spg in _db.StudentProjectGroups on s.Studentnr equals spg.Student.Studentnr
+                            where spg.ProjectGroup.ClassCode == className
+                            select sg;
+
+            gradeData.ToList();
+            NameValueCollection nvc = Request.Form;
+            foreach(var g in gradeData){
+                string key = g.Student.Studentnr.ToString();
+
+                
+          
+
+            }
+
+                       
+
+            return RedirectToAction("Index", "Main");
         }
 
         private bool IsAuthenticated()
