@@ -100,6 +100,7 @@ namespace Barometer.Controllers
                        where sq.Enabled == true
                        join p in _db.Projects on sq.QuestionList.Id equals p.Questionlist.Id
                        join q in _db.Questions on sq.Id equals q.SubjectQuestion.Id
+                       where sq.QuestionList.Id == q.QuestionList.Id
                        select new { SubjectQuestions = sq, Question = q };
 
             var model = data.ToList().ToNonAnonymousList(typeof(FillList));
