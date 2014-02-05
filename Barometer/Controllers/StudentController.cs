@@ -13,32 +13,6 @@ namespace Barometer.Controllers
         // GET: /Student/
         BaroDB _db = new BaroDB();
 
-        public ActionResult FillList()//vragenlijst invullen
-        {
-            if (!IsAuthenticated())
-            {
-                return RedirectToAction("Index", "Main");
-            }
-
-            if (Request.Form["student"] == null)
-            {
-                return RedirectToAction("SelectStudent", "Student");
-            }
-
-            int SelectedStudent = int.Parse(Request.Form["student"]);
-            Session["SelectedStudent"] = _db.SearchStudentByStudentNumber(SelectedStudent);
-
-            List<SelectStudentModel> selectStudentModel = (List<SelectStudentModel>)Session["SelectStudentModel"];
-
-            var data = from sq in _db.SubjectQuestions
-                       join q in _db.Questions on sq.Id equals q.SubjectQuestion.Id
-                       where q.QuestionList.Id == 1
-                       select new { SubjectQuestions = sq, Question = q };
-
-            var model = data.ToList().ToNonAnonymousList(typeof(FillList));
-            return View(model);
-        }
-
         public ActionResult SelectStudent() //Student selecteren
         {
             if (!IsAuthenticated())
@@ -104,6 +78,34 @@ namespace Barometer.Controllers
             return View(model);
         }
 
+        public ActionResult FillList()//vragenlijst invullen
+        {
+            if (!IsAuthenticated())
+            {
+                return RedirectToAction("Index", "Main");
+            }
+
+            if (Request.Form["student"] == null)
+            {
+                return RedirectToAction("SelectStudent", "Student");
+            }
+
+            int SelectedStudent = int.Parse(Request.Form["student"]);
+            Session["SelectedStudent"] = _db.SearchStudentByStudentNumber(SelectedStudent);
+
+            List<SelectStudentModel> selectStudentModel = (List<SelectStudentModel>)Session["SelectStudentModel"];
+            int projectId = selectStudentModel.First().Project.Id;
+
+            var data = from sq in _db.SubjectQuestions
+                       where sq.Enabled == true
+                       join p in _db.Projects on sq.QuestionList.Id equals p.Questionlist.Id
+                       join q in _db.Questions on sq.Id equals q.SubjectQuestion.Id
+                       select new { SubjectQuestions = sq, Question = q };
+
+            var model = data.ToList().ToNonAnonymousList(typeof(FillList));
+            return View(model);
+        }
+
         public ActionResult ConfirmGrades()
         {
             if (!IsAuthenticated())
@@ -162,6 +164,27 @@ namespace Barometer.Controllers
             return View();
         }
 
+        public ActionResult ViewGrades()
+        {
+            if (!IsAuthenticated())
+            {
+                return RedirectToAction("Index", "Main");
+            }
+
+            int studentNr = ((OAuth.CurrentUser)Session["currentUser"]).ID;
+
+            var data = from sg in _db.StudentGrades
+                       join s in _db.Students on sg.Student.Studentnr equals s.Studentnr
+                       join p in _db.Projects on sg.Project.Id equals p.Id
+                       join sj in _db.SubjectQuestions on sg.SubjectQuestion.Id equals sj.Id
+                       where sg.Student.Studentnr == studentNr
+                       select new { StudentGrades = sg, Student = s, Project = p, SubjectQuestions = sj };
+
+            var model = data.ToList().ToNonAnonymousList(typeof(ShowStats));
+
+            return View(model);
+        }
+
         private void AddGrade(List<int> grades, int subjectQuestionID, int week, int projId, int studentNumber)
         {
             int totalGrade = 0;
@@ -205,27 +228,6 @@ namespace Barometer.Controllers
             };
 
             _db.StudentGrades.Add(studentGrade);
-        }
-
-        public ActionResult ViewGrades()
-        {
-            if (!IsAuthenticated())
-            {
-                return RedirectToAction("Index", "Main");
-            }
-
-            int studentNr = ((OAuth.CurrentUser)Session["currentUser"]).ID;
-
-            var data = from sg in _db.StudentGrades
-                       join s in _db.Students on sg.Student.Studentnr equals s.Studentnr
-                       join p in _db.Projects on sg.Project.Id equals p.Id
-                       join sj in _db.SubjectQuestions on sg.SubjectQuestion.Id equals sj.Id
-                       where sg.Student.Studentnr == studentNr
-                       select new { StudentGrades = sg, Student = s, Project = p, SubjectQuestions = sj };
-
-            var model = data.ToList().ToNonAnonymousList(typeof(ShowStats));
-
-            return View(model);
         }
 
         private bool IsAuthenticated()
