@@ -150,7 +150,7 @@ namespace Barometer.Controllers
                 
                 _db.SaveChanges();
 
-                return RedirectToAction("CheckProjectGroup");
+                return RedirectToAction("CheckProjectGroups");
             }
             return RedirectToAction("Error", "Main", new {errorMessage = "Er is geen bestand geselecteerd"});
         }
